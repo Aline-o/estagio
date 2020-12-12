@@ -1,0 +1,21 @@
+@import "~bootstrap/scss/bootstrap";
+    .nav-link li a .caret {
+      position: absolute;
+      right: 23px;
+      top: auto;
+      margin-top: 20px;
+    }
+
+    .btn {
+      margin: 15px;
+      position: relative;
+    }
+
+    .tab-content {
+      width: 80%;
+    }
+
+    .tab-pane {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
