@@ -46,7 +46,7 @@
           
           <div id="home" class="container tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">Lista de NivelEnsinos
+              <h4 class="card-header">Lista de Níveis de Ensino
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/nivEnsino.blade.php" role="button">Novo cadastro</a>
               </h4>
               <div class="card-body">
@@ -56,10 +56,10 @@
                 <div class="card-title">
                     <form method="get">
                       <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                           <div class="form-group">
-                            <label>NivelEnsino</label>
-                            <input type="text" name="nomeNivelEnsino" id="nomeNivelEnsino" class="form-control" value="<?php echo isset($_REQUEST['nomeNivelEnsino'])?$_REQUEST['nomeNivelEnsino']:''?>" placeholder="Entra NivelEnsino">
+                            <label>Nível de Ensino</label>
+                            <input type="text" name="nomeNivelEnsino" id="nomeNivelEnsino" class="form-control" value="<?php echo isset($_REQUEST['nomeNivelEnsino'])?$_REQUEST['nomeNivelEnsino']:''?>" placeholder="Entra Nível de Ensino">
                           </div>
                         </div>
                       </div>
@@ -73,8 +73,8 @@
                   <thead>
                     <tr class="bg-primary text-white">
                       <th scope="col">Sr#</th>
-                      <th scope="col">Nome da NivelEnsino</th>
-                      <th scope="col" class="text-center">Action</th>
+                      <th scope="col">Nome do Nível de Ensino</th>
+                      <th scope="col" class="text-center">Ação</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -88,8 +88,8 @@
                       <td><?php echo $s;?></td>
                       <td><?php echo $val['NomeNivelEnsino'];?></td> <!-- Precisa ser exatamente como esta no banco -->
                       <td align="center">
-                        <a href="../update/nivEnsino.blade.php?editId=<?php echo $val['idNivelEnsino'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Edit</a> | 
-                        <a href="../delete/nivEnsino.php?delId=<?php echo $val['idNivelEnsino'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Delete</a>
+                        <a href="../update/nivEnsino.blade.php?editId=<?php echo $val['idNivelEnsino'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
+                        <a href="../delete/nivEnsino.php?delId=<?php echo $val['idNivelEnsino'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                       </td>
                     </tr>
                     <?php 

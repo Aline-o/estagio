@@ -46,7 +46,7 @@
           
           <div id="home" class="container tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">Lista de series
+              <h4 class="card-header">Lista de Séries
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/serie.blade.php" role="button">Novo cadastro</a>
               </h4>
               <div class="card-body">
@@ -58,8 +58,8 @@
                       <div class="row">
                         <div class="col-sm-2">
                           <div class="form-group">
-                            <label>Serie</label>
-                            <input type="text" name="nomeserie" id="nomeserie" class="form-control" value="<?php echo isset($_REQUEST['nomeserie'])?$_REQUEST['nomeserie']:''?>" placeholder="Entra serie">
+                            <label>Série</label>
+                            <input type="text" name="nomeserie" id="nomeserie" class="form-control" value="<?php echo isset($_REQUEST['nomeserie'])?$_REQUEST['nomeserie']:''?>" placeholder="Entra série">
                           </div>
                         </div>
                       </div>
@@ -73,8 +73,8 @@
                   <thead>
                     <tr class="bg-primary text-white">
                       <th scope="col">Sr#</th>
-                      <th scope="col">Nome da serie</th>
-                      <th scope="col" class="text-center">Action</th>
+                      <th scope="col">Nome da série</th>
+                      <th scope="col" class="text-center">Ação</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -88,8 +88,8 @@
                       <td><?php echo $s;?></td>
                       <td><?php echo $val['NomeSerie'];?></td> <!-- Precisa ser exatamente como esta no banco -->
                       <td align="center">
-                        <a href="../update/serie.blade.php?editId=<?php echo $val['idSerie'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Edit</a> | 
-                        <a href="../delete/serie.php?delId=<?php echo $val['idSerie'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Delete</a>
+                        <a href="../update/serie.blade.php?editId=<?php echo $val['idSerie'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
+                        <a href="../delete/serie.php?delId=<?php echo $val['idSerie'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                       </td>
                     </tr>
                     <?php 

@@ -31,7 +31,7 @@
 
     <div class="container-fluid">
       <div class="row">
-        <?php include_once('../navNivEnsino.blade.php'); ?>
+        <?php include_once('../navTurma.blade.php'); ?>
 
         <?php
           $condition	=	'';
@@ -124,7 +124,7 @@
                       <th scope="col">Turno</th>
                       <th scope="col">Serie</th>
                       <th scope="col">Escola</th>
-                      <th scope="col" class="text-center">Action</th>
+                      <th scope="col" class="text-center">Ação</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -143,8 +143,8 @@
                       <td><?php echo $val['Serie_idSerie'];?></td>
                       <td><?php echo $val['Escola_idEscola'];?></td>
                       <td align="center">
-                        <a href="../update/Turma.blade.php?editId=<?php echo $val['idTurma'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Edit</a> | 
-                        <a href="../delete/Turma.php?delId=<?php echo $val['idTurma'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Delete</a>
+                        <a href="../update/Turma.blade.php?editId=<?php echo $val['idTurma'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
+                        <a href="../delete/Turma.php?delId=<?php echo $val['idTurma'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                       </td>
                     </tr>
                     <?php 

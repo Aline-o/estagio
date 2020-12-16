@@ -106,8 +106,8 @@
                       <input type="text" class="form-control" name="Nome" placeholder="Insira o nome do Aluno" required autofocus>
                     </div>
                     <div class="form-group col-sm-4">
-                      <label for="Matricula">Matricula</label>
-                      <input type="text" class="form-control" name="Matricula" placeholder="Insira o número da Matricula" required>
+                      <label for="Matricula">Matrícula</label>
+                      <input type="text" class="form-control" name="Matricula" placeholder="Insira o número da Matrícula" required>
                     </div>
                   </div>
 
@@ -209,7 +209,7 @@ $PatologiaY = $_GET['Patologia'];
                   <div class="row collapse" id="patologiaTable">
                     <div class="form-group col-sm-4">
                       <label for="Grupo">Grupo</label>
-                      <input type="text" class="form-control" name="Grupo" placeholder="Insira o grupo da patologias" required autofocus>
+                      <input type="text" class="form-control" name="Grupo" placeholder="Insira o grupo da patologia" required autofocus>
                     </div>
                     <div class="form-group col-sm-8">
                       <label for="Descricao">Descrição</label>

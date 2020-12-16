@@ -49,7 +49,7 @@
           
           <div id="home" class="container tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">Lista de ModalidadeEnsinos
+              <h4 class="card-header">Lista de Modalidades de Ensino
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/modEnsino.blade.php" role="button">Novo cadastro</a>
               </h4>
               <div class="card-body">
@@ -59,10 +59,10 @@
                 <div class="card-title">
                     <form method="get">
                       <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                           <div class="form-group">
-                            <label>Modalidade Ensino</label>
-                            <input type="text" name="nomeModalidadeEnsino" id="nomeModalidadeEnsino" class="form-control" value="<?php echo isset($_REQUEST['nomeModalidadeEnsino'])?$_REQUEST['nomeModalidadeEnsino']:''?>" placeholder="Entra ModalidadeEnsino">
+                            <label>Modalidade de Ensino</label>
+                            <input type="text" name="nomeModalidadeEnsino" id="nomeModalidadeEnsino" class="form-control" value="<?php echo isset($_REQUEST['nomeModalidadeEnsino'])?$_REQUEST['nomeModalidadeEnsino']:''?>" placeholder="Entra Modalidade de Ensino">
                           </div>
                         </div>
                         <div class="col-sm-2">
@@ -82,9 +82,9 @@
                   <thead>
                     <tr class="bg-primary text-white">
                       <th scope="col">Sr#</th>
-                      <th scope="col">Nome da ModalidadeEnsino</th>
+                      <th scope="col">Nome da Modalidade de Ensino</th>
                       <th scope="col">Sigla</th>
-                      <th scope="col" class="text-center">Action</th>
+                      <th scope="col" class="text-center">Ação</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -99,8 +99,8 @@
                       <td><?php echo $val['NomeModalidadeEnsino'];?></td> <!-- Precisa ser exatamente como esta no banco -->
                       <td><?php echo $val['Sigla'];?></td> <!-- Precisa ser exatamente como esta no banco -->
                       <td align="center">
-                        <a href="../update/modEnsino.blade.php?editId=<?php echo $val['idModalidadeEnsino'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Edit</a> | 
-                        <a href="../delete/modEnsino.php?delId=<?php echo $val['idModalidadeEnsino'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Delete</a>
+                        <a href="../update/modEnsino.blade.php?editId=<?php echo $val['idModalidadeEnsino'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
+                        <a href="../delete/modEnsino.php?delId=<?php echo $val['idModalidadeEnsino'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                       </td>
                     </tr>
                     <?php 

@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-sm-2">
                           <div class="form-group">
-                            <label>Hora inicio</label>
+                            <label>Hora início</label>
                             <input type="time" name="HoraInicio" id="HoraInicio" class="form-control" value="<?php echo isset($_REQUEST['HoraInicio'])?$_REQUEST['HoraInicio']:''?>" placeholder="Entra Turno">
                           </div>
                         </div>
@@ -91,10 +91,10 @@
                   <thead>
                     <tr class="bg-primary text-white">
                       <th scope="col">Sr#</th>
-                      <th scope="col">Nome da Turno</th>
-                      <th scope="col">Hora inicio</th>
+                      <th scope="col">Nome do Turno</th>
+                      <th scope="col">Hora início</th>
                       <th scope="col">Hora fim</th>
-                      <th scope="col" class="text-center">Action</th>
+                      <th scope="col" class="text-center">Ação</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -110,8 +110,8 @@
                       <td><?php echo $val['HoraInicio'];?></td>
                       <td><?php echo $val['HoraFim'];?></td>
                       <td align="center">
-                        <a href="../update/Turno.blade.php?editId=<?php echo $val['idTurno'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Edit</a> | 
-                        <a href="../delete/Turno.php?delId=<?php echo $val['idTurno'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Delete</a>
+                        <a href="../update/Turno.blade.php?editId=<?php echo $val['idTurno'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
+                        <a href="../delete/Turno.php?delId=<?php echo $val['idTurno'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                       </td>
                     </tr>
                     <?php 

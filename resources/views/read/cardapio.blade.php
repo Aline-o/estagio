@@ -55,7 +55,7 @@
           
           <div id="home" class="container tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">Lista de Cardapios
+              <h4 class="card-header">Lista de Cardápios
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/Cardapio.blade.php" role="button">Novo cadastro</a>
               </h4>
               <div class="card-body">
@@ -65,28 +65,28 @@
                 <div class="card-title">
                     <form method="get">
                       <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                           <div class="form-group">
-                            <label>Cardapio</label>
-                            <input type="text" name="Nome" id="Nome" class="form-control" value="<?php echo isset($_REQUEST['Nome'])?$_REQUEST['Nome']:''?>" placeholder="Entra Cardapio">
+                            <label>Cardápio</label>
+                            <input type="text" name="Nome" id="Nome" class="form-control" value="<?php echo isset($_REQUEST['Nome'])?$_REQUEST['Nome']:''?>" placeholder="Entra cardápio">
                           </div>
                         </div>
                         <div class="col-sm-2">
                           <div class="form-group">
                             <label>Sigla</label>
-                            <input type="text" name="Sigla" id="Sigla" class="form-control" value="<?php echo isset($_REQUEST['Sigla'])?$_REQUEST['Sigla']:''?>" placeholder="Entra Cardapio">
+                            <input type="text" name="Sigla" id="Sigla" class="form-control" value="<?php echo isset($_REQUEST['Sigla'])?$_REQUEST['Sigla']:''?>" placeholder="Entra sigla">
                           </div>
                         </div>
                         <div class="col-sm-4">
                           <div class="form-group">
-                            <label>Descricao</label>
-                            <input type="text" name="Descricao" id="Descricao" class="form-control" value="<?php echo isset($_REQUEST['Descricao'])?$_REQUEST['Descricao']:''?>" placeholder="Entra Cardapio">
+                            <label>Descrição</label>
+                            <input type="text" name="Descricao" id="Descricao" class="form-control" value="<?php echo isset($_REQUEST['Descricao'])?$_REQUEST['Descricao']:''?>" placeholder="Entra descrição">
                           </div>
                         </div>
                         <div class="col-sm-2">
                           <div class="form-group">
                             <label>Valor</label>
-                            <input type="text" name="Valor" id="Valor" class="form-control" value="<?php echo isset($_REQUEST['Valor'])?$_REQUEST['Valor']:''?>" placeholder="Entra Cardapio">
+                            <input type="text" name="Valor" id="Valor" class="form-control" value="<?php echo isset($_REQUEST['Valor'])?$_REQUEST['Valor']:''?>" placeholder="Entra valor">
                           </div>
                         </div>
                       </div>
@@ -100,11 +100,11 @@
                   <thead>
                     <tr class="bg-primary text-white">
                       <th scope="col">Sr#</th>
-                      <th scope="col">Nome do Cardapio</th>
+                      <th scope="col">Nome do Cardápio</th>
                       <th scope="col">Sigla</th>
-                      <th scope="col">Descricao</th>
+                      <th scope="col">Descrição</th>
                       <th scope="col">Valor</th>
-                      <th scope="col" class="text-center">Action</th>
+                      <th scope="col" class="text-center">Ação</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -121,8 +121,8 @@
                       <td><?php echo $val['Descricao'];?></td>
                       <td><?php echo $val['Valor'];?></td>
                       <td align="center">
-                        <a href="../update/Cardapio.blade.php?editId=<?php echo $val['idCardapio'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Edit</a> | 
-                        <a href="../delete/Cardapio.php?delId=<?php echo $val['idCardapio'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Delete</a>
+                        <a href="../update/Cardapio.blade.php?editId=<?php echo $val['idCardapio'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
+                        <a href="../delete/Cardapio.php?delId=<?php echo $val['idCardapio'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                       </td>
                     </tr>
                     <?php 

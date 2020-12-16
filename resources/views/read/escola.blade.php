@@ -78,7 +78,7 @@
                           </div>
                         </div>
 
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                           <div class="form-group">
                             <label>Modalidade de ensino</label>
                             <input type="text" name="ModalidaEnsino_idModalidadeEnsino" id="ModalidaEnsino_idModalidadeEnsino" class="form-control" value="<?php echo isset($_REQUEST['ModalidaEnsino_idModalidadeEnsino'])?$_REQUEST['ModalidaEnsino_idModalidadeEnsino']:''?>" placeholder="Entra Modalidade de ensino">
@@ -97,7 +97,7 @@
                       <th scope="col">Sr#</th>
                       <th scope="col">Nome da Escola</th>
                       <th scope="col">Modalidade de ensino</th>
-                      <th scope="col" class="text-center">Action</th>
+                      <th scope="col" class="text-center">Ação</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -112,8 +112,8 @@
                       <td><?php echo $val['NomeEscola'];?></td> <!-- Precisa ser exatamente como esta no banco -->
                       <td><?php echo $val['NomeModalidadeEnsino']?></td>
                       <td align="center">
-                        <a href="../update/Escola.blade.php?editId=<?php echo $val['idEscola'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Edit</a> | 
-                        <a href="../delete/escola.php?delId=<?php echo $val['idEscola'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Delete</a>
+                        <a href="../update/Escola.blade.php?editId=<?php echo $val['idEscola'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
+                        <a href="../delete/escola.php?delId=<?php echo $val['idEscola'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                       </td>
                     </tr>
                     <?php 

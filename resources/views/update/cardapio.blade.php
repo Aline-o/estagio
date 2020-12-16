@@ -97,10 +97,10 @@
 
                   <div class="row">
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="Nome" value="<?php echo $row[0]['Nome']; ?>" placeholder="Insira o nome do Cardápio" required>
+                      <input type="text" class="form-control" name="Nome" value="<?php echo $row[0]['Nome']; ?>" placeholder="<?php echo $row[0]['Nome']; ?>" required>
                     </div>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" name="Sigla" value="<?php echo $row[0]['Sigla']; ?>" placeholder="Insira a sigla do Cardápio" required>
+                      <input type="text" class="form-control" name="Sigla" value="<?php echo $row[0]['Sigla']; ?>" placeholder="<?php echo $row[0]['Sigla']; ?>" required>
                     </div>
                   </div>
 
@@ -115,10 +115,10 @@
 
                   <div class="row">
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" name="Valor" placeholder="Insira o valor do Cardápio" required>
+                      <input type="text" class="form-control" name="Valor" value="<?php echo $row[0]['Valor']; ?>" placeholder="<?php echo $row[0]['Valor']; ?>" required>
                     </div>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="Descricao" placeholder="Insira a descrição do Cardápio" required>
+                      <input type="text" class="form-control" name="Descricao" value="<?php echo $row[0]['Descricao']; ?>" placeholder="<?php echo $row[0]['Descricao']; ?>" required>
                     </div>
                   </div>
 
