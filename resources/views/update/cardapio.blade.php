@@ -5,10 +5,7 @@
 
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
-    if($idCardapio==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
-      exit;
-    }elseif($Nome==""){
+    if($Nome==""){
       header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
       exit;
     }elseif($Sigla==""){
@@ -22,7 +19,6 @@
       exit;
     }
     $data	=	array(
-      'idCardapio'=> $idCardapio,
       'Nome'=> $Nome, //colunas                        
       'Sigla'=>$Sigla,
       'Descricao'=>$Descricao,
@@ -91,10 +87,7 @@
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
                   <div class="row">
-                    <div class="col-sm-2">
-                      <label>ID (numeros)</label>
-                    </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                       <label>Nome do Cardápio</label>
                     </div>
                     <div class="col-sm-4">
@@ -103,10 +96,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-sm-2">
-                      <input type="text" class="form-control" name="idCardapio" value="<?php echo $row[0]['idCardapio']; ?>" placeholder="Insira o ID (apenas numeros)" required>
-                    </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                       <input type="text" class="form-control" name="Nome" value="<?php echo $row[0]['Nome']; ?>" placeholder="Insira o nome do Cardápio" required>
                     </div>
                     <div class="col-sm-4">

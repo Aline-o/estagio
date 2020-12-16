@@ -2,6 +2,21 @@
 <?php include_once('../../../public/config.php'); 
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
+    
+    /*
+        Aluno: 
+        Matricula(CP), DataNascimento, Nome, Patologia (0 ou 1), Turma_idTurma
+
+
+        AlunoEspecial:
+        Aluno_Matricula(CP), Patologia_idPatologia(CP), DataPatologia
+
+
+        Patologia:
+        idPatologia, Descricao, Grupo
+
+        */
+
     if($Matricula==""){
       header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
       exit;
@@ -11,9 +26,9 @@
     }elseif($DataNascimento==""){
       header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
       exit;
-    //}elseif($Patologia==""){
-      //header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
-      //exit;
+    }elseif($Patologia==""){
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
+      exit;
     }elseif($Turma_idTurma==""){
       header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
       exit;
@@ -105,40 +120,100 @@
                       <label for="Turma_idTurma">Turma</label>
                       <select class="form-control" id="Turma_idTurma" required><!--//php buscando id-->
                         <option selected disabled value="">Escolha uma opção...</option>
-                        <option value="1">Escolas Municipais de Educação Infantil</option>
-                        <option value="3">Escola Municipal de Ensino Fundamental</option>                        
+                        <?php 
+
+                        $condition	=	'';
+                        if(isset($_REQUEST['NomeTurma']) and $_REQUEST['NomeTurma']!=""){
+                          $condition	.=	' AND NomeTurma LIKE "%'.$_REQUEST['NomeTurma'].'%" ';
+                        }
+                        if(isset($_REQUEST['idTurma']) and $_REQUEST['idTurma']!=""){
+                          $condition	.=	' AND idTurma LIKE "%'.$_REQUEST['idTurma'].'%" ';
+                        }
+                        $userData	=	$db->getAllRecords('Turma','*', $condition,'ORDER BY idTurma DESC');
+                      
+                        if(count($userData)>0){
+                          $s	=	'';
+                          foreach($userData as $val){
+                            $s++;
+                        ?>
+                        
+                        <option value="<?php echo (int)$val['idTurma'];?>"> <?php echo $val['NomeTurma'];?> </option>
+                        
+                        <?php 
+                          }
+                        }
+                        ?>
                       </select>
                     </div>
-                    <div class="form-group col-sm-3">
-                      <label for="defaultCheck1">Patologia? </label>
+                    <div class="form-group col-sm-3" id="form333">
+                      <label for="Patologia">Patologia? </label>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option1" data-toggle="collapse" href="#collapseExample" >
-                        <label class="form-check-label font-weight-bold" for="defaultCheck1">
+                        <input class="form-check-input" type="radio" name="Patologia" id="PatologiaY" value="1" data-toggle="collapse" href="#patologiaTable" >
+                        <label class="form-check-label" for="PatologiaY">
                           Sim
                         </label>                        
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option1"data-toggle="collapse" href="#collapseExample"checked>
-                        <label class="form-check-label font-weight-bold" for="exampleRadios1">
+                        <input class="form-check-input" type="radio" name="Patologia" id="PatologiaN" value="0" data-toggle="collapse" href="#patologiaTable" checked>
+                        <label class="form-check-label" for="PatologiaN">
                           Não
                         </label>
                       </div>
                     </div>
                   </div>
 
+                  <script>
+                    $('#form333 input[type=radio]').on('change', function(event) {
+                      var result = $(this).val();
+                      
+                      if (result=='1')
+                      {
+                        $('#result').html("selecionado");
+                      <?php
+                        echo "$('#result').html(result);";
+                      ?>
+                      }
+                      else{
+                        $('#result').html("deu ruuuuim");
+                        
+                      }
+                    })
+                </script>
 
-                  <div class="row collapse" id="collapseExample">
-                    <div class="form-group col-sm-3">
-                      <label for="Nome">ID Patologia</label>
-                      <input type="text" class="form-control" name="Nome" placeholder="Somente numeros" required autofocus>
-                    </div>
-                    <div class="form-group col-sm-5">
-                      <label for="Nome">Descrição</label>
-                      <input type="text" class="form-control" name="Nome" placeholder="Insira o nome do Aluno" required autofocus>
-                    </div>
+                  <?php
+                  /*
+                  Aluno: 
+                  Matricula(CP), DataNascimento, Nome, Patologia (0 ou 1), Turma_idTurma
+
+
+                  AlunoEspecial:
+                  Aluno_Matricula(CP), Patologia_idPatologia(CP), DataPatologia
+
+
+                  Patologia:
+                  idPatologia, Descricao, Grupo
+
+                  
+$PatologiaY = $_GET['Patologia'];
+                  if($PatologiaY=="1")
+                  {
+                    echo "selecionadooooooooo";
+                  }
+
+                  */
+                  
+                  
+                  ?>
+
+
+                  <div class="row collapse" id="patologiaTable">
                     <div class="form-group col-sm-4">
-                      <label for="Nome">Grupo</label>
-                      <input type="text" class="form-control" name="Nome" placeholder="Insira o nome do Aluno" required autofocus>
+                      <label for="Grupo">Grupo</label>
+                      <input type="text" class="form-control" name="Grupo" placeholder="Insira o grupo da patologias" required autofocus>
+                    </div>
+                    <div class="form-group col-sm-8">
+                      <label for="Descricao">Descrição</label>
+                      <input type="text" class="form-control" name="Descrição" placeholder="Insira a descrição da patologia" required autofocus>
                     </div>
                   </div>
 
