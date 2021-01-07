@@ -18,19 +18,23 @@
         */
 
     if($Matricula==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=un1'); //campo obrigatorio
+      echo "aluno - matricula";
       exit;
     }elseif($Nome==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
+      echo "aluno - nome";
       exit;
     }elseif($DataNascimento==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=un13'); //campo obrigatorio
       exit;
     }elseif($Patologia==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=un14patolo'); //campo obrigatorio
+      echo "aluno - patologia";
       exit;
     }elseif($Turma_idTurma==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
+      echo "aluno - idTurma";
       exit;
     }else{
       $userCount	=	$db->getQueryCount('aluno','Matricula'); //users eh a tabela
@@ -118,10 +122,10 @@
                     </div>
                     <div class="form-group col-sm-6">
                       <label for="Turma_idTurma">Turma</label>
-                      <select class="form-control" id="Turma_idTurma" required><!--//php buscando id-->
+                      <select class="form-control" id="Turma_idTurma" name="Turma_idTurma" required><!--//php buscando id-->
                         <option selected disabled value="">Escolha uma opção...</option>
+                        
                         <?php 
-
                         $condition	=	'';
                         if(isset($_REQUEST['NomeTurma']) and $_REQUEST['NomeTurma']!=""){
                           $condition	.=	' AND NomeTurma LIKE "%'.$_REQUEST['NomeTurma'].'%" ';
@@ -145,77 +149,114 @@
                         ?>
                       </select>
                     </div>
-                    <div class="form-group col-sm-3" id="form333">
+                    <div class="form-group col-sm-3">
                       <label for="Patologia">Patologia? </label>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="Patologia" id="PatologiaY" value="1" data-toggle="collapse" href="#patologiaTable" >
-                        <label class="form-check-label" for="PatologiaY">
+                        <input class="form-check-input" type="checkbox" value="" name="Patologia" id="PatologiaC" data-toggle="collapse" href="#patologiaTable" onclick="myFunction()">
+                        <label class="form-check-label" for="PatologiaC">
                           Sim
-                        </label>                        
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="Patologia" id="PatologiaN" value="0" data-toggle="collapse" href="#patologiaTable" checked>
-                        <label class="form-check-label" for="PatologiaN">
-                          Não
                         </label>
                       </div>
+                      <?php
+                      $_POST['Patologia'] = ( isset($_POST['Patologia']) ) ? true : null;
+                    ?>
+
                     </div>
                   </div>
 
                   <script>
-                    $('#form333 input[type=radio]').on('change', function(event) {
-                      var result = $(this).val();
-                      
-                      if (result=='1')
-                      {
-                        $('#result').html("selecionado");
-                      <?php
-                        echo "$('#result').html(result);";
-                      ?>
+                    function myFunction() {
+                      var checkBox = document.getElementById("PatologiaC");
+                      if (checkBox.checked == true){
+
+                        <?php
+                          /*
+                          if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
+                            extract($_REQUEST);
+                            
+                            if($idPatologia==""){
+                              header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
+                              echo "patologia - idPatologia";
+                              exit;
+                            }elseif($Descricao==""){
+                              header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
+                              echo "patologia - descricao";
+                              exit;
+                            }elseif($Grupo==""){
+                              header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
+                              echo "patologia - grupo";
+                              exit;
+                            }else{
+                              $userCount2	=	$db->getQueryCount('patologia','idPatologia'); //users eh a tabela
+                              $data2	=	array(
+                                'idPatologia'=>$idPatologia,
+                                'Descricao'=> $Descricao, //colunas         
+                                'Grupo'=> $Grupo,
+                              );
+                              $insert2	=	$db->insert('patologia',$data2);
+                            }
+
+                            if($Matricula==""){
+                              header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
+                              echo "alunoM - matricula";
+                              exit;
+                            }elseif($idPatologia==""){
+                              header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
+                              echo "alunoM - idpatologia";
+                              exit;
+                            }elseif($DataPatologia==""){
+                              header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
+                              echo "alunoM - data";
+                              exit;
+                            }else{
+                              $DataPatologia=date("Y-m-d");
+                              $userCount3	=	$db->getQueryCount('alunoespecial','Aluno_Matricula'); //users eh a tabela
+                              $data3	=	array(
+                                'Aluno_Matricula'=>$Matricula,
+                                'Patologia_idPatologia'=> $idPatologia, //colunas         
+                                'DataPatologia'=> $DataPatologia,
+                              );
+                              $insert3	=	$db->insert('alunoespecial',$data3);
+                            if($insert1&&$insert2&&$insert3){
+                              header('location: ../read/aluno.blade.php?msg=ras'); //add com sucesso
+                              exit;
+                            }else{
+                              header('location: ../read/aluno.blade.php?msg=rna'); // nao adicionado
+                              exit;
+                            }
+                          }
+                        }
+                        /*
+                        Aluno: 
+                        Matricula(CP), DataNascimento, Nome, Patologia (0 ou 1), Turma_idTurma
+
+
+                        AlunoEspecial:
+                        Aluno_Matricula(CP), Patologia_idPatologia(CP), DataPatologia
+
+
+                        Patologia:
+                        idPatologia, Descricao, Grupo
+                        */
+                        ?>
+
                       }
-                      else{
-                        $('#result').html("deu ruuuuim");
-                        
-                      }
-                    })
-                </script>
-
-                  <?php
-                  /*
-                  Aluno: 
-                  Matricula(CP), DataNascimento, Nome, Patologia (0 ou 1), Turma_idTurma
-
-
-                  AlunoEspecial:
-                  Aluno_Matricula(CP), Patologia_idPatologia(CP), DataPatologia
-
-
-                  Patologia:
-                  idPatologia, Descricao, Grupo
+                    }
+                  </script>
 
                   
-$PatologiaY = $_GET['Patologia'];
-                  if($PatologiaY=="1")
-                  {
-                    echo "selecionadooooooooo";
-                  }
-
-                  */
-                  
-                  
-                  ?>
 
 
-                  <div class="row collapse" id="patologiaTable">
+                  <!--div class="row collapse" id="patologiaTable">
                     <div class="form-group col-sm-4">
                       <label for="Grupo">Grupo</label>
                       <input type="text" class="form-control" name="Grupo" placeholder="Insira o grupo da patologia" required autofocus>
                     </div>
                     <div class="form-group col-sm-8">
                       <label for="Descricao">Descrição</label>
-                      <input type="text" class="form-control" name="Descrição" placeholder="Insira a descrição da patologia" required autofocus>
+                      <input type="text" class="form-control" name="Descricao" placeholder="Insira a descrição da patologia" required autofocus>
                     </div>
-                  </div>
+                  </div-->
 
                   <div class="row">
                     <button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Enviar</button>
