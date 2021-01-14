@@ -15,43 +15,75 @@
         Patologia:
         idPatologia, Descricao, Grupo
 
-        */
-
-    if($Matricula==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un1'); //campo obrigatorio
-      echo "aluno - matricula";
-      exit;
-    }elseif($Nome==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
-      echo "aluno - nome";
-      exit;
-    }elseif($DataNascimento==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un13'); //campo obrigatorio
-      exit;
-    }elseif($Patologia==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un14patolo'); //campo obrigatorio
-      echo "aluno - patologia";
-      exit;
-    }elseif($Turma_idTurma==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
-      echo "aluno - idTurma";
-      exit;
-    }else{
-      $userCount	=	$db->getQueryCount('aluno','Matricula'); //users eh a tabela
-      $data	=	array(
-        'Matricula'=>$Matricula,
-        'Nome'=> $Nome, //colunas         
-        'DataNascimento'=> $DataNascimento,
-        'Patologia'=>$Patologia,
-        'Turma_idTurma'=>$Turma_idTurma,
-      );
-      $insert	=	$db->insert('aluno',$data);
-      if($insert){
-        header('location: ../read/aluno.blade.php?msg=ras'); //add com sucesso
+    */
+    if($Patologia==""){
+      $Patologia=0;
+      if($Matricula==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un1'); //campo obrigatorio
+        echo "aluno - matricula";
+        exit;
+      }elseif($Nome==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
+        echo "aluno - nome";
+        exit;
+      }elseif($DataNascimento==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un13'); //campo obrigatorio
+        exit;
+      }elseif($Turma_idTurma==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
+        echo "aluno - idTurma";
         exit;
       }else{
-        header('location: ../read/aluno.blade.php?msg=rna'); // nao adicionado
+        $userCount	=	$db->getQueryCount('aluno','Matricula'); //users eh a tabela
+        $data	=	array(
+          'Matricula'=>$Matricula,
+          'Nome'=> $Nome, //colunas         
+          'DataNascimento'=> $DataNascimento,
+          'Patologia'=>$Patologia,
+          'Turma_idTurma'=>$Turma_idTurma,
+        );
+        $insert	=	$db->insert('aluno',$data);
+        if($insert){
+          header('location: ../read/aluno.blade.php?msg=ras'); //add com sucesso
+          exit;
+        }else{
+          header('location: ../read/aluno.blade.php?msg=rna'); // nao adicionado
+          exit;
+        }
+      }
+    }else{
+      if($Matricula==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un1'); //campo obrigatorio
+        echo "aluno - matricula";
         exit;
+      }elseif($Nome==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
+        echo "aluno - nome";
+        exit;
+      }elseif($DataNascimento==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un13'); //campo obrigatorio
+        exit;
+      }elseif($Turma_idTurma==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
+        echo "aluno - idTurma";
+        exit;
+      }else{
+        $userCount	=	$db->getQueryCount('aluno','Matricula'); //users eh a tabela
+        $data	=	array(
+          'Matricula'=>$Matricula,
+          'Nome'=> $Nome, //colunas         
+          'DataNascimento'=> $DataNascimento,
+          'Patologia'=>$Patologia,
+          'Turma_idTurma'=>$Turma_idTurma,
+        );
+        $insert	=	$db->insert('aluno',$data);
+        if($insert){
+          header('location: ../read/aluno.blade.php?msg=ras'); //add com sucesso
+          exit;
+        }else{
+          header('location: ../read/aluno.blade.php?msg=rna'); // nao adicionado
+          exit;
+        }
       }
     }
   }
@@ -149,16 +181,18 @@
                         ?>
                       </select>
                     </div>
+                    
                     <div class="form-group col-sm-3">
                       <label for="Patologia">Patologia? </label>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" name="Patologia" id="PatologiaC" data-toggle="collapse" href="#patologiaTable" onclick="myFunction()">
-                        <label class="form-check-label" for="PatologiaC">
+                        <input class="form-check-input" type="checkbox" value=1 name="Patologia" id="Patologia">
+                        <label class="form-check-label" for="Patologia">
                           Sim
                         </label>
                       </div>
+
                       <?php
-                      $_POST['Patologia'] = ( isset($_POST['Patologia']) ) ? true : null;
+                      
                     ?>
 
                     </div>
@@ -166,10 +200,13 @@
 
                   <script>
                     function myFunction() {
-                      var checkBox = document.getElementById("PatologiaC");
+                      var checkBox = document.getElementById("Patologia");
                       if (checkBox.checked == true){
 
                         <?php
+                        
+                        
+                        //$_POST['Patologia'] = ( isset($_POST['Patologia']) ) ? true : 1;
                           /*
                           if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
                             extract($_REQUEST);
