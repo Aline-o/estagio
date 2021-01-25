@@ -83,21 +83,30 @@
           'Patologia'=>$Patologia,
           'Turma_idTurma'=>$Turma_idTurma,
         );
-        //$insert	=	$db->insert('aluno',$data); //aluno
+        $insert	=	$db->insert('aluno',$data); //aluno
 
         $userCount2	=	$db->getQueryCount('patologia','idPatologia'); //patologia
         $data2	=	array(
           'Descricao'=> $Descricao, //colunas         
           'Grupo'=> $Grupo,
         );
-        //$insert2	=	$db->insert('patologia',$data2); //patologia
+        $insert2	=	$db->insert('patologia',$data2); //patologia
+
 
         //aluno especial
-        $Aluno_Matricula = $Matricula;
-        $Patologia_idPatologia = $db->getAllRecords3('patologia', 'idPatologia'); //select do ultimo registro 
-        $DataPatologia ="CURDATE()" ;
+        $userData3 = $db->getAllRecords('patologia', 'idPatologia');
         
-        echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> Aluno tipo:'.gettype($Aluno_Matricula).' valor: '.$Aluno_Matricula.' patologia tipo: '.gettype($Patologia_idPatologia) .' valor: '.(int)$Patologia_idPatologia.' Daaata tipo: '.gettype($DataPatologia).' valor: '.$DataPatologia.' <strong>Please try again!</strong></div>';
+        $s	=	'';
+        foreach($userData3 as $val){
+          $s++;
+        }
+
+        $Patologia_idPatologia = (int)$val['idPatologia'];
+        $Aluno_Matricula = $Matricula;
+        //$Aluno_Matricula = "bb"; //teste
+        $DataPatologia = date('Y-m-d');
+        
+        //echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> //Aluno tipo: '.gettype($Aluno_Matricula).' valor: '.$Aluno_Matricula.' //Patologia tipo: '.gettype($Patologia_idPatologia) .' valor: '.(int)$Patologia_idPatologia.' //Daaata tipo: '.gettype($DataPatologia).' valor: '.$DataPatologia.' <strong>Vambora!</strong></div>';
 
         $userCount3	=	$db->getQueryCount('alunoespecial','Aluno_Matricula'); //users eh a tabela
         $data3	=	array(
@@ -105,11 +114,11 @@
           'Patologia_idPatologia'=>$Patologia_idPatologia, //colunas         
           'DataPatologia'=>$DataPatologia,
         );
-        //$insert3	=	$db->insert('alunoespecial',$data3);
+        $insert3	=	$db->insert('alunoespecial',$data3);
 
 
-
-        /*if($insert && $insert2&& $insert3 ){ // 
+        
+        if($insert && $insert2 && $insert3 ){ // 
           header('location: ../read/aluno.blade.php?msg=ras'); // add com sucesso
           exit;
         }elseif($insert && $insert2){
@@ -122,9 +131,9 @@
           header('location: ../read/aluno.blade.php?msg=rna23'); // nao adicionado
           exit;
         }else{
-          //header('location: ../read/aluno.blade.php?msg=rna'); // nenhum adicionado
+          header('location: ../read/aluno.blade.php?msg=rna'); // nenhum adicionado
           exit;
-        }*/
+        }
       }
     }
   }
