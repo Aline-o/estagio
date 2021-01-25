@@ -156,6 +156,14 @@ class Database{
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
     }
+    public function getAllRecords3($tableName, $fields='*')
+    {
+        //SELECT MAX(idEscola) FROM `escola`
+        $stmt = $this->pdo->prepare("SELECT MAX($fields) FROM $tableName");
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $rows;
+    }
      
     public function getRecFrmQry($query)
     {

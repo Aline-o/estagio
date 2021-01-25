@@ -1,4 +1,3 @@
-<!--precisa add campo patologia, colocar idturma-->
 <?php include_once('../../../public/config.php'); 
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
@@ -16,7 +15,7 @@
         idPatologia, Descricao, Grupo
 
     */
-    if($Patologia==""){
+    if($Patologia==""){ //sem patologia
       $Patologia=0;
       if($Matricula==""){
         header('location:'.$_SERVER['PHP_SELF'].'?msg=un1'); //campo obrigatorio
@@ -51,7 +50,7 @@
           exit;
         }
       }
-    }else{
+    }else{ //com patologia
       if($Matricula==""){
         header('location:'.$_SERVER['PHP_SELF'].'?msg=un1'); //campo obrigatorio
         echo "aluno - matricula";
@@ -67,8 +66,16 @@
         header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
         echo "aluno - idTurma";
         exit;
+      }elseif($Descricao==""){ //patologia
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=patDesc'); 
+        echo "patologia - descricao";
+        exit;
+      }elseif($Grupo==""){ //patologia
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=patGRu');
+        echo "patologia - grupo";
+        exit;
       }else{
-        $userCount	=	$db->getQueryCount('aluno','Matricula'); //users eh a tabela
+        $userCount	=	$db->getQueryCount('aluno','Matricula'); //aluno
         $data	=	array(
           'Matricula'=>$Matricula,
           'Nome'=> $Nome, //colunas         
@@ -76,14 +83,48 @@
           'Patologia'=>$Patologia,
           'Turma_idTurma'=>$Turma_idTurma,
         );
-        $insert	=	$db->insert('aluno',$data);
-        if($insert){
-          header('location: ../read/aluno.blade.php?msg=ras'); //add com sucesso
+        //$insert	=	$db->insert('aluno',$data); //aluno
+
+        $userCount2	=	$db->getQueryCount('patologia','idPatologia'); //patologia
+        $data2	=	array(
+          'Descricao'=> $Descricao, //colunas         
+          'Grupo'=> $Grupo,
+        );
+        //$insert2	=	$db->insert('patologia',$data2); //patologia
+
+        //aluno especial
+        $Aluno_Matricula = $Matricula;
+        $Patologia_idPatologia = $db->getAllRecords3('patologia', 'idPatologia'); //select do ultimo registro 
+        $DataPatologia ="CURDATE()" ;
+        
+        echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> Aluno tipo:'.gettype($Aluno_Matricula).' valor: '.$Aluno_Matricula.' patologia tipo: '.gettype($Patologia_idPatologia) .' valor: '.(int)$Patologia_idPatologia.' Daaata tipo: '.gettype($DataPatologia).' valor: '.$DataPatologia.' <strong>Please try again!</strong></div>';
+
+        $userCount3	=	$db->getQueryCount('alunoespecial','Aluno_Matricula'); //users eh a tabela
+        $data3	=	array(
+          'Aluno_Matricula'=>$Aluno_Matricula,
+          'Patologia_idPatologia'=>$Patologia_idPatologia, //colunas         
+          'DataPatologia'=>$DataPatologia,
+        );
+        //$insert3	=	$db->insert('alunoespecial',$data3);
+
+
+
+        /*if($insert && $insert2&& $insert3 ){ // 
+          header('location: ../read/aluno.blade.php?msg=ras'); // add com sucesso
+          exit;
+        }elseif($insert && $insert2){
+          header('location: ../read/aluno.blade.php?msg=rna12'); // nao adicionado
+          exit;
+        }elseif($insert && $insert3){
+          header('location: ../read/aluno.blade.php?msg=rna13'); // nao adicionado
+          exit;
+        }elseif($insert2 && $insert3){
+          header('location: ../read/aluno.blade.php?msg=rna23'); // nao adicionado
           exit;
         }else{
-          header('location: ../read/aluno.blade.php?msg=rna'); // nao adicionado
+          //header('location: ../read/aluno.blade.php?msg=rna'); // nenhum adicionado
           exit;
-        }
+        }*/
       }
     }
   }
@@ -184,17 +225,12 @@
                     
                     <div class="form-group col-sm-3">
                       <label for="Patologia">Patologia? </label>
-                      <div class="form-check">
+                      <div class="form-check" data-toggle="collapse" data-target="#patologiaTable">
                         <input class="form-check-input" type="checkbox" value=1 name="Patologia" id="Patologia">
                         <label class="form-check-label" for="Patologia">
                           Sim
                         </label>
                       </div>
-
-                      <?php
-                      
-                    ?>
-
                     </div>
                   </div>
 
@@ -284,16 +320,16 @@
                   
 
 
-                  <!--div class="row collapse" id="patologiaTable">
+                  <div class="row collapse" id="patologiaTable">
                     <div class="form-group col-sm-4">
                       <label for="Grupo">Grupo</label>
-                      <input type="text" class="form-control" name="Grupo" placeholder="Insira o grupo da patologia" required autofocus>
+                      <input type="text" class="form-control" name="Grupo" placeholder="Insira o grupo da patologia" autofocus>
                     </div>
                     <div class="form-group col-sm-8">
                       <label for="Descricao">Descrição</label>
-                      <input type="text" class="form-control" name="Descricao" placeholder="Insira a descrição da patologia" required autofocus>
+                      <input type="text" class="form-control" name="Descricao" placeholder="Insira a descrição da patologia" autofocus>
                     </div>
-                  </div-->
+                  </div>
 
                   <div class="row">
                     <button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Enviar</button>

@@ -135,7 +135,15 @@
                       <td><?php echo $s;?></td>
                       <td><?php echo $val['Nome'];?></td> <!-- Precisa ser exatamente como esta no banco -->
                       <td><?php echo $val['DataNascimento'];?></td> <!-- Precisa ser exatamente como esta no banco -->
-                      <td><?php echo $val['Patologia'];?></td> <!-- Precisa ser exatamente como esta no banco -->
+                      <?php
+                      if($val['Patologia']==1)
+                      {
+                        $printPatologia='Sim';
+                      }else{
+                        $printPatologia='Não';
+                      }
+                      ?>
+                      <td><?php echo $printPatologia;?></td> <!-- Precisa ser exatamente como esta no banco -->
                       <td><?php echo $val['Turma_idTurma'];?></td> <!-- Precisa ser exatamente como esta no banco -->
                       <td align="center">
                         <a href="../update/Aluno.blade.php?editId=<?php echo $val['Matricula'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
