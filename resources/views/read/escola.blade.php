@@ -35,25 +35,43 @@
 
         <?php
           $condition	=	'';
+          /*
+          esse bloco é para a pesquisa do nome da escola.
+          */
           if(isset($_REQUEST['NomeEscola']) and $_REQUEST['NomeEscola']!=""){
             $condition	.=	' AND NomeEscola LIKE "%'.$_REQUEST['NomeEscola'].'%" ';
           }
-          if(isset($_REQUEST['ModalidaEnsino_idModalidadeEnsino']) and $_REQUEST['ModalidaEnsino_idModalidadeEnsino']!=""){
-            $condition	.=	' AND ModalidaEnsino_idModalidadeEnsino LIKE "%'.$_REQUEST['ModalidaEnsino_idModalidadeEnsino'].'%" AND idModalidadeEnsino LIKE "%'.$_REQUEST['idModalidadeEnsino'].'%" WHERE Escola.ModalidaEnsino_idModalidadeEnsino = ModalidadeEnsino.idModalidadeEnsino';
+
+          /*
+          esse bloco é para a esquisa da modalidade de ensino.
+          como é tabela diferente e usa-se chave estrangeira, se feito da mesma forma que o nomeescola,
+          teria que pesquisar o id da modalidade, mas isso não e viável, portanto, há um primeiro
+          select para achar o nome da modEnsino na tabela, e depois é buscado na escola com o id correspondente
+          */
+          if(isset($_REQUEST['NomeModalidadeEnsino']) and $_REQUEST['NomeModalidadeEnsino']!=""){
+            $condition5='';
+            $condition5	.=	' AND NomeModalidadeEnsino LIKE "%'.$_REQUEST['NomeModalidadeEnsino'].'%" ';
+            $userData5	=	$db->getAllRecords('modalidadeensino','*',$condition5,'ORDER BY idModalidadeEnsino DESC');
+            
+            if(count($userData5)>0){ //se retornar algum valor do select...
+              $contador=0;
+              foreach($userData5 as $valMod){ //para cada valor encontrado...
+
+                if($contador == 0) //primeira vez, primeiro resultado da pesquisa
+                {
+                  $condition	.=	' AND ModalidaEnsino_idModalidadeEnsino LIKE '.$valMod['idModalidadeEnsino'].' ';
+                  $contador++;
+                }else{
+                  $condition	.=	' OR ModalidaEnsino_idModalidadeEnsino LIKE '.$valMod['idModalidadeEnsino'].' ';
+                }
+                //echo "<span>  ".$valMod['idModalidadeEnsino']." \br </span>";
+
+              }
+            }
           }
 
-          //$qry="SELECT emp.id, emp.FirstName, dept.dept_name FROM emp INNER JOIN dept on emp.id = dept.dept_id";
-
-          //getAllRecords($tableName, $fields='*', $cond='', $orderBy='', $limit='')
-          //SELECT $fields FROM $tableName WHERE 1 ".$cond." ".$orderBy." ".$limit
-
-          //SELECT 'Escola.*, ModalidadeEnsino.NomeModalidadeEnsino' 
-          //FROM 'Escola, ModalidadeEnsino' 
-          //WHERE 1 ".$cond."     ???????
-          //ORDER BY 'idEscola DESC' ".$limit
-          //"SELECT escola.NomeEscola, modalidadeensino.NomeModalidadeEnsino FROM escola, modalidadeensino WHERE escola.ModalidaEnsino_idModalidadeEnsino = modalidadeensino.idModalidadeEnsino");
+          $userData	=	$db->getAllRecords('escola','*',$condition,'ORDER BY idEscola DESC');
           
-          $userData	=	$db->getAllRecords2('escola, modalidadeensino','escola.NomeEscola, escola.idEscola, modalidadeensino.NomeModalidadeEnsino, modalidadeensino.idModalidadeEnsino','escola.ModalidaEnsino_idModalidadeEnsino = modalidadeensino.idModalidadeEnsino','ORDER BY idEscola DESC');
         ?>
 
 
@@ -81,7 +99,7 @@
                         <div class="col-sm-4">
                           <div class="form-group">
                             <label>Modalidade de ensino</label>
-                            <input type="text" name="ModalidaEnsino_idModalidadeEnsino" id="ModalidaEnsino_idModalidadeEnsino" class="form-control" value="<?php echo isset($_REQUEST['ModalidaEnsino_idModalidadeEnsino'])?$_REQUEST['ModalidaEnsino_idModalidadeEnsino']:''?>" placeholder="Entra Modalidade de ensino">
+                            <input type="text" name="NomeModalidadeEnsino" id="NomeModalidadeEnsino" class="form-control" value="<?php echo isset($_REQUEST['NomeModalidadeEnsino'])?$_REQUEST['NomeModalidadeEnsino']:''?>" placeholder="Entra Modalidade de ensino">
                           </div>
                         </div>
                       </div>
@@ -106,11 +124,21 @@
                         $s	=	'';
                         foreach($userData as $val){
                           $s++;
+
+                          //aqui converte modalidade de ensino
+                          // getAllRecords($tableName, $fields='*', $cond='', $orderBy='', $limit='')
+                          //"SELECT $fields FROM $tableName WHERE 1 ".$cond." ".$orderBy." ".$limit
+
+
+                          $modEns	=	$db->getAllRecords2('modalidadeensino',' idModalidadeEnsino, NomeModalidadeEnsino ','idModalidadeEnsino ='.$val['ModalidaEnsino_idModalidadeEnsino'].' ');
+                        foreach($modEns as $val2){}
+
+
                     ?>
                     <tr>
                       <td><?php echo $s;?></td>
                       <td><?php echo $val['NomeEscola'];?></td> <!-- Precisa ser exatamente como esta no banco -->
-                      <td><?php echo $val['NomeModalidadeEnsino']?></td>
+                      <td><?php echo $val2['NomeModalidadeEnsino'];?></td>
                       <td align="center">
                         <a href="../update/Escola.blade.php?editId=<?php echo $val['idEscola'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
                         <a href="../delete/escola.php?delId=<?php echo $val['idEscola'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
@@ -120,7 +148,7 @@
                         }
                       }else{
                     ?>
-                    <tr><td colspan="3" align="center">No Record(s) Found!</td></tr>
+                    <tr><td colspan="4" align="center">No Record(s) Found!</td></tr>
                     <?php 
                       }
                     ?>

@@ -75,7 +75,7 @@
 
           <div id="cadTurno" class="tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">Cadastro - Turno 
+              <h4 class="card-header">EDITAR CADASTRO - Turno 
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/turno.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">

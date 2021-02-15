@@ -65,7 +65,7 @@
 
           <div id="cadNivelEnsino" class="tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">Cadastro - Nível de ensino 
+              <h4 class="card-header">NOVO CADASTRO - Nível de ensino 
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/nivEnsino.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">

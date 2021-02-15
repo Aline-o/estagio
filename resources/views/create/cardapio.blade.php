@@ -78,7 +78,7 @@
         
           <div id="cadCardapio" class="tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">Cadastro - Cardápio 
+              <h4 class="card-header">NOVO CADASTRO - Cardápio 
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/cardapio.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">

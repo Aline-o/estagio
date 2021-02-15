@@ -65,7 +65,7 @@
 
           <div id="cadSerie" class="container tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">Cadastro - Série 
+              <h4 class="card-header">EDITAR CADASTRO - Série 
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/serie.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">

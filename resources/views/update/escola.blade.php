@@ -72,7 +72,7 @@
 
           <div id="cadEscola" class="tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">Cadastro - escola
+              <h4 class="card-header">EDITAR CADASTRO - Escola
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/escola.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">

@@ -69,7 +69,7 @@
 
           <div id="cadModEnsino" class="tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">Cadastro - Modalidade de ensino 
+              <h4 class="card-header">EDITAR CADASTRO - Modalidade de ensino 
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/modEnsino.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">
