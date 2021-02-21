@@ -96,9 +96,7 @@
         //aluno especial
         $userData3 = $db->getAllRecords('patologia', 'idPatologia');
         
-        $s	=	'';
         foreach($userData3 as $val){
-          $s++;
         }
 
         $Patologia_idPatologia = (int)$val['idPatologia'];
@@ -184,6 +182,11 @@
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/aluno.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">
+                <?php
+                if(isset($_REQUEST['msg']) and $_REQUEST['msg']=="patDesc"){
+                  echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> Patologia definida como SIM. <strong> Insira a descrição e o grupo!</strong></div>';
+              }
+              ?>
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
                   <div class="row">
@@ -241,93 +244,7 @@
                         </label>
                       </div>
                     </div>
-                  </div>
-
-                  <script>
-                    function myFunction() {
-                      var checkBox = document.getElementById("Patologia");
-                      if (checkBox.checked == true){
-
-                        <?php
-                        
-                        
-                        //$_POST['Patologia'] = ( isset($_POST['Patologia']) ) ? true : 1;
-                          /*
-                          if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
-                            extract($_REQUEST);
-                            
-                            if($idPatologia==""){
-                              header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
-                              echo "patologia - idPatologia";
-                              exit;
-                            }elseif($Descricao==""){
-                              header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
-                              echo "patologia - descricao";
-                              exit;
-                            }elseif($Grupo==""){
-                              header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
-                              echo "patologia - grupo";
-                              exit;
-                            }else{
-                              $userCount2	=	$db->getQueryCount('patologia','idPatologia'); //users eh a tabela
-                              $data2	=	array(
-                                'idPatologia'=>$idPatologia,
-                                'Descricao'=> $Descricao, //colunas         
-                                'Grupo'=> $Grupo,
-                              );
-                              $insert2	=	$db->insert('patologia',$data2);
-                            }
-
-                            if($Matricula==""){
-                              header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
-                              echo "alunoM - matricula";
-                              exit;
-                            }elseif($idPatologia==""){
-                              header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
-                              echo "alunoM - idpatologia";
-                              exit;
-                            }elseif($DataPatologia==""){
-                              header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //campo obrigatorio
-                              echo "alunoM - data";
-                              exit;
-                            }else{
-                              $DataPatologia=date("Y-m-d");
-                              $userCount3	=	$db->getQueryCount('alunoespecial','Aluno_Matricula'); //users eh a tabela
-                              $data3	=	array(
-                                'Aluno_Matricula'=>$Matricula,
-                                'Patologia_idPatologia'=> $idPatologia, //colunas         
-                                'DataPatologia'=> $DataPatologia,
-                              );
-                              $insert3	=	$db->insert('alunoespecial',$data3);
-                            if($insert1&&$insert2&&$insert3){
-                              header('location: ../read/aluno.blade.php?msg=ras'); //add com sucesso
-                              exit;
-                            }else{
-                              header('location: ../read/aluno.blade.php?msg=rna'); // nao adicionado
-                              exit;
-                            }
-                          }
-                        }
-                        /*
-                        Aluno: 
-                        Matricula(CP), DataNascimento, Nome, Patologia (0 ou 1), Turma_idTurma
-
-
-                        AlunoEspecial:
-                        Aluno_Matricula(CP), Patologia_idPatologia(CP), DataPatologia
-
-
-                        Patologia:
-                        idPatologia, Descricao, Grupo
-                        */
-                        ?>
-
-                      }
-                    }
-                  </script>
-
-                  
-
+                  </div>              
 
                   <div class="row collapse" id="patologiaTable">
                     <div class="form-group col-sm-4">

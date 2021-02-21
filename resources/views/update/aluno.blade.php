@@ -1,24 +1,145 @@
 <?php include_once('../../../public/config.php');
   if(isset($_REQUEST['editId']) and $_REQUEST['editId']!=""){
-    $row	=	$db->getAllRecords('serie','*',' AND idSerie="'.$_REQUEST['editId'].'"');
-  }
-
+    $row	=	$db->getAllRecords('aluno, alunoespecial, patologia',
+    'aluno.NomeEscola, aluno.idEscola, aluno.NomeModalidadeEnsino,aluno.idModalidadeEnsino',
+    ' AND matricula="'.$_REQUEST['editId'].'"');
+  } 
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
-    if($NomeSerie==""){
-      echo("deu ruim");
-      exit;
-    }
-    $data	=	array(
-      'NomeSerie'=>$NomeSerie,
-    );
-    $update	=	$db->update('serie',$data,array('idSerie'=>$editId));
-    if($update){
-      header('location: ../read/serie.blade.php?msg=rus'); #<!-- success -->
-      exit;
-    }else{
-      header('location: ../read/serie.blade.php?msg=rnu'); #<!-- nao teve alteracao -->
-      exit;
+    
+    /*
+        Aluno: 
+        Matricula(CP), DataNascimento, Nome, Patologia (0 ou 1), Turma_idTurma
+
+
+        AlunoEspecial:
+        Aluno_Matricula(CP), Patologia_idPatologia(CP), DataPatologia
+
+
+        Patologia:
+        idPatologia, Descricao, Grupo
+
+    */
+    if($Patologia==""){ //sem patologia
+      $Patologia=0;
+      if($Matricula==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un1'); //campo obrigatorio
+        echo "aluno - matricula";
+        exit;
+      }elseif($Nome==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
+        echo "aluno - nome";
+        exit;
+      }elseif($DataNascimento==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un13'); //campo obrigatorio
+        exit;
+      }elseif($Turma_idTurma==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
+        echo "aluno - idTurma";
+        exit;
+      }else{
+        $userCount	=	$db->getQueryCount('aluno','Matricula'); //users eh a tabela
+        $data	=	array(
+          'Matricula'=>$Matricula,
+          'Nome'=> $Nome, //colunas         
+          'DataNascimento'=> $DataNascimento,
+          'Patologia'=>$Patologia,
+          'Turma_idTurma'=>$Turma_idTurma,
+        );
+        $insert	=	$db->insert('aluno',$data);
+        if($insert){
+          header('location: ../read/aluno.blade.php?msg=ras'); //add com sucesso
+          exit;
+        }else{
+          header('location: ../read/aluno.blade.php?msg=rna'); // nao adicionado
+          exit;
+        }
+      }
+    }else{ //com patologia
+      if($Matricula==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un1'); //campo obrigatorio
+        echo "aluno - matricula";
+        exit;
+      }elseif($Nome==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
+        echo "aluno - nome";
+        exit;
+      }elseif($DataNascimento==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un13'); //campo obrigatorio
+        exit;
+      }elseif($Turma_idTurma==""){
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
+        echo "aluno - idTurma";
+        exit;
+      }elseif($Descricao==""){ //patologia
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=patDesc'); 
+        echo "patologia - descricao";
+        exit;
+      }elseif($Grupo==""){ //patologia
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=patGRu');
+        echo "patologia - grupo";
+        exit;
+      }else{
+        $userCount	=	$db->getQueryCount('aluno','Matricula'); //aluno
+        $data	=	array(
+          'Matricula'=>$Matricula,
+          'Nome'=> $Nome, //colunas         
+          'DataNascimento'=> $DataNascimento,
+          'Patologia'=>$Patologia,
+          'Turma_idTurma'=>$Turma_idTurma,
+        );
+        $insert	=	$db->insert('aluno',$data); //aluno
+
+        $userCount2	=	$db->getQueryCount('patologia','idPatologia'); //patologia
+        $data2	=	array(
+          'Descricao'=> $Descricao, //colunas         
+          'Grupo'=> $Grupo,
+        );
+        $insert2	=	$db->insert('patologia',$data2); //patologia
+
+
+        //aluno especial
+        $userData3 = $db->getAllRecords('patologia', 'idPatologia');
+        
+        $s	=	'';
+        foreach($userData3 as $val){
+          $s++;
+        }
+
+        $Patologia_idPatologia = (int)$val['idPatologia'];
+        $Aluno_Matricula = $Matricula;
+        //$Aluno_Matricula = "bb"; //teste
+        $DataPatologia = date('Y-m-d');
+        
+        //echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> //Aluno tipo: '.gettype($Aluno_Matricula).' valor: '.$Aluno_Matricula.' //Patologia tipo: '.gettype($Patologia_idPatologia) .' valor: '.(int)$Patologia_idPatologia.' //Daaata tipo: '.gettype($DataPatologia).' valor: '.$DataPatologia.' <strong>Vambora!</strong></div>';
+
+        $userCount3	=	$db->getQueryCount('alunoespecial','Aluno_Matricula'); //users eh a tabela
+        $data3	=	array(
+          'Aluno_Matricula'=>$Aluno_Matricula,
+          'Patologia_idPatologia'=>$Patologia_idPatologia, //colunas         
+          'DataPatologia'=>$DataPatologia,
+        );
+        $insert3	=	$db->insert('alunoespecial',$data3);
+
+
+        
+        if($insert && $insert2 && $insert3 ){ // 
+          header('location: ../read/aluno.blade.php?msg=ras'); // add com sucesso
+          exit;
+        }elseif($insert && $insert2){
+          header('location: ../read/aluno.blade.php?msg=rna12'); // nao adicionado
+          exit;
+        }elseif($insert && $insert3){
+          header('location: ../read/aluno.blade.php?msg=rna13'); // nao adicionado
+          exit;
+        }elseif($insert2 && $insert3){
+          header('location: ../read/aluno.blade.php?msg=rna23'); // nao adicionado
+          exit;
+        }else{
+          header('location: ../read/aluno.blade.php?msg=rna'); // nenhum adicionado
+          exit;
+        }
+      }
     }
   }
 ?>
@@ -41,7 +162,10 @@
     <link href="../scss/style.scss" rel="stylesheet"> <!--estilização personalizada-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script>
+    </script>
   </head>
+
 
   <body>
     <nav class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap p-0">
@@ -55,98 +179,104 @@
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block sidebar"> <!--aqui que coloca o toggler-->
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column nav nav-pills" role="tablist" >
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#home"><i class="fa fa-home"></i>
-                  &nbsp;Início</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#demo"><i  class="fa fa-book"></i>
-                  &nbsp;Cadastro <i class="fa fa-caret-down"></i></a>   <!-- data-toggle="pill" -->
-              </li>
 
-              <div class="collapse.show"  id="demo"> <!--onClick="window.location.reload();"-->
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="pill" href="../read/aluno.blade.php">&nbsp; Aluno</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="pill" href="../read/cardapio.blade.php">&nbsp; Cardápio</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="pill" href="../read/escola.blade.php">&nbsp; Escola</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="pill" href="../read/modEnsino.blade.php">&nbsp; Modalidade de ensino</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="pill" href="../read/nivEnsino.blade.php">&nbsp; Nível de ensino</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" data-toggle="pill" href="../read/serie.blade.php">&nbsp; Série</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="pill" href="../read/turma.blade.php">&nbsp; Turma</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="pill" href="../read/turno.blade.php">&nbsp; Turno</a>
-                </li>
-              </div>
-              <li class="nav-item">
-                <a class="nav-link"  data-toggle="pill" href="#"><i class="fa fa-user"></i>
-                  &nbsp;Registro por presença</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#"><i class="fa fa-folder"></i>
-                  &nbsp;Registro via arquivo</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#"><i class="fa fa-file-text"></i>
-                  &nbsp;Relatório</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        <?php include_once('../navAluno.blade.php'); ?>
 
         <div class="tab-content">
-          <div id="home" class="container tab-pane active"><br>
+          <div id="cadAluno" class="container tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">Cadastro - Série </h4>
+              <h4 class="card-header">NOVO CADASTRO - Aluno
+                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/aluno.blade.php" role="button">Buscar</a>
+              </h4>
               <div class="card-body">
-
-                <?php include_once('../../../public/alertMsg.php');?>
-
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <label>Nome da Série</label>
-                      </div>
+                  <div class="row">
+                    <div class="form-group col-sm-8">
+                      <label for="Nome">Nome do Aluno</label>
+                      <input type="text" class="form-control" name="Nome" placeholder="Insira o nome do Aluno" required autofocus>
                     </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <input type="text" class="form-control" name="NomeSerie" id="NomeSerie" value="<?php echo $row[0]['NomeSerie']; ?>" placeholder="Insira o nome da Série">
-                      </div>
+                    <div class="form-group col-sm-4">
+                      <label for="Matricula">Matrícula</label>
+                      <input type="text" class="form-control" name="Matricula" placeholder="Insira o número da Matrícula" required>
                     </div>
+                  </div>
 
-                    <div class="row">
-                      <input type="hidden" name="editId" id="editId" value="<?php echo $_REQUEST['editId']?>">
-                      <button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Editar</button>
+                  <div class="row">
+                    <div class="form-group col-sm-3">
+                      <label for="DataNascimento">Data de nascimento do aluno</label>
+                      <input type="date" class="form-control" name="DataNascimento" id="DataNascimento" placeholder="Insira a Data de nascimento do Aluno" required>
                     </div>
+                    <div class="form-group col-sm-6">
+                      <label for="Turma_idTurma">Turma</label>
+                      <select class="form-control" id="Turma_idTurma" name="Turma_idTurma" required><!--//php buscando id-->
+                        <option selected disabled value="">Escolha uma opção...</option>
+                        
+                        <?php 
+                        $condition	=	'';
+                        if(isset($_REQUEST['NomeTurma']) and $_REQUEST['NomeTurma']!=""){
+                          $condition	.=	' AND NomeTurma LIKE "%'.$_REQUEST['NomeTurma'].'%" ';
+                        }
+                        if(isset($_REQUEST['idTurma']) and $_REQUEST['idTurma']!=""){
+                          $condition	.=	' AND idTurma LIKE "%'.$_REQUEST['idTurma'].'%" ';
+                        }
+                        $userData	=	$db->getAllRecords('Turma','*', $condition,'ORDER BY idTurma DESC');
+                      
+                        if(count($userData)>0){
+                          $s	=	'';
+                          foreach($userData as $val){
+                            $s++;
+                        ?>
+                        
+                        <option value="<?php echo (int)$val['idTurma'];?>"> <?php echo $val['NomeTurma'];?> </option>
+                        
+                        <?php 
+                          }
+                        }
+                        ?>
+                      </select>
+                    </div>
+                    
+                    <div class="form-group col-sm-3">
+                      <label for="Patologia">Patologia? </label>
+                      <div class="form-check" data-toggle="collapse" data-target="#patologiaTable">
+                        <input class="form-check-input" type="checkbox" value=1 name="Patologia" id="Patologia">
+                        <label class="form-check-label" for="Patologia">
+                          Sim
+                        </label>
+                      </div>
+                    </div>
+                  </div>              
+
+                  <div class="row collapse" id="patologiaTable">
+                    <div class="form-group col-sm-4">
+                      <label for="Grupo">Grupo</label>
+                      <input type="text" class="form-control" name="Grupo" placeholder="Insira o grupo da patologia" autofocus>
+                    </div>
+                    <div class="form-group col-sm-8">
+                      <label for="Descricao">Descrição</label>
+                      <input type="text" class="form-control" name="Descricao" placeholder="Insira a descrição da patologia" autofocus>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Enviar</button>
+                  </div>
                 </form>
               </div>
-            </div>
+            </div>            
           </div>
+
         </div>
       </div>
     </div>
-  <!-- Bootstrap core JavaScript
-  ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-  <script src="../../assets/js/vendor/popper.min.js"></script>
-  <script src="../../dist/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
   </body>
 </html>

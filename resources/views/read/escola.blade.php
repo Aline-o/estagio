@@ -130,8 +130,8 @@
                           //"SELECT $fields FROM $tableName WHERE 1 ".$cond." ".$orderBy." ".$limit
 
 
-                          $modEns	=	$db->getAllRecords2('modalidadeensino',' idModalidadeEnsino, NomeModalidadeEnsino ','idModalidadeEnsino ='.$val['ModalidaEnsino_idModalidadeEnsino'].' ');
-                        foreach($modEns as $val2){}
+                          $convModEns	=	$db->getAllRecords2('modalidadeensino',' idModalidadeEnsino, NomeModalidadeEnsino ','idModalidadeEnsino ='.$val['ModalidaEnsino_idModalidadeEnsino'].' ');
+                        foreach($convModEns as $val2){}
 
 
                     ?>

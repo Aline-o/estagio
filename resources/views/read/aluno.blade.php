@@ -43,11 +43,40 @@
             $condition	.=	' AND DataNascimento LIKE "%'.$_REQUEST['DataNascimento'].'%" ';
           }
           if(isset($_REQUEST['Patologia']) and $_REQUEST['Patologia']!=""){
-            $condition	.=	' AND Patologia LIKE "%'.$_REQUEST['Patologia'].'%" ';
+            if(!strcasecmp($_REQUEST['Patologia'],"s") || !strcasecmp($_REQUEST['Patologia'],"sim") || !strcasecmp($_REQUEST['Patologia'],"y")){ //If this function returns 0, the two strings are equal.
+              $pat=1;
+            }elseif(strcasecmp($_REQUEST['Patologia'],"n")==0 || strcasecmp($_REQUEST['Patologia'],"nao")==0 || strcasecmp($_REQUEST['Patologia'],"não")==0){
+              $pat=0;
+            }else{
+              $pat=$_REQUEST['Patologia'];
+            }
+            $condition	.=	' AND Patologia LIKE "%'.$pat.'%" ';
           }
           /*if(isset($_REQUEST['Turma_idTurma']) and $_REQUEST['Turma_idTurma']!=""){
             $condition	.=	' AND Turma_idTurma LIKE "%'.$_REQUEST['Turma_idTurma'].'%" ';
           }*/
+
+          if(isset($_REQUEST['NomeTurma']) and $_REQUEST['NomeTurma']!=""){
+            $condition5='';
+            $condition5	.=	' AND NomeTurma LIKE "%'.$_REQUEST['NomeTurma'].'%" ';
+            $userData5	=	$db->getAllRecords('turma','*',$condition5,'ORDER BY idTurma DESC');
+            
+            if(count($userData5)>0){ //se retornar algum valor do select...
+              $contador=0;
+              foreach($userData5 as $valTur){ //para cada valor encontrado...
+
+                if($contador == 0) //primeira vez, primeiro resultado da pesquisa
+                {
+                  $condition	.=	' AND Turma_idTurma LIKE '.$valTur['idTurma'].' ';
+                  $contador++;
+                }else{
+                  $condition	.=	' OR Turma_idTurma LIKE '.$valTur['idTurma'].' ';
+                }
+                //echo "<span>  ".$valMod['idModalidadeEnsino']." \br </span>";
+
+              }
+            }
+          }
           $userData	=	$db->getAllRecords('Aluno','*',$condition,'ORDER BY Matricula DESC');
         ?>
 
@@ -85,15 +114,14 @@
                           </div>
                         </div>
 
-                        <!-- como pega nome da turma???
-                          <div class="col-sm-2">
+                        <div class="col-sm-2">
                           <div class="form-group">
                             <label>Turma</label>
-                            <input type="text" name="Turma_idTurma" id="Turma_idTurma" class="form-control" value="<?php echo isset($_REQUEST['Turma_idTurma'])?$_REQUEST['Turma_idTurma']:''?>" placeholder="Entra Turma">
+                            <input type="text" name="NomeTurma" id="NomeTurma" class="form-control" value="<?php echo isset($_REQUEST['NomeTurma'])?$_REQUEST['NomeTurma']:''?>" placeholder="Entra Turma">
                           </div>
-                        </div>                          
-                          
-                          
+                        </div>  
+
+                      <!--
                         <div class="col-sm-4"> 
                           <div class="form-group">
                             <label>Date</label>
@@ -104,7 +132,8 @@
                               <div class="input-group-append"><span class="input-group-text"><a href="javascript:;" onclick="$('#df,#dt').val('');"><i class="fa fa-fw fa-sync"></i></a></span></div>
                             </div>
                           </div>
-                        </div> -->
+                        </div> 
+                      -->
           
                       </div>
                       <div class="row">
@@ -130,6 +159,9 @@
                         $s	=	'';
                         foreach($userData as $val){
                           $s++;
+
+                          $convTurma	=	$db->getAllRecords2(' turma ',' idTurma, NomeTurma ',' idTurma ='.$val['Turma_idTurma'].' ');
+                        foreach($convTurma as $convT){}
                     ?>
                     <tr>
                       <td><?php echo $s;?></td>
@@ -138,13 +170,13 @@
                       <?php
                       if($val['Patologia']==1)
                       {
-                        $printPatologia='Sim';
+                        $printPatologia='S';
                       }else{
-                        $printPatologia='Não';
+                        $printPatologia='N';
                       }
                       ?>
                       <td><?php echo $printPatologia;?></td> <!-- Precisa ser exatamente como esta no banco -->
-                      <td><?php echo $val['Turma_idTurma'];?></td> <!-- Precisa ser exatamente como esta no banco -->
+                      <td><?php echo $convT['NomeTurma'];?></td> <!-- Precisa ser exatamente como esta no banco -->
                       <td align="center">
                         <a href="../update/Aluno.blade.php?editId=<?php echo $val['Matricula'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
                         <a href="../delete/Aluno.php?delId=<?php echo $val['Matricula'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
@@ -154,7 +186,7 @@
                         }
                       }else{
                     ?>
-                    <tr><td colspan="3" align="center">No Record(s) Found!</td></tr>
+                    <tr><td colspan="6" align="center">No Record(s) Found!</td></tr>
                     <?php 
                       }
                     ?>
