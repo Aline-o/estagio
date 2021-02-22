@@ -1,8 +1,9 @@
 <?php include_once('../../../public/config.php');
   if(isset($_REQUEST['editId']) and $_REQUEST['editId']!=""){
-    $row	=	$db->getAllRecords('aluno, alunoespecial, patologia',
-    'aluno.NomeEscola, aluno.idEscola, aluno.NomeModalidadeEnsino,aluno.idModalidadeEnsino',
-    ' AND matricula="'.$_REQUEST['editId'].'"');
+    $row	=	$db->getAllRecords('aluno, turma','aluno.Matricula,aluno.Turma_idTurma , aluno.Nome, aluno.DataNascimento, aluno.Patologia, turma.idTurma, turma.NomeTurma',
+    //'aluno.Nome, aluno.Matricula, aluno.DataNascimento, aluno.Patologia, alunoespecial.*, patologia.idPatologia, patologia.Grupo, patologia.Descricao',
+    ' AND Matricula="'.$_REQUEST['editId'].'" AND turma.idTurma = aluno.Turma_idTurma');
+    $requestid=$_REQUEST['editId'];
   } 
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
@@ -20,13 +21,10 @@
         idPatologia, Descricao, Grupo
 
     */
-    if($Patologia==""){ //sem patologia
+
+    if($Patologia==""){ //sem patologia...
       $Patologia=0;
-      if($Matricula==""){
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=un1'); //campo obrigatorio
-        echo "aluno - matricula";
-        exit;
-      }elseif($Nome==""){
+      if($Nome==""){
         header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
         echo "aluno - nome";
         exit;
@@ -38,16 +36,15 @@
         echo "aluno - idTurma";
         exit;
       }else{
-        $userCount	=	$db->getQueryCount('aluno','Matricula'); //users eh a tabela
+
         $data	=	array(
-          'Matricula'=>$Matricula,
           'Nome'=> $Nome, //colunas         
           'DataNascimento'=> $DataNascimento,
           'Patologia'=>$Patologia,
-          'Turma_idTurma'=>$Turma_idTurma,
         );
-        $insert	=	$db->insert('aluno',$data);
-        if($insert){
+        
+        $update	=	$db->update('aluno',$data,array('Matricula'=>$editId));
+        if($update){
           header('location: ../read/aluno.blade.php?msg=ras'); //add com sucesso
           exit;
         }else{
@@ -55,12 +52,9 @@
           exit;
         }
       }
-    }else{ //com patologia
-      if($Matricula==""){
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=un1'); //campo obrigatorio
-        echo "aluno - matricula";
-        exit;
-      }elseif($Nome==""){
+
+    }else{ //com patologia...
+      if($Nome==""){
         header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
         echo "aluno - nome";
         exit;
@@ -80,26 +74,47 @@
         echo "patologia - grupo";
         exit;
       }else{
-        $userCount	=	$db->getQueryCount('aluno','Matricula'); //aluno
+        //$userCount	=	$db->getQueryCount('aluno','Matricula'); //aluno
         $data	=	array(
-          'Matricula'=>$Matricula,
           'Nome'=> $Nome, //colunas         
           'DataNascimento'=> $DataNascimento,
           'Patologia'=>$Patologia,
-          'Turma_idTurma'=>$Turma_idTurma,
         );
-        $insert	=	$db->insert('aluno',$data); //aluno
+        $update	=	$db->update('aluno',$data,array('Matricula'=>$editId)); //aluno
 
-        $userCount2	=	$db->getQueryCount('patologia','idPatologia'); //patologia
+
+        
+        $convAluEspec	=	$db->getAllRecords('alunoespecial',' alunoespecial.Aluno_Matricula, alunoespecial.Patologia_idPatologia ',
+        ' AND Aluno_Matricula="'.$_REQUEST['editId'].'"');//$requestid
+
+        foreach($convAluEspec as $valAE){}
+        $patol=$valAE['Patologia_idPatologia'];
+        /* precisa selecionar através de aluno especial qual é a patologia a ser modificada
+        
+        $convModEns	=	$db->getAllRecords2('modalidadeensino',' idModalidadeEnsino, NomeModalidadeEnsino ',
+        'idModalidadeEnsino ='.$val['ModalidaEnsino_idModalidadeEnsino'].' ');
+        foreach($convModEns as $val2){}
+        */
+
+        //$convPatologia	=	$db->getAllRecords('patologia',' * ',
+        //' AND idPatologia="'.$patol.'"');//$requestid
+
+        //$userCount2	=	$db->getQueryCount('patologia','idPatologia'); //patologia
         $data2	=	array(
           'Descricao'=> $Descricao, //colunas         
           'Grupo'=> $Grupo,
         );
-        $insert2	=	$db->insert('patologia',$data2); //patologia
+        $update2	=	$db->update('patologia',$data2,array('idPatologia'=>$patol)); //patologia
 
 
-        //aluno especial
-        $userData3 = $db->getAllRecords('patologia', 'idPatologia');
+        /*aluno especial
+        //para aluno especial, teremos que alterar Aluno_Matricula. n da
+        //a linha abaixo não é o que vai usar nesse codigo.
+        //UPDATE `alunoespecial` SET `Aluno_Matricula` = 'e' WHERE `alunoespecial`.`Aluno_Matricula` = 'a' AND `alunoespecial`.`Patologia_idPatologia` = 1;
+
+//UPDATE `aluno, alunoespecial` SET `Matricula`='testesocorro', `Aluno_Matricula` = 'testesocorro' WHERE `alunoespecial`.`Aluno_Matricula` = 'a' AND `aluno`.`Matricula`='a' AND `aluno`.`Turma_idTurma` = 24 AND `alunoespecial`.`Patologia_idPatologia` = 1;
+//UPDATE `aluno`, `alunoespecial` SET `Matricula`='testesocorro', `Aluno_Matricula` = 'testesocorro' WHERE `alunoespecial`.`Aluno_Matricula` = 'a' AND `aluno`.`Matricula`='a' AND `aluno`.`Turma_idTurma` = 24 AND `alunoespecial`.`Patologia_idPatologia` = 1;
+        $userData3 = $db->getAllRecords('patologia', 'idPatologia'); //altera?
         
         $s	=	'';
         foreach($userData3 as $val){
@@ -120,20 +135,18 @@
           'DataPatologia'=>$DataPatologia,
         );
         $insert3	=	$db->insert('alunoespecial',$data3);
+        */
 
 
         
-        if($insert && $insert2 && $insert3 ){ // 
+        if($update && $update2 ){ // 
           header('location: ../read/aluno.blade.php?msg=ras'); // add com sucesso
           exit;
-        }elseif($insert && $insert2){
+        }elseif($update2){
           header('location: ../read/aluno.blade.php?msg=rna12'); // nao adicionado
           exit;
-        }elseif($insert && $insert3){
+        }elseif($update){
           header('location: ../read/aluno.blade.php?msg=rna13'); // nao adicionado
-          exit;
-        }elseif($insert2 && $insert3){
-          header('location: ../read/aluno.blade.php?msg=rna23'); // nao adicionado
           exit;
         }else{
           header('location: ../read/aluno.blade.php?msg=rna'); // nenhum adicionado
@@ -185,43 +198,46 @@
         <div class="tab-content">
           <div id="cadAluno" class="container tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">NOVO CADASTRO - Aluno
+              <h4 class="card-header">EDITAR CADASTRO - Aluno
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/aluno.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">
+                <?php include_once('../../../public/alertMsg.php');?>
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
                   <div class="row">
                     <div class="form-group col-sm-8">
                       <label for="Nome">Nome do Aluno</label>
-                      <input type="text" class="form-control" name="Nome" placeholder="Insira o nome do Aluno" required autofocus>
+                      <input type="text" class="form-control" name="Nome" value="<?php echo $row[0]['Nome']; ?>" placeholder="<?php echo $row[0]['Nome']; ?>" required autofocus>
                     </div>
                     <div class="form-group col-sm-4">
                       <label for="Matricula">Matrícula</label>
-                      <input type="text" class="form-control" name="Matricula" placeholder="Insira o número da Matrícula" required>
+                      <input type="text" class="form-control" name="Matricula" value="<?php echo $row[0]['Matricula']; ?>" placeholder="<?php echo $row[0]['Matricula']; ?>" disabled>
                     </div>
                   </div>
+
+                  <?php
+                    $condition	=	'';
+                    if(isset($_REQUEST['NomeTurma']) and $_REQUEST['NomeTurma']!=""){
+                      $condition	.=	' AND NomeTurma LIKE "%'.$_REQUEST['NomeTurma'].'%" ';
+                    }
+                    if(isset($_REQUEST['idTurma']) and $_REQUEST['idTurma']!=""){
+                      $condition	.=	' AND idTurma LIKE "%'.$_REQUEST['idTurma'].'%" ';
+                    }
+                    $userData	=	$db->getAllRecords('Turma',' * ', $condition,' ORDER BY idTurma DESC');
+                  ?>
 
                   <div class="row">
                     <div class="form-group col-sm-3">
                       <label for="DataNascimento">Data de nascimento do aluno</label>
-                      <input type="date" class="form-control" name="DataNascimento" id="DataNascimento" placeholder="Insira a Data de nascimento do Aluno" required>
+                      <input type="date" class="form-control" name="DataNascimento" id="DataNascimento" value="<?php echo $row[0]['DataNascimento']; ?>" placeholder="<?php echo $row[0]['DataNascimento']; ?>" required>
                     </div>
                     <div class="form-group col-sm-6">
                       <label for="Turma_idTurma">Turma</label>
                       <select class="form-control" id="Turma_idTurma" name="Turma_idTurma" required><!--//php buscando id-->
-                        <option selected disabled value="">Escolha uma opção...</option>
+                        <option selected value="<?php echo $row[0]['idTurma']; ?>"><?php echo $row[0]['NomeTurma']; ?></option>
                         
                         <?php 
-                        $condition	=	'';
-                        if(isset($_REQUEST['NomeTurma']) and $_REQUEST['NomeTurma']!=""){
-                          $condition	.=	' AND NomeTurma LIKE "%'.$_REQUEST['NomeTurma'].'%" ';
-                        }
-                        if(isset($_REQUEST['idTurma']) and $_REQUEST['idTurma']!=""){
-                          $condition	.=	' AND idTurma LIKE "%'.$_REQUEST['idTurma'].'%" ';
-                        }
-                        $userData	=	$db->getAllRecords('Turma','*', $condition,'ORDER BY idTurma DESC');
-                      
                         if(count($userData)>0){
                           $s	=	'';
                           foreach($userData as $val){
