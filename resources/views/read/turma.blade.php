@@ -151,7 +151,7 @@
                         }
                       }else{
                     ?>
-                    <tr><td colspan="3" align="center">No Record(s) Found!</td></tr>
+                    <tr><td colspan="8" align="center">No Record(s) Found!</td></tr>
                     <?php 
                       }
                     ?>

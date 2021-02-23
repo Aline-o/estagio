@@ -3,7 +3,15 @@
     $row	=	$db->getAllRecords('aluno, turma','aluno.Matricula,aluno.Turma_idTurma , aluno.Nome, aluno.DataNascimento, aluno.Patologia, turma.idTurma, turma.NomeTurma',
     //'aluno.Nome, aluno.Matricula, aluno.DataNascimento, aluno.Patologia, alunoespecial.*, patologia.idPatologia, patologia.Grupo, patologia.Descricao',
     ' AND Matricula="'.$_REQUEST['editId'].'" AND turma.idTurma = aluno.Turma_idTurma');
-    $requestid=$_REQUEST['editId'];
+    
+    $rowAluEspec	=	$db->getAllRecords('alunoespecial',' alunoespecial.Aluno_Matricula, alunoespecial.Patologia_idPatologia ',
+    ' AND Aluno_Matricula="'.$_REQUEST['editId'].'"');//$requestid
+
+    foreach($rowAluEspec as $valAE){}
+    $patol=$valAE['Patologia_idPatologia'];
+
+    $row2	=	$db->getAllRecords('patologia',' * ',
+    ' AND idPatologia="'.$patol.'"');//$requestid
   } 
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
@@ -89,6 +97,8 @@
 
         foreach($convAluEspec as $valAE){}
         $patol=$valAE['Patologia_idPatologia'];
+
+        
         /* precisa selecionar através de aluno especial qual é a patologia a ser modificada
         
         $convModEns	=	$db->getAllRecords2('modalidadeensino',' idModalidadeEnsino, NomeModalidadeEnsino ',
@@ -96,8 +106,9 @@
         foreach($convModEns as $val2){}
         */
 
-        //$convPatologia	=	$db->getAllRecords('patologia',' * ',
-        //' AND idPatologia="'.$patol.'"');//$requestid
+        $convPatologia	=	$db->getAllRecords('patologia',' * ',
+        ' AND idPatologia="'.$patol.'"');//$requestid
+        foreach($convPatologia as $valPat){}
 
         //$userCount2	=	$db->getQueryCount('patologia','idPatologia'); //patologia
         $data2	=	array(
@@ -252,11 +263,25 @@
                         ?>
                       </select>
                     </div>
+
+                    <?php
+                      if($row[0]['Patologia']==1){ //se tiver patologia
+                        $checkado=' checked ';
+                        $exibirCollapse=' show ';
+                        $grupo = $row2[0]['Grupo'];
+                        $descricao = $row2[0]['Descricao'];
+                      }else{
+                        $checkado='';
+                        $exibirCollapse='';
+                        $grupo = ' Insira o grupo da patologia ';
+                        $descricao = ' Insira a descrição da patologia';
+                      }
+                    ?>
                     
                     <div class="form-group col-sm-3">
                       <label for="Patologia">Patologia? </label>
                       <div class="form-check" data-toggle="collapse" data-target="#patologiaTable">
-                        <input class="form-check-input" type="checkbox" value=1 name="Patologia" id="Patologia">
+                        <input class="form-check-input" type="checkbox" name="Patologia" id="Patologia" value="<?php echo $row[0]['Patologia']; ?>" <?php echo $checkado; ?> >
                         <label class="form-check-label" for="Patologia">
                           Sim
                         </label>
@@ -264,14 +289,14 @@
                     </div>
                   </div>              
 
-                  <div class="row collapse" id="patologiaTable">
+                  <div class="row collapse <?php echo $exibirCollapse; ?>" id="patologiaTable">
                     <div class="form-group col-sm-4">
                       <label for="Grupo">Grupo</label>
-                      <input type="text" class="form-control" name="Grupo" placeholder="Insira o grupo da patologia" autofocus>
+                      <input type="text" class="form-control" name="Grupo" value="<?php echo $grupo; ?>" placeholder="<?php echo $grupo; ?> grupo">
                     </div>
                     <div class="form-group col-sm-8">
                       <label for="Descricao">Descrição</label>
-                      <input type="text" class="form-control" name="Descricao" placeholder="Insira a descrição da patologia" autofocus>
+                      <input type="text" class="form-control" name="Descricao" value="<?php echo $descricao; ?>" placeholder="<?php echo $descricao; ?> desc">
                     </div>
                   </div>
 
