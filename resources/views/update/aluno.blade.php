@@ -93,7 +93,7 @@
 
         
         $convAluEspec	=	$db->getAllRecords('alunoespecial',' alunoespecial.Aluno_Matricula, alunoespecial.Patologia_idPatologia ',
-        ' AND Aluno_Matricula="'.$_REQUEST['editId'].'"');//$requestid
+        ' AND Aluno_Matricula="'.$editId.'"');//$requestid
 
         foreach($convAluEspec as $valAE){}
         $patol=$valAE['Patologia_idPatologia'];
@@ -104,13 +104,13 @@
         $convModEns	=	$db->getAllRecords2('modalidadeensino',' idModalidadeEnsino, NomeModalidadeEnsino ',
         'idModalidadeEnsino ='.$val['ModalidaEnsino_idModalidadeEnsino'].' ');
         foreach($convModEns as $val2){}
-        */
 
-        $convPatologia	=	$db->getAllRecords('patologia',' * ',
+         $convPatologia	=	$db->getAllRecords('patologia',' * ',
         ' AND idPatologia="'.$patol.'"');//$requestid
         foreach($convPatologia as $valPat){}
+        */
 
-        //$userCount2	=	$db->getQueryCount('patologia','idPatologia'); //patologia
+       
         $data2	=	array(
           'Descricao'=> $Descricao, //colunas         
           'Grupo'=> $Grupo,
