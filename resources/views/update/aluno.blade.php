@@ -8,10 +8,12 @@
     ' AND Aluno_Matricula="'.$_REQUEST['editId'].'"');//$requestid
 
     foreach($rowAluEspec as $valAE){}
-    $patol=$valAE['Patologia_idPatologia'];
-
-    $row2	=	$db->getAllRecords('patologia',' * ',
-    ' AND idPatologia="'.$patol.'"');//$requestid
+    if(isset($valAE['Patologia_idPatologia'])){
+      $patol=$valAE['Patologia_idPatologia'];
+      $row2	=	$db->getAllRecords('patologia',' * ',
+      ' AND idPatologia="'.$patol.'"');//$requestid
+    }
+      
   } 
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
