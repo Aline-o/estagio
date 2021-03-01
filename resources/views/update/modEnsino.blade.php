@@ -5,10 +5,10 @@
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
     if($NomeModalidadeEnsino==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }elseif($Sigla==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }
     $data	=	array(
@@ -17,10 +17,10 @@
     );
     $update	=	$db->update('ModalidadeEnsino',$data,array('idModalidadeEnsino'=>$editId));
     if($update){
-      header('location: ../read/modEnsino.blade.php?msg=rus'); #<!-- success -->
+      header('location: ../read/modEnsino.blade.php?msg=ratt'); #<!-- success -->
       exit;
     }else{
-      header('location: ../read/modEnsino.blade.php?msg=rnu'); #<!-- nao teve alteracao -->
+      header('location: ../read/modEnsino.blade.php?msg=rnna'); #<!-- nao teve alteracao -->
       exit;
     }
   }

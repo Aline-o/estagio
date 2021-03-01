@@ -3,10 +3,10 @@
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
     if($NomeTurma==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }elseif($Ano==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }else{
       $userCount	=	$db->getQueryCount('Turma','idTurma'); //users eh a tabela
@@ -22,10 +22,10 @@
       );
       $insert	=	$db->insert('Turma',$data);
       if($insert){
-        header('location: ../read/Turma.blade.php?msg=ras'); //add com sucesso
+        header('location: ../read/Turma.blade.php?msg=radd'); //add com sucesso
         exit;
       }else{
-        header('location: ../read/Turma.blade.php?msg=rna'); // nao adicionado
+        header('location: ../read/Turma.blade.php?msg=rerr'); // nao adicionado
         exit;
       }
     }

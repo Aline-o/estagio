@@ -6,13 +6,13 @@
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
     if($NomeTurno==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }elseif($HoraInicio==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }elseif($HoraFim==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }
 
@@ -23,10 +23,10 @@
       );
     $update	=	$db->update('turno',$data,array('idTurno'=>$editId));
     if($update){
-      header('location: ../read/turno.blade.php?msg=rus'); #<!-- success -->
+      header('location: ../read/turno.blade.php?msg=ratt'); #<!-- success -->
       exit;
     }else{
-      header('location: ../read/turno.blade.php?msg=rnu'); #<!-- nao teve alteracao -->
+      header('location: ../read/turno.blade.php?msg=rnna'); #<!-- nao teve alteracao -->
       exit;
     }
   }

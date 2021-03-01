@@ -6,7 +6,7 @@
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
     if($NomeNivelEnsino==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }
 
@@ -15,10 +15,10 @@
     );
     $update	=	$db->update('nivelensino',$data,array('idNivelEnsino'=>$editId));
     if($update){
-      header('location: ../read/nivEnsino.blade.php?msg=rus'); #<!-- success -->
+      header('location: ../read/nivEnsino.blade.php?msg=ratt'); #<!-- success -->
       exit;
     }else{
-      header('location: ../read/nivEnsino.blade.php?msg=rnu'); #<!-- nao teve alteracao -->
+      header('location: ../read/nivEnsino.blade.php?msg=rnna'); #<!-- nao teve alteracao -->
       exit;
     }
   }

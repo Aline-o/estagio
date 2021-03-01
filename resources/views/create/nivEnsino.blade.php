@@ -3,7 +3,7 @@
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
     if($NomeNivelEnsino==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }else{
       $userCount	=	$db->getQueryCount('NivelEnsino','idNivelEnsino'); //users eh a tabela
@@ -12,10 +12,10 @@
       );
       $insert	=	$db->insert('NivelEnsino',$data);
       if($insert){
-        header('location: ../read/nivEnsino.blade.php?msg=ras'); //add com sucesso
+        header('location: ../read/nivEnsino.blade.php?msg=radd'); //add com sucesso
         exit;
       }else{
-        header('location: ../read/nivEnsino.blade.php?msg=rna'); // nao adicionado
+        header('location: ../read/nivEnsino.blade.php?msg=rerr'); // nao adicionado
         exit;
       }
     }

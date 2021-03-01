@@ -6,16 +6,16 @@
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
     if($Nome==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }elseif($Sigla==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }elseif($Descricao==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }elseif($Valor==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }
     $data	=	array(
@@ -26,10 +26,10 @@
     );
     $update	=	$db->update('cardapio',$data,array('idCardapio'=>$editId));
     if($update){
-      header('location: ../read/cardapio.blade.php?msg=rus'); #<!-- success -->
+      header('location: ../read/cardapio.blade.php?msg=ratt'); #<!-- success -->
       exit;
     }else{
-      header('location: ../read/cardapio.blade.php?msg=rnu'); #<!-- nao teve alteracao -->
+      header('location: ../read/cardapio.blade.php?msg=rnna'); #<!-- nao teve alteracao -->
       exit;
     }
   }

@@ -35,15 +35,13 @@
     if($Patologia==""){ //sem patologia...
       $Patologia=0;
       if($Nome==""){
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
-        echo "aluno - nome";
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
         exit;
       }elseif($DataNascimento==""){
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=un13'); //campo obrigatorio
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
         exit;
       }elseif($Turma_idTurma==""){
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
-        echo "aluno - idTurma";
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
         exit;
       }else{
 
@@ -55,10 +53,10 @@
         
         $update	=	$db->update('aluno',$data,array('Matricula'=>$editId));
         if($update){
-          header('location: ../read/aluno.blade.php?msg=ras'); //add com sucesso
+          header('location: ../read/aluno.blade.php?msg=ratt'); //att com sucesso
           exit;
         }else{
-          header('location: ../read/aluno.blade.php?msg=rna'); // nao adicionado
+          header('location: ../read/aluno.blade.php?msg=rerr'); // nao adicionado
           exit;
         }
       }
@@ -66,23 +64,19 @@
     }else{ //com patologia...
       if(isset($valAE['Patologia_idPatologia'])){
         if($Nome==""){
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
-          echo "aluno - nome";
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
           exit;
         }elseif($DataNascimento==""){
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=un13'); //campo obrigatorio
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
           exit;
         }elseif($Turma_idTurma==""){
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
-          echo "aluno - idTurma";
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
           exit;
         }elseif($Descricao==""){ //patologia
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=patDesc'); 
-          echo "patologia - descricao";
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); 
           exit;
         }elseif($Grupo==""){ //patologia
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=patGRu');
-          echo "patologia - grupo";
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr');
           exit;
         }else{
           //$userCount	=	$db->getQueryCount('aluno','Matricula'); //aluno
@@ -154,39 +148,35 @@
 
         
           if($update && $update2 ){ // 
-            header('location: ../read/aluno.blade.php?msg=ras'); // add com sucesso
+            header('location: ../read/aluno.blade.php?msg=ratt'); // att com sucesso
             exit;
           }elseif($update2){
-            header('location: ../read/aluno.blade.php?msg=rna12'); // nao adicionado
+            header('location: ../read/aluno.blade.php?msg=ratt'); 
             exit;
           }elseif($update){
-            header('location: ../read/aluno.blade.php?msg=rna13'); // nao adicionado
+            header('location: ../read/aluno.blade.php?msg=ratt'); 
             exit;
           }else{
-            header('location: ../read/aluno.blade.php?msg=rna'); // nenhum adicionado
+            header('location: ../read/aluno.blade.php?msg=rnna'); // nenhum adicionado
             exit;
           } 
         }
 
       }else{
         if($Nome==""){
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
-          echo "aluno - nome";
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
           exit;
         }elseif($DataNascimento==""){
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=un13'); //campo obrigatorio
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
           exit;
         }elseif($Turma_idTurma==""){
           header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
-          echo "aluno - idTurma";
           exit;
         }elseif($Descricao==""){ //patologia
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=patDesc'); 
-          echo "patologia - descricao";
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); 
           exit;
         }elseif($Grupo==""){ //patologia
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=patGRu');
-          echo "patologia - grupo";
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr');
           exit;
         }else{
           //$userCount	=	$db->getQueryCount('aluno','Matricula'); //aluno
@@ -230,19 +220,19 @@
         $insert3	=	$db->insert('alunoespecial',$data3);
 
         if($update && $insert2 && $insert3 ){ // 
-          header('location: ../read/aluno.blade.php?msg=ras'); // add com sucesso
+          header('location: ../read/aluno.blade.php?msg=ratt'); // add com sucesso
           exit;
         }elseif($update && $insert2){
-          header('location: ../read/aluno.blade.php?msg=rna12uuu'); // nao adicionado
+          header('location: ../read/aluno.blade.php?msg=rerr'); 
           exit;
         }elseif($update && $insert3){
-          header('location: ../read/aluno.blade.php?msg=rna13uuu'); // nao adicionado
+          header('location: ../read/aluno.blade.php?msg=rerr');
           exit;
         }elseif($insert2 && $insert3){
-          header('location: ../read/aluno.blade.php?msg=rna23uuu'); // nao adicionado
+          header('location: ../read/aluno.blade.php?msg=rerr');
           exit;
         }else{
-          header('location: ../read/aluno.blade.php?msg=rnauuu'); // nenhum adicionado
+          header('location: ../read/aluno.blade.php?msg=rnna'); // nenhum adicionado
           exit;
         }
       }

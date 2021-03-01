@@ -6,7 +6,7 @@
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
     if($NomeSerie==""){
-      echo("deu ruim");
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }
     $data	=	array(
@@ -14,10 +14,10 @@
     );
     $update	=	$db->update('serie',$data,array('idSerie'=>$editId));
     if($update){
-      header('location: ../read/serie.blade.php?msg=rus'); #<!-- success -->
+      header('location: ../read/serie.blade.php?msg=ratt'); #<!-- success -->
       exit;
     }else{
-      header('location: ../read/serie.blade.php?msg=rnu'); #<!-- nao teve alteracao -->
+      header('location: ../read/serie.blade.php?msg=rnna'); #<!-- nao teve alteracao -->
       exit;
     }
   }
