@@ -64,33 +64,34 @@
       }
 
     }else{ //com patologia...
-      if($Nome==""){
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
-        echo "aluno - nome";
-        exit;
-      }elseif($DataNascimento==""){
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=un13'); //campo obrigatorio
-        exit;
-      }elseif($Turma_idTurma==""){
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
-        echo "aluno - idTurma";
-        exit;
-      }elseif($Descricao==""){ //patologia
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=patDesc'); 
-        echo "patologia - descricao";
-        exit;
-      }elseif($Grupo==""){ //patologia
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=patGRu');
-        echo "patologia - grupo";
-        exit;
-      }else{
-        //$userCount	=	$db->getQueryCount('aluno','Matricula'); //aluno
-        $data	=	array(
-          'Nome'=> $Nome, //colunas         
-          'DataNascimento'=> $DataNascimento,
-          'Patologia'=>$Patologia,
-        );
-        $update	=	$db->update('aluno',$data,array('Matricula'=>$editId)); //aluno
+      if(isset($valAE['Patologia_idPatologia'])){
+        if($Nome==""){
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
+          echo "aluno - nome";
+          exit;
+        }elseif($DataNascimento==""){
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=un13'); //campo obrigatorio
+          exit;
+        }elseif($Turma_idTurma==""){
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
+          echo "aluno - idTurma";
+          exit;
+        }elseif($Descricao==""){ //patologia
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=patDesc'); 
+          echo "patologia - descricao";
+          exit;
+        }elseif($Grupo==""){ //patologia
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=patGRu');
+          echo "patologia - grupo";
+          exit;
+        }else{
+          //$userCount	=	$db->getQueryCount('aluno','Matricula'); //aluno
+          $data	=	array(
+            'Nome'=> $Nome, //colunas         
+            'DataNascimento'=> $DataNascimento,
+            'Patologia'=>$Patologia,
+          );
+          $update	=	$db->update('aluno',$data,array('Matricula'=>$editId)); //aluno
 
 
         
@@ -152,19 +153,100 @@
 
 
         
-        if($update && $update2 ){ // 
-          header('location: ../read/aluno.blade.php?msg=ras'); // add com sucesso
+          if($update && $update2 ){ // 
+            header('location: ../read/aluno.blade.php?msg=ras'); // add com sucesso
+            exit;
+          }elseif($update2){
+            header('location: ../read/aluno.blade.php?msg=rna12'); // nao adicionado
+            exit;
+          }elseif($update){
+            header('location: ../read/aluno.blade.php?msg=rna13'); // nao adicionado
+            exit;
+          }else{
+            header('location: ../read/aluno.blade.php?msg=rna'); // nenhum adicionado
+            exit;
+          } 
+        }
+
+      }else{
+        if($Nome==""){
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=un12'); //campo obrigatorio
+          echo "aluno - nome";
           exit;
-        }elseif($update2){
-          header('location: ../read/aluno.blade.php?msg=rna12'); // nao adicionado
+        }elseif($DataNascimento==""){
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=un13'); //campo obrigatorio
           exit;
-        }elseif($update){
-          header('location: ../read/aluno.blade.php?msg=rna13'); // nao adicionado
+        }elseif($Turma_idTurma==""){
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
+          echo "aluno - idTurma";
+          exit;
+        }elseif($Descricao==""){ //patologia
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=patDesc'); 
+          echo "patologia - descricao";
+          exit;
+        }elseif($Grupo==""){ //patologia
+          header('location:'.$_SERVER['PHP_SELF'].'?msg=patGRu');
+          echo "patologia - grupo";
           exit;
         }else{
-          header('location: ../read/aluno.blade.php?msg=rna'); // nenhum adicionado
+          //$userCount	=	$db->getQueryCount('aluno','Matricula'); //aluno
+          $data	=	array(
+            'Nome'=> $Nome, //colunas         
+            'DataNascimento'=> $DataNascimento,
+            'Patologia'=>$Patologia,
+          );
+          $update	=	$db->update('aluno',$data,array('Matricula'=>$editId)); //aluno
+        
+
+
+        
+        $userCount2	=	$db->getQueryCount('patologia','idPatologia'); //patologia
+        $data2	=	array(
+          'Descricao'=> $Descricao, //colunas         
+          'Grupo'=> $Grupo,
+        );
+        $insert2	=	$db->insert('patologia',$data2); //patologia
+
+
+        //aluno especial
+        $userData3 = $db->getAllRecords('patologia', 'idPatologia');
+        
+        foreach($userData3 as $val){
+        }
+
+        $Patologia_idPatologia = (int)$val['idPatologia'];
+        $Aluno_Matricula = $_REQUEST['editId'];
+        //$Aluno_Matricula = "bb"; //teste
+        $DataPatologia = date('Y-m-d');
+        
+        //echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> //Aluno tipo: '.gettype($Aluno_Matricula).' valor: '.$Aluno_Matricula.' //Patologia tipo: '.gettype($Patologia_idPatologia) .' valor: '.(int)$Patologia_idPatologia.' //Daaata tipo: '.gettype($DataPatologia).' valor: '.$DataPatologia.' <strong>Vambora!</strong></div>';
+
+        $userCount3	=	$db->getQueryCount('alunoespecial','Aluno_Matricula'); //users eh a tabela
+        $data3	=	array(
+          'Aluno_Matricula'=>$Aluno_Matricula,
+          'Patologia_idPatologia'=>$Patologia_idPatologia, //colunas         
+          'DataPatologia'=>$DataPatologia,
+        );
+        $insert3	=	$db->insert('alunoespecial',$data3);
+
+        if($update && $insert2 && $insert3 ){ // 
+          header('location: ../read/aluno.blade.php?msg=ras'); // add com sucesso
+          exit;
+        }elseif($update && $insert2){
+          header('location: ../read/aluno.blade.php?msg=rna12uuu'); // nao adicionado
+          exit;
+        }elseif($update && $insert3){
+          header('location: ../read/aluno.blade.php?msg=rna13uuu'); // nao adicionado
+          exit;
+        }elseif($insert2 && $insert3){
+          header('location: ../read/aluno.blade.php?msg=rna23uuu'); // nao adicionado
+          exit;
+        }else{
+          header('location: ../read/aluno.blade.php?msg=rnauuu'); // nenhum adicionado
           exit;
         }
+      }
+
       }
     }
   }
