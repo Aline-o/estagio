@@ -275,15 +275,15 @@
                       }else{
                         $checkado='';
                         $exibirCollapse='';
-                        $grupo = ' Insira o grupo da patologia ';
-                        $descricao = ' Insira a descrição da patologia';
+                        $grupo = '';
+                        $descricao = '';
                       }
                     ?>
                     
                     <div class="form-group col-sm-3">
                       <label for="Patologia">Patologia? </label>
                       <div class="form-check" data-toggle="collapse" data-target="#patologiaTable">
-                        <input class="form-check-input" type="checkbox" name="Patologia" id="Patologia" value="<?php echo $row[0]['Patologia']; ?>" <?php echo $checkado; ?> >
+                        <input class="form-check-input" type="checkbox" name="Patologia" value=1 id="Patologia" <?php echo $checkado; ?> >
                         <label class="form-check-label" for="Patologia">
                           Sim
                         </label>
@@ -294,11 +294,11 @@
                   <div class="row collapse <?php echo $exibirCollapse; ?>" id="patologiaTable">
                     <div class="form-group col-sm-4">
                       <label for="Grupo">Grupo</label>
-                      <input type="text" class="form-control" name="Grupo" value="<?php echo $grupo; ?>" placeholder="<?php echo $grupo; ?> grupo">
+                      <input type="text" class="form-control" name="Grupo" value="<?php echo $grupo; ?>" placeholder="<?php if ($grupo != '') echo $grupo; else echo 'Insira o grupo da patologia'; ?>">
                     </div>
                     <div class="form-group col-sm-8">
                       <label for="Descricao">Descrição</label>
-                      <input type="text" class="form-control" name="Descricao" value="<?php echo $descricao; ?>" placeholder="<?php echo $descricao; ?> desc">
+                      <input type="text" class="form-control" name="Descricao" value="<?php echo $descricao; ?>" placeholder="<?php if ($descricao != '') echo $descricao; else echo 'Insira a descrição da patologia'; ?>">
                     </div>
                   </div>
 
