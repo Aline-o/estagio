@@ -10,15 +10,17 @@
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
     <title>Aqui, aline</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/cerulean/bootstrap.min.css" integrity="sha384-b+jboW/YIpW2ZZYyYdXczKK6igHlnkPNfN9kYAbqYV7rNQ9PKTXlS2D6j1QZIATW" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link href="../scss/style.scss" rel="stylesheet"> <!--estilização personalizada-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  </head>
+    
+        <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/cerulean/bootstrap.min.css" integrity="sha384-b+jboW/YIpW2ZZYyYdXczKK6igHlnkPNfN9kYAbqYV7rNQ9PKTXlS2D6j1QZIATW" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link href="../scss/style.scss" rel="stylesheet"> <!--estilização personalizada-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+      </head>
 
   <body>
     <nav class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap p-0">
@@ -52,9 +54,6 @@
             }
             $condition	.=	' AND Patologia LIKE "%'.$pat.'%" ';
           }
-          /*if(isset($_REQUEST['Turma_idTurma']) and $_REQUEST['Turma_idTurma']!=""){
-            $condition	.=	' AND Turma_idTurma LIKE "%'.$_REQUEST['Turma_idTurma'].'%" ';
-          }*/
 
           if(isset($_REQUEST['NomeTurma']) and $_REQUEST['NomeTurma']!=""){
             $condition5='';
@@ -82,7 +81,6 @@
 
 
         <div class="tab-content">
-          
           <div id="home" class="container tab-pane active"><br>
             <div class="card border-light">
               <h4 class="card-header">Lista de Alunos
@@ -170,12 +168,28 @@
                       <?php
                       if($val['Patologia']==1)
                       {
-                        $printPatologia='S';
+
+                        $rowAluEspec	=	$db->getAllRecords('alunoespecial',' alunoespecial.Aluno_Matricula, alunoespecial.Patologia_idPatologia ',
+                        ' AND Aluno_Matricula="'.$val['Matricula'].'"');//$requestid
+                        foreach($rowAluEspec as $valAE){}
+                        if(isset($valAE['Patologia_idPatologia'])){
+                          $patol=$valAE['Patologia_idPatologia'];
+                          $row2	=	$db->getAllRecords('patologia',' * ',
+                          ' AND idPatologia="'.$patol.'"');//$requestid
+                        }
+                        $grupo = $row2[0]['Grupo'];
+                        $descricao = $row2[0]['Descricao'];
+
+                        $printPatologia='<a href="#" onclick="return false;" data-toggle="popover" title="Patologia" data-trigger="focus" data-html="true" data-content="Grupo: '.$grupo.' <br>Descrição: '.$descricao.'"> S </a>';
+
+                        //echo '<a href="#" data-toggle="popover" title="popover head" data-trigger="focus" data-content="body tlgd"> popover exemplo </a>';
                       }else{
                         $printPatologia='N';
                       }
                       ?>
-                      <td><?php echo $printPatologia;?></td> <!-- Precisa ser exatamente como esta no banco -->
+
+                      <td><?php echo $printPatologia;?></td> <!-- patologia aqui -->
+                        
                       <td><?php echo $convT['NomeTurma'];?></td> <!-- Precisa ser exatamente como esta no banco -->
                       <td align="center">
                         <a href="../update/Aluno.blade.php?editId=<?php echo $val['Matricula'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
@@ -203,9 +217,15 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="../../assets/js/vendor/popper.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function()
+      {
+        $('[data-toggle="popover"]').popover();      
+      });
+    </script>
   </body>
 </html>

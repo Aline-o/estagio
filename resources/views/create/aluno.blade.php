@@ -173,6 +173,8 @@
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/aluno.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">
+                <?php include_once('../../../public/alertMsg.php');?>
+
                 <?php
                 if(isset($_REQUEST['msg']) and $_REQUEST['msg']=="patDesc"){
                   echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> Patologia definida como SIM. <strong> Insira a descrição e o grupo!</strong></div>';
