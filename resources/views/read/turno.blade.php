@@ -44,6 +44,7 @@
           if(isset($_REQUEST['HoraFim']) and $_REQUEST['HoraFim']!=""){
             $condition	.=	' AND HoraFim LIKE "%'.$_REQUEST['HoraFim'].'%" ';
           }
+          $condition	.=	' AND Status = 1 ';
           $userData	=	$db->getAllRecords('Turno','*',$condition,'ORDER BY idTurno DESC');
         ?>
 

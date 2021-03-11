@@ -103,6 +103,7 @@
                         if(isset($_REQUEST['idModalidadeEnsino']) and $_REQUEST['idModalidadeEnsino']!=""){
                           $condition	.=	' AND idModalidadeEnsino LIKE "%'.$_REQUEST['idModalidadeEnsino'].'%" ';
                         }
+                        $condition	.=	' AND Status = 1 ';
                         $userData	=	$db->getAllRecords('ModalidadeEnsino','*', $condition,'ORDER BY idModalidadeEnsino DESC');
                       
                         if(count($userData)>0){

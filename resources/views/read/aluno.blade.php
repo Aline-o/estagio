@@ -76,6 +76,7 @@
               }
             }
           }
+          $condition	.=	' AND Status = 1 ';
           $userData	=	$db->getAllRecords('Aluno','*',$condition,'ORDER BY Matricula DESC');
         ?>
 

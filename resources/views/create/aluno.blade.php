@@ -211,6 +211,7 @@
                         if(isset($_REQUEST['idTurma']) and $_REQUEST['idTurma']!=""){
                           $condition	.=	' AND idTurma LIKE "%'.$_REQUEST['idTurma'].'%" ';
                         }
+                        $condition	.=	' AND Status = 1 ';
                         $userData	=	$db->getAllRecords('Turma','*', $condition,'ORDER BY idTurma DESC');
                       
                         if(count($userData)>0){

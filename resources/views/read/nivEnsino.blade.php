@@ -38,6 +38,7 @@
           if(isset($_REQUEST['nomeNivelEnsino']) and $_REQUEST['nomeNivelEnsino']!=""){
             $condition	.=	' AND nomeNivelEnsino LIKE "%'.$_REQUEST['nomeNivelEnsino'].'%" ';
           }
+          $condition	.=	' AND Status = 1 ';
           $userData	=	$db->getAllRecords('NivelEnsino','*',$condition,'ORDER BY idNivelEnsino DESC');
         ?>
 

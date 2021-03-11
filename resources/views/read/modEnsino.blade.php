@@ -41,6 +41,7 @@
           if(isset($_REQUEST['Sigla']) and $_REQUEST['Sigla']!=""){
             $condition	.=	' AND Sigla LIKE "%'.$_REQUEST['Sigla'].'%" ';
           }
+          $condition	.=	' AND Status = 1 ';
           $userData	=	$db->getAllRecords('ModalidadeEnsino','*',$condition,'ORDER BY idModalidadeEnsino DESC');
         ?>
 

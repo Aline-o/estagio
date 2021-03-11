@@ -47,6 +47,7 @@
           if(isset($_REQUEST['Valor']) and $_REQUEST['Valor']!=""){
             $condition	.=	' AND Valor LIKE "%'.$_REQUEST['Valor'].'%" ';
           }
+          $condition	.=	' AND Status = 1 ';
           $userData	=	$db->getAllRecords('Cardapio','*',$condition,'ORDER BY idCardapio DESC');
         ?>
 

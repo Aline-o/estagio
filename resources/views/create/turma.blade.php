@@ -13,12 +13,10 @@
       $data	=	array(
         'NomeTurma'=> $NomeTurma, //colunas    
         'Ano'=>$Ano,
-        /*
         'NivelEnsino_idNivelEnsino'=>$NivelEnsino_idNivelEnsino,
         'Turno_idTurno'=>$Turno_idTurno,
         'Serie_idSerie'=>$Serie_idSerie,
         'Escola_idEscola'=>$Escola_idEscola,
-        */
       );
       $insert	=	$db->insert('Turma',$data);
       if($insert){
@@ -90,10 +88,10 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-sm-6">
+                    <div class="form-group col-sm-6">
                       <input type="text" class="form-control" name="NomeTurma" placeholder="Insira o nome da turma" required autofocus>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="form-group col-sm-6">
                       <input type="text" class="form-control" name="Ano" placeholder="Insira o ano da turma" required>
                     </div>
                   </div>
@@ -110,19 +108,59 @@
                     <div class="form-group col-sm-6">
                       <select class="form-control" id="Serie_idSerie" required>
                         <option selected disabled value="">Escolha uma opção...</option>
-                        <option value="1">Ensino fundamental 1</option>
-                        <option value="3">Ensino fundamental 2</option>
-                        <option value="5">Ensino médio</option>
-                        <option value="4">Ensino médio 2</option>
+                        <?php 
+
+                        $condition	=	'';
+                        if(isset($_REQUEST['NomeSerie']) and $_REQUEST['NomeSerie']!=""){
+                          $condition	.=	' AND NomeSerie LIKE "%'.$_REQUEST['NomeSerie'].'%" ';
+                        }
+                        if(isset($_REQUEST['idSerie']) and $_REQUEST['idSerie']!=""){
+                          $condition	.=	' AND idSerie LIKE "%'.$_REQUEST['idSerie'].'%" ';
+                        }
+                        $condition	.=	' AND Status = 1 ';
+                        $userData	=	$db->getAllRecords('Serie','*', $condition,'ORDER BY idSerie DESC');
+                      
+                        if(count($userData)>0){
+                          $s	=	'';
+                          foreach($userData as $val){
+                            $s++;
+                        ?>
+                        
+                        <option value="<?php echo (int)$val['idSerie'];?>"> <?php echo $val['NomeSerie'];?> </option>
+                        
+                        <?php 
+                          }
+                        }
+                        ?>
                       </select>
                     </div>
                     <div class="form-group col-sm-6">
                       <select class="form-control" id="Turno_idTurno" required>
                         <option selected disabled value="">Escolha uma opção...</option>
-                        <option value="1">Ensino fundamental 1</option>
-                        <option value="3">Ensino fundamental 2</option>
-                        <option value="5">Ensino médio</option>
-                        <option value="4">Ensino médio 2</option>
+                        <?php 
+
+                        $condition	=	'';
+                        if(isset($_REQUEST['NomeTurno']) and $_REQUEST['NomeTurno']!=""){
+                          $condition	.=	' AND NomeTurno LIKE "%'.$_REQUEST['NomeTurno'].'%" ';
+                        }
+                        if(isset($_REQUEST['idTurno']) and $_REQUEST['idTurno']!=""){
+                          $condition	.=	' AND idTurno LIKE "%'.$_REQUEST['idTurno'].'%" ';
+                        }
+                        $condition	.=	' AND Status = 1 ';
+                        $userData	=	$db->getAllRecords('Turno','*', $condition,'ORDER BY idTurno DESC');
+                      
+                        if(count($userData)>0){
+                          $s	=	'';
+                          foreach($userData as $val){
+                            $s++;
+                        ?>
+                        
+                        <option value="<?php echo (int)$val['idTurno'];?>"> <?php echo $val['NomeTurno'];?> </option>
+                        
+                        <?php 
+                          }
+                        }
+                        ?>
                       </select>
                     </div>
                   </div>
@@ -139,19 +177,59 @@
                     <div class="form-group col-sm-6">
                       <select class="form-control" id="NivelEnsino_idNivelEnsino" required>
                         <option selected disabled value="">Escolha uma opção...</option>
-                        <option value="1">Ensino fundamental 1</option>
-                        <option value="3">Ensino fundamental 2</option>
-                        <option value="5">Ensino médio</option>
-                        <option value="4">Ensino médio 2</option>
+                        <?php 
+
+                        $condition	=	'';
+                        if(isset($_REQUEST['NomeNivelEnsino']) and $_REQUEST['NomeNivelEnsino']!=""){
+                          $condition	.=	' AND NomeNivelEnsino LIKE "%'.$_REQUEST['NomeNivelEnsino'].'%" ';
+                        }
+                        if(isset($_REQUEST['idNivelEnsino']) and $_REQUEST['idNivelEnsino']!=""){
+                          $condition	.=	' AND idNivelEnsino LIKE "%'.$_REQUEST['idNivelEnsino'].'%" ';
+                        }
+                        $condition	.=	' AND Status = 1 ';
+                        $userData	=	$db->getAllRecords('NivelEnsino','*', $condition,'ORDER BY idNivelEnsino DESC');
+                      
+                        if(count($userData)>0){
+                          $s	=	'';
+                          foreach($userData as $val){
+                            $s++;
+                        ?>
+                        
+                        <option value="<?php echo (int)$val['idNivelEnsino'];?>"> <?php echo $val['NomeNivelEnsino'];?> </option>
+                        
+                        <?php 
+                          }
+                        }
+                        ?>
                       </select>
                     </div>
                     <div class="form-group col-sm-6">
                       <select class="form-control" id="Escola_idEscola" required>
                         <option selected disabled value="">Escolha uma opção...</option>
-                        <option value="1">Escola Joãozinho</option>
-                        <option value="3">Escola Pedrinho</option>
-                        <option value="5">Escola Zezinho</option>
-                        <option value="4">Escola Mariazinha</option>
+                        <?php 
+
+                        $condition	=	'';
+                        if(isset($_REQUEST['NomeEscola']) and $_REQUEST['NomeEscola']!=""){
+                          $condition	.=	' AND NomeEscola LIKE "%'.$_REQUEST['NomeEscola'].'%" ';
+                        }
+                        if(isset($_REQUEST['idEscola']) and $_REQUEST['idEscola']!=""){
+                          $condition	.=	' AND idEscola LIKE "%'.$_REQUEST['idEscola'].'%" ';
+                        }
+                        $condition	.=	' AND Status = 1 ';
+                        $userData	=	$db->getAllRecords('Escola','*', $condition,'ORDER BY idEscola DESC');
+                      
+                        if(count($userData)>0){
+                          $s	=	'';
+                          foreach($userData as $val){
+                            $s++;
+                        ?>
+                        
+                        <option value="<?php echo (int)$val['idEscola'];?>"> <?php echo $val['NomeEscola'];?> </option>
+                        
+                        <?php 
+                          }
+                        }
+                        ?>
                       </select>
                     </div>
                   </div>

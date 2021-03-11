@@ -70,6 +70,7 @@
             }
           }
 
+          $condition	.=	' AND Status = 1 ';
           $userData	=	$db->getAllRecords('escola','*',$condition,'ORDER BY idEscola DESC');
           
         ?>

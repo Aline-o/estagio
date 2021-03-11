@@ -38,6 +38,7 @@
           if(isset($_REQUEST['nomeserie']) and $_REQUEST['nomeserie']!=""){
             $condition	.=	' AND nomeserie LIKE "%'.$_REQUEST['nomeserie'].'%" ';
           }
+          $condition	.=	' AND Status = 1 ';
           $userData	=	$db->getAllRecords('serie','*',$condition,'ORDER BY idSerie DESC');
         ?>
 

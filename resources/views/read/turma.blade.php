@@ -53,6 +53,7 @@
           if(isset($_REQUEST['Escola_idEscola']) and $_REQUEST['Escola_idEscola']!=""){
             $condition	.=	' AND Escola_idEscola LIKE "%'.$_REQUEST['Escola_idEscola'].'%" ';
           }
+          $condition	.=	' AND Status = 1 ';
           $userData	=	$db->getAllRecords('Turma','*',$condition,'ORDER BY idTurma DESC');
         ?>
 
