@@ -33,28 +33,105 @@
       <div class="row">
         <?php include_once('../navTurma.blade.php'); ?>
 
+
+
+        
         <?php
           $condition	=	'';
-          if(isset($_REQUEST['nomeTurma']) and $_REQUEST['nomeTurma']!=""){
-            $condition	.=	' AND nomeTurma LIKE "%'.$_REQUEST['nomeTurma'].'%" ';
+          /*
+          esse bloco é para a pesquisa do nome da turma.
+          */
+          if(isset($_REQUEST['NomeTurma']) and $_REQUEST['NomeTurma']!=""){
+            $condition	.=	' AND NomeTurma LIKE "%'.$_REQUEST['NomeTurma'].'%" ';
           }
-          if(isset($_REQUEST['Ano']) and $_REQUEST['Ano']!=""){
-            $condition	.=	' AND Ano LIKE "%'.$_REQUEST['Ano'].'%" ';
+
+          /*
+          esse bloco é para a esquisa da modalidade de ensino.
+          como é tabela diferente e usa-se chave estrangeira, se feito da mesma forma que o nomeescola,
+          teria que pesquisar o id da modalidade, mas isso não e viável, portanto, há um primeiro
+          select para achar o nome da modEnsino na tabela, e depois é buscado na escola com o id correspondente
+          */
+          if(isset($_REQUEST['NomeNivelEnsino']) and $_REQUEST['NomeNivelEnsino']!=""){
+            $condition5='';
+            $condition5	.=	' AND NomeNivelEnsino LIKE "%'.$_REQUEST['NomeNivelEnsino'].'%" ';
+            $userData5	=	$db->getAllRecords('NivelEnsino','*',$condition5,'ORDER BY idNivelEnsino DESC');
+            
+            if(count($userData5)>0){ //se retornar algum valor do select...
+              $contador=0;
+              foreach($userData5 as $valMod){ //para cada valor encontrado...
+
+                if($contador == 0) //primeira vez, primeiro resultado da pesquisa
+                {
+                  $condition	.=	' AND NivelEnsino_idNivelEnsino LIKE '.$valMod['idNivelEnsino'].' ';
+                  $contador++;
+                }else{
+                  $condition	.=	' OR NivelEnsino_idNivelEnsino LIKE '.$valMod['idNivelEnsino'].' ';
+                }
+              }
+            }
           }
-          if(isset($_REQUEST['NivelEnsino_idNivelEnsino']) and $_REQUEST['NivelEnsino_idNivelEnsino']!=""){
-            $condition	.=	' AND NivelEnsino_idNivelEnsino LIKE "%'.$_REQUEST['NivelEnsino_idNivelEnsino'].'%" ';
+
+          if(isset($_REQUEST['NomeTurno']) and $_REQUEST['NomeTurno']!=""){
+            $condition5='';
+            $condition5	.=	' AND NomeTurno LIKE "%'.$_REQUEST['NomeTurno'].'%" ';
+            $userData5	=	$db->getAllRecords('Turno','*',$condition5,'ORDER BY idTurno DESC');
+            
+            if(count($userData5)>0){ //se retornar algum valor do select...
+              $contador=0;
+              foreach($userData5 as $valMod){ //para cada valor encontrado...
+
+                if($contador == 0) //primeira vez, primeiro resultado da pesquisa
+                {
+                  $condition	.=	' AND Turno_idTurno LIKE '.$valMod['idTurno'].' ';
+                  $contador++;
+                }else{
+                  $condition	.=	' OR Turno_idTurno LIKE '.$valMod['idTurno'].' ';
+                }
+              }
+            }
           }
-          if(isset($_REQUEST['Turno_idTurno']) and $_REQUEST['Turno_idTurno']!=""){
-            $condition	.=	' AND Turno_idTurno LIKE "%'.$_REQUEST['Turno_idTurno'].'%" ';
+          if(isset($_REQUEST['NomeSerie']) and $_REQUEST['NomeSerie']!=""){
+            $condition5='';
+            $condition5	.=	' AND NomeSerie LIKE "%'.$_REQUEST['NomeSerie'].'%" ';
+            $userData5	=	$db->getAllRecords('serie','*',$condition5,'ORDER BY idSerie DESC');
+            
+            if(count($userData5)>0){ //se retornar algum valor do select...
+              $contador=0;
+              foreach($userData5 as $valMod){ //para cada valor encontrado...
+
+                if($contador == 0) //primeira vez, primeiro resultado da pesquisa
+                {
+                  $condition	.=	' AND Serie_idSerie LIKE '.$valMod['idSerie'].' ';
+                  $contador++;
+                }else{
+                  $condition	.=	' OR Serie_idSerie LIKE '.$valMod['idSerie'].' ';
+                }
+              }
+            }
           }
-          if(isset($_REQUEST['Serie_idSerie']) and $_REQUEST['Serie_idSerie']!=""){
-            $condition	.=	' AND Serie_idSerie LIKE "%'.$_REQUEST['Serie_idSerie'].'%" ';
+          if(isset($_REQUEST['NomeEscola']) and $_REQUEST['NomeEscola']!=""){
+            $condition5='';
+            $condition5	.=	' AND NomeEscola LIKE "%'.$_REQUEST['NomeEscola'].'%" ';
+            $userData5	=	$db->getAllRecords('escola','*',$condition5,'ORDER BY idEscola DESC');
+            
+            if(count($userData5)>0){ //se retornar algum valor do select...
+              $contador=0;
+              foreach($userData5 as $valMod){ //para cada valor encontrado...
+
+                if($contador == 0) //primeira vez, primeiro resultado da pesquisa
+                {
+                  $condition	.=	' AND Escola_idEscola LIKE '.$valMod['idEscola'].' ';
+                  $contador++;
+                }else{
+                  $condition	.=	' OR Escola_idEscola LIKE '.$valMod['idEscola'].' ';
+                }
+              }
+            }
           }
-          if(isset($_REQUEST['Escola_idEscola']) and $_REQUEST['Escola_idEscola']!=""){
-            $condition	.=	' AND Escola_idEscola LIKE "%'.$_REQUEST['Escola_idEscola'].'%" ';
-          }
+          
+
           $condition	.=	' AND Status = 1 ';
-          $userData	=	$db->getAllRecords('Turma','*',$condition,'ORDER BY idTurma DESC');
+          $userData	=	$db->getAllRecords('turma','*',$condition,'ORDER BY idTurma DESC');
         ?>
 
 
@@ -75,7 +152,7 @@
                         <div class="col-sm-2">
                           <div class="form-group">
                             <label>Turma</label>
-                            <input type="text" name="nomeTurma" id="nomeTurma" class="form-control" value="<?php echo isset($_REQUEST['nomeTurma'])?$_REQUEST['nomeTurma']:''?>" placeholder="Entra Turma">
+                            <input type="text" name="nomeTurma" id="nomeTurma" class="form-control" value="<?php echo isset($_REQUEST['NomeTurma'])?$_REQUEST['nomeTurma']:''?>" placeholder="Entra Turma">
                           </div>
                         </div>
                         <div class="col-sm-2">
@@ -87,25 +164,25 @@
                         <div class="col-sm-2">
                           <div class="form-group">
                             <label>Nível de ensino</label>
-                            <input type="text" name="NivelEnsino_idNivelEnsino" id="NivelEnsino_idNivelEnsino" class="form-control" value="<?php echo isset($_REQUEST['NivelEnsino_idNivelEnsino'])?$_REQUEST['NivelEnsino_idNivelEnsino']:''?>" placeholder="Entra Turma">
+                            <input type="text" name="NomeNivelEnsino" id="NomeNivelEnsino" class="form-control" value="<?php echo isset($_REQUEST['NomeNivelEnsino'])?$_REQUEST['NomeNivelEnsino']:''?>" placeholder="Entra Niv. de ensino">
                           </div>
                         </div>
                         <div class="col-sm-2">
                           <div class="form-group">
                             <label>Turno</label>
-                            <input type="text" name="Turno_idTurno" id="Turno_idTurno" class="form-control" value="<?php echo isset($_REQUEST['Turno_idTurno'])?$_REQUEST['Turno_idTurno']:''?>" placeholder="Entra Turma">
+                            <input type="text" name="NomeTurno" id="NomeTurno" class="form-control" value="<?php echo isset($_REQUEST['NomeTurno'])?$_REQUEST['NomeTurno']:''?>" placeholder="Entra Turno">
                           </div>
                         </div>
                         <div class="col-sm-2">
                           <div class="form-group">
                             <label>Serie</label>
-                            <input type="text" name="Serie_idSerie" id="Serie_idSerie" class="form-control" value="<?php echo isset($_REQUEST['Serie_idSerie'])?$_REQUEST['Serie_idSerie']:''?>" placeholder="Entra Turma">
+                            <input type="text" name="NomeSerie" id="NomeSerie" class="form-control" value="<?php echo isset($_REQUEST['NomeSerie'])?$_REQUEST['NomeSerie']:''?>" placeholder="Entra Serie">
                           </div>
                         </div>
                         <div class="col-sm-2">
                           <div class="form-group">
                             <label>Escola</label>
-                            <input type="text" name="Escola_idEscola" id="Escola_idEscola" class="form-control" value="<?php echo isset($_REQUEST['Escola_idEscola'])?$_REQUEST['Escola_idEscola']:''?>" placeholder="Entra Turma">
+                            <input type="text" name="NomeEscola" id="NomeEscola" class="form-control" value="<?php echo isset($_REQUEST['NomeEscola'])?$_REQUEST['NomeEscola']:''?>" placeholder="Entra Turma">
                           </div>
                         </div>
                       </div>
@@ -121,9 +198,9 @@
                       <th scope="col">Sr#</th>
                       <th scope="col">Nome da Turma</th>
                       <th scope="col">Ano</th>
-                      <th scope="col">Nivel de ensino</th>
+                      <th scope="col">Nível de ensino</th>
                       <th scope="col">Turno</th>
-                      <th scope="col">Serie</th>
+                      <th scope="col">Série</th>
                       <th scope="col">Escola</th>
                       <th scope="col" class="text-center">Ação</th>
                     </tr>
@@ -134,15 +211,30 @@
                         $s	=	'';
                         foreach($userData as $val){
                           $s++;
+
+                          $convNivEns	=	$db->getAllRecords2('NivelEnsino',' idNivelEnsino, NomeNivelEnsino ','idNivelEnsino ='.$val['NivelEnsino_idNivelEnsino'].' ');
+                          foreach($convNivEns as $val2){}
+                          $convTurno	=	$db->getAllRecords2('Turno',' idTurno, NomeTurno ','idTurno ='.$val['Turno_idTurno'].' ');
+                          foreach($convTurno as $val3){}
+                          $convSerie	=	$db->getAllRecords2('Serie',' idSerie, NomeSerie ','idSerie ='.$val['Serie_idSerie'].' ');
+                          foreach($convSerie as $val4){}
+                          $convEscola	=	$db->getAllRecords2('Escola',' idEscola, NomeEscola ','idEscola ='.$val['Escola_idEscola'].' ');
+                          foreach($convEscola as $val5){}
+                          /*
+                          NomeNivelEnsino / NivelEnsino_idNivelEnsino
+                          NomeTurno / Turno_idTurno
+                          NomeSerie / Serie_idSerie
+                          NomeEscola / Escola_idEscola
+                          */
                     ?>
                     <tr>
                       <td><?php echo $s;?></td>
                       <td><?php echo $val['NomeTurma'];?></td> <!-- Precisa ser exatamente como esta no banco -->
                       <td><?php echo $val['Ano'];?></td>
-                      <td><?php echo $val['NivelEnsino_idNivelEnsino'];?></td>
-                      <td><?php echo $val['Turno_idTurno'];?></td>
-                      <td><?php echo $val['Serie_idSerie'];?></td>
-                      <td><?php echo $val['Escola_idEscola'];?></td>
+                      <td><?php echo $val2['NomeNivelEnsino'];?></td>
+                      <td><?php echo $val3['NomeTurno'];?></td>
+                      <td><?php echo $val4['NomeSerie'];?></td>
+                      <td><?php echo $val5['NomeEscola'];?></td>
                       <td align="center">
                         <a href="../update/Turma.blade.php?editId=<?php echo $val['idTurma'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
                         <a href="../delete/Turma.php?delId=<?php echo $val['idTurma'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
