@@ -1,27 +1,3 @@
-<!--comentario-->
-<?php include_once('../../../public/config.php');
-  if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
-    extract($_REQUEST);
-    if($NomeSerie==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=un'); //msg campo obrigatorio
-      exit;
-    }else{
-      $userCount	=	$db->getQueryCount('serie','idSerie'); //users eh a tabela
-      $data	=	array(
-        'NomeSerie'=> $NomeSerie, //colunas                        
-      );
-      $insert	=	$db->insert('serie',$data);
-      if($insert){
-        header('location: ../read/serie.blade.php?msg=ras'); //add com sucesso
-        exit;
-      }else{
-        header('location: ../read/serie.blade.php?msg=rna'); // nao adicionado
-        exit;
-      }
-    }
-  }
-?>
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -56,18 +32,26 @@
     </nav>
 
     <div class="container-fluid">
-      <div class="row">
-
-        <?php include_once('../navSerie.blade.php'); ?>
-
+     
         <div class="tab-content">
 
+          <div id="cadSerie" class="container tab-pane active"><br>
+          <div class="mx-auto" style="width: 600px;">
 
-        <!--CONTEÚDO AQUI-->
-
+            <div class="card border-light center" >
+              <h4 class="card-header text-center">EM MANUTENÇÃO</h4>
+              <div class="card-body text-center">                
+                <div class="card-title">Ainda estamos trabalhando nesta página!</div>
+                <div class="col-sm-12">
+                  <p>Clique <a href="read/aluno.blade.php">aqui</a> para voltar.</p>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
 
         </div>
-      </div>
+     
     </div>
 
     <!-- Bootstrap core JavaScript

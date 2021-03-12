@@ -2,7 +2,7 @@
     <div class="sidebar-sticky">
       <ul class="nav flex-column nav nav-pills" role="tablist" >
         <li class="nav-item">
-          <a class="nav-link"  href="#"><i class="fa fa-home"></i>
+          <a class="nav-link"  href="../MANUTENCAO.BLADE.PHP"><i class="fa fa-home"></i>
             &nbsp;Início</a>
         </li>
         <li class="nav-item">
@@ -37,15 +37,15 @@
           </li>
         </div>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa fa-user"></i>
+          <a class="nav-link" href="../MANUTENCAO.BLADE.PHP"><i class="fa fa-user"></i>
             &nbsp;Registro por presença</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa fa-folder"></i>
+          <a class="nav-link" href="../MANUTENCAO.BLADE.PHP"><i class="fa fa-folder"></i>
             &nbsp;Registro via arquivo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa fa-file-text"></i>
+          <a class="nav-link" href="../MANUTENCAO.BLADE.PHP"><i class="fa fa-file-text"></i>
             &nbsp;Relatório</a>
         </li>
       </ul>
