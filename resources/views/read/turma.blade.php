@@ -44,6 +44,9 @@
           if(isset($_REQUEST['NomeTurma']) and $_REQUEST['NomeTurma']!=""){
             $condition	.=	' AND NomeTurma LIKE "%'.$_REQUEST['NomeTurma'].'%" ';
           }
+          if(isset($_REQUEST['Ano']) and $_REQUEST['Ano']!=""){
+            $condition	.=	' AND Ano LIKE "%'.$_REQUEST['Ano'].'%" ';
+          }
 
           /*
           esse bloco é para a esquisa da modalidade de ensino.
@@ -152,13 +155,13 @@
                         <div class="col-sm-2">
                           <div class="form-group">
                             <label>Turma</label>
-                            <input type="text" name="nomeTurma" id="nomeTurma" class="form-control" value="<?php echo isset($_REQUEST['NomeTurma'])?$_REQUEST['nomeTurma']:''?>" placeholder="Entra Turma">
+                            <input type="text" name="NomeTurma" id="NomeTurma" class="form-control" value="<?php echo isset($_REQUEST['NomeTurma'])?$_REQUEST['NomeTurma']:''?>" placeholder="Entra Turma">
                           </div>
                         </div>
                         <div class="col-sm-2">
                           <div class="form-group">
                             <label>Ano</label>
-                            <input type="text" name="Ano" id="Ano" class="form-control" value="<?php echo isset($_REQUEST['Ano'])?$_REQUEST['Ano']:''?>" placeholder="Entra Turma">
+                            <input type="text" name="Ano" id="Ano" class="form-control" value="<?php echo isset($_REQUEST['Ano'])?$_REQUEST['Ano']:''?>" placeholder="Entra Ano">
                           </div>
                         </div>
                         <div class="col-sm-2">
@@ -237,7 +240,7 @@
                       <td><?php echo $val5['NomeEscola'];?></td>
                       <td align="center">
                         <a href="../update/Turma.blade.php?editId=<?php echo $val['idTurma'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
-                        <a href="../delete/Turma.php?delId=<?php echo $val['idTurma'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
+                        <a href="../delete/Turma.php?delId=<?php echo $val['idTurma'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                       </td>
                     </tr>
                     <?php 

@@ -106,7 +106,7 @@
                   </div>
                   <div class="row">
                     <div class="form-group col-sm-6">
-                      <select class="form-control" id="Serie_idSerie" required>
+                      <select class="form-control" id="Serie_idSerie" name="Serie_idSerie" required>
                         <option selected disabled value="">Escolha uma opção...</option>
                         <?php 
 
@@ -135,7 +135,7 @@
                       </select>
                     </div>
                     <div class="form-group col-sm-6">
-                      <select class="form-control" id="Turno_idTurno" required>
+                      <select class="form-control" id="Turno_idTurno" name="Turno_idTurno" required>
                         <option selected disabled value="">Escolha uma opção...</option>
                         <?php 
 
@@ -175,7 +175,7 @@
                   </div>
                   <div class="row">
                     <div class="form-group col-sm-6">
-                      <select class="form-control" id="NivelEnsino_idNivelEnsino" required>
+                      <select class="form-control" id="NivelEnsino_idNivelEnsino" name="NivelEnsino_idNivelEnsino" required>
                         <option selected disabled value="">Escolha uma opção...</option>
                         <?php 
 
@@ -204,7 +204,7 @@
                       </select>
                     </div>
                     <div class="form-group col-sm-6">
-                      <select class="form-control" id="Escola_idEscola" required>
+                      <select class="form-control" id="Escola_idEscola" name="Escola_idEscola" required>
                         <option selected disabled value="">Escolha uma opção...</option>
                         <?php 
 
