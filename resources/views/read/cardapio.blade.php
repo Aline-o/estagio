@@ -48,7 +48,7 @@
             $condition	.=	' AND Valor LIKE "%'.$_REQUEST['Valor'].'%" ';
           }
           $condition	.=	' AND Status = 1 ';
-          $userData	=	$db->getAllRecords('Cardapio','*',$condition,'ORDER BY idCardapio DESC');
+          $userData	=	$db->getAllRecords('cardapio','*',$condition,'ORDER BY idCardapio DESC');
         ?>
 
 
