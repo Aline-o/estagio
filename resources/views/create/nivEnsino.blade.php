@@ -6,11 +6,11 @@
       header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }else{
-      $userCount	=	$db->getQueryCount('NivelEnsino','idNivelEnsino'); //users eh a tabela
+      $userCount	=	$db->getQueryCount('nivelensino','idNivelEnsino'); //users eh a tabela
       $data	=	array(
         'NomeNivelEnsino'=> $NomeNivelEnsino, //colunas                        
       );
-      $insert	=	$db->insert('NivelEnsino',$data);
+      $insert	=	$db->insert('nivelensino',$data);
       if($insert){
         header('location: ../read/nivEnsino.blade.php?msg=radd'); //add com sucesso
         exit;

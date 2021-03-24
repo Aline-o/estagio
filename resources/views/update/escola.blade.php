@@ -1,6 +1,7 @@
 <?php include_once('../../../public/config.php');
   if(isset($_REQUEST['editId']) and $_REQUEST['editId']!=""){
-    $row	=	$db->getAllRecords('escola, modalidadeensino','escola.NomeEscola, escola.idEscola, modalidadeensino.NomeModalidadeEnsino,modalidadeensino.idModalidadeEnsino',
+    $row	=	$db->getAllRecords('escola, modalidadeensino','escola.NomeEscola, escola.idEscola, 
+    modalidadeensino.NomeModalidadeEnsino, modalidadeensino.idModalidadeEnsino',
     ' AND idEscola="'.$_REQUEST['editId'].'" AND idModalidadeEnsino=ModalidaEnsino_idModalidadeEnsino');
   }
 

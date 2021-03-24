@@ -12,18 +12,18 @@
       header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }else{
-      $userCount	=	$db->getQueryCount('Turno','idTurno'); //users eh a tabela
+      $userCount	=	$db->getQueryCount('turno','idTurno'); //users eh a tabela
       $data	=	array(
         'NomeTurno'=> $NomeTurno, //colunas 
         'HoraInicio'=>$HoraInicio,
         'HoraFim'=>$HoraFim,
       );
-      $insert	=	$db->insert('Turno',$data);
+      $insert	=	$db->insert('turno',$data);
       if($insert){
-        header('location: ../read/Turno.blade.php?msg=radd'); //add com sucesso
+        header('location: ../read/turno.blade.php?msg=radd'); //add com sucesso
         exit;
       }else{
-        header('location: ../read/Turno.blade.php?msg=rerr'); // nao adicionado
+        header('location: ../read/turno.blade.php?msg=rerr'); // nao adicionado
         exit;
       }
     }

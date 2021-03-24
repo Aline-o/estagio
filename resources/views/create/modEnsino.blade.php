@@ -15,7 +15,7 @@
         'NomeModalidadeEnsino'=> $NomeModalidadeEnsino, //colunas 
         'Sigla'=>$Sigla,
       );
-      $insert	=	$db->insert('ModalidadeEnsino',$data);
+      $insert	=	$db->insert('modalidadeensino',$data);
       if($insert){
         header('location: ../read/modEnsino.blade.php?msg=radd'); //add com sucesso
         exit;

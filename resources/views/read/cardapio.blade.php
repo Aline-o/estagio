@@ -57,7 +57,7 @@
           <div id="home" class="container tab-pane active"><br>
             <div class="card border-light">
               <h4 class="card-header">Lista de Cardápios
-                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/Cardapio.blade.php" role="button">Novo cadastro</a>
+                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/cardapio.blade.php" role="button">Novo cadastro</a>
               </h4>
               <div class="card-body">
 
@@ -122,8 +122,8 @@
                       <td><?php echo $val['Descricao'];?></td>
                       <td><?php echo $val['Valor'];?></td>
                       <td align="center">
-                        <a href="../update/Cardapio.blade.php?editId=<?php echo $val['idCardapio'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
-                        <a href="../delete/Cardapio.php?delId=<?php echo $val['idCardapio'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
+                        <a href="../update/cardapio.blade.php?editId=<?php echo $val['idCardapio'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
+                        <a href="../delete/cardapio.php?delId=<?php echo $val['idCardapio'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                       </td>
                     </tr>
                     <?php 

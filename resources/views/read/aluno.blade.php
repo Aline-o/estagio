@@ -85,7 +85,7 @@
           <div id="home" class="container tab-pane active"><br>
             <div class="card border-light">
               <h4 class="card-header">Lista de Alunos
-                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/Aluno.blade.php" role="button">Novo cadastro</a>
+                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/aluno.blade.php" role="button">Novo cadastro</a>
               </h4>
               <div class="card-body">
 
@@ -193,8 +193,8 @@
                         
                       <td><?php echo $convT['NomeTurma'];?></td> <!-- Precisa ser exatamente como esta no banco -->
                       <td align="center">
-                        <a href="../update/Aluno.blade.php?editId=<?php echo $val['Matricula'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
-                        <a href="../delete/Aluno.php?delId=<?php echo $val['Matricula'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
+                        <a href="../update/aluno.blade.php?editId=<?php echo $val['Matricula'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
+                        <a href="../delete/aluno.php?delId=<?php echo $val['Matricula'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                       </td>
                     </tr>
                     <?php 

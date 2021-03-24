@@ -54,7 +54,7 @@
           <div id="home" class="container tab-pane active"><br>
             <div class="card border-light">
               <h4 class="card-header">Lista de Turnos
-                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/Turno.blade.php" role="button">Novo cadastro</a>
+                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/turno.blade.php" role="button">Novo cadastro</a>
               </h4>
               <div class="card-body">
 

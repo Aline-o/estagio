@@ -9,7 +9,7 @@
       header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }else{
-      $userCount	=	$db->getQueryCount('Turma','idTurma'); //users eh a tabela
+      $userCount	=	$db->getQueryCount('turma','idTurma'); //users eh a tabela
       $data	=	array(
         'NomeTurma'=> $NomeTurma, //colunas    
         'Ano'=>$Ano,
@@ -18,12 +18,12 @@
         'Serie_idSerie'=>$Serie_idSerie,
         'Escola_idEscola'=>$Escola_idEscola,
       );
-      $insert	=	$db->insert('Turma',$data);
+      $insert	=	$db->insert('turma',$data);
       if($insert){
-        header('location: ../read/Turma.blade.php?msg=radd'); //add com sucesso
+        header('location: ../read/turma.blade.php?msg=radd'); //add com sucesso
         exit;
       }else{
-        header('location: ../read/Turma.blade.php?msg=rerr'); // nao adicionado
+        header('location: ../read/turma.blade.php?msg=rerr'); // nao adicionado
         exit;
       }
     }
@@ -73,7 +73,7 @@
           <div id="cadTurma" class="tab-pane active"><br>
             <div class="card border-light">
               <h4 class="card-header">NOVO CADASTRO - Turma
-                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/Turma.blade.php" role="button">Buscar</a>
+                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/turma.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">
                 <?php include_once('../../../public/alertMsg.php');?>
@@ -118,7 +118,7 @@
                           $condition	.=	' AND idSerie LIKE "%'.$_REQUEST['idSerie'].'%" ';
                         }
                         $condition	.=	' AND Status = 1 ';
-                        $userData	=	$db->getAllRecords('Serie','*', $condition,'ORDER BY idSerie DESC');
+                        $userData	=	$db->getAllRecords('serie','*', $condition,'ORDER BY idSerie DESC');
                       
                         if(count($userData)>0){
                           $s	=	'';
@@ -147,7 +147,7 @@
                           $condition	.=	' AND idTurno LIKE "%'.$_REQUEST['idTurno'].'%" ';
                         }
                         $condition	.=	' AND Status = 1 ';
-                        $userData	=	$db->getAllRecords('Turno','*', $condition,'ORDER BY idTurno DESC');
+                        $userData	=	$db->getAllRecords('turno','*', $condition,'ORDER BY idTurno DESC');
                       
                         if(count($userData)>0){
                           $s	=	'';
@@ -187,7 +187,7 @@
                           $condition	.=	' AND idNivelEnsino LIKE "%'.$_REQUEST['idNivelEnsino'].'%" ';
                         }
                         $condition	.=	' AND Status = 1 ';
-                        $userData	=	$db->getAllRecords('NivelEnsino','*', $condition,'ORDER BY idNivelEnsino DESC');
+                        $userData	=	$db->getAllRecords('nivelensino','*', $condition,'ORDER BY idNivelEnsino DESC');
                       
                         if(count($userData)>0){
                           $s	=	'';
@@ -216,7 +216,7 @@
                           $condition	.=	' AND idEscola LIKE "%'.$_REQUEST['idEscola'].'%" ';
                         }
                         $condition	.=	' AND Status = 1 ';
-                        $userData	=	$db->getAllRecords('Escola','*', $condition,'ORDER BY idEscola DESC');
+                        $userData	=	$db->getAllRecords('escola','*', $condition,'ORDER BY idEscola DESC');
                       
                         if(count($userData)>0){
                           $s	=	'';
