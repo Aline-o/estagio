@@ -68,7 +68,7 @@
 
         <?php include_once('../navTurno.blade.php'); ?>
 
-        <div class="tab-content">
+        <div class="tab-content col-md-10">
 
 
           <div id="cadTurno" class="tab-pane active"><br>

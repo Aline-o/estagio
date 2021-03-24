@@ -60,7 +60,7 @@
 
         <?php include_once('../navNivEnsino.blade.php'); ?>
 
-        <div class="tab-content">
+        <div class="tab-content col-md-10">
 
 
           <div id="cadNivelEnsino" class="tab-pane active"><br>

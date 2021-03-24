@@ -68,7 +68,7 @@
 
         <?php include_once('../navTurma.blade.php'); ?>
         
-        <div class="tab-content">
+        <div class="tab-content col-md-10">
 
           <div id="cadTurma" class="tab-pane active"><br>
             <div class="card border-light">

@@ -81,7 +81,7 @@
         ?>
 
 
-        <div class="tab-content">
+        <div class="tab-content col-md-10">
           <div id="home" class="container tab-pane active"><br>
             <div class="card border-light">
               <h4 class="card-header">Lista de Alunos

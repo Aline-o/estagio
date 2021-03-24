@@ -68,7 +68,7 @@
 
         <?php include_once('../navEscola.blade.php'); ?>
 
-        <div class="tab-content">
+        <div class="tab-content col-md-10">
 
 
 

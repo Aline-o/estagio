@@ -166,7 +166,7 @@
 
         <?php include_once('../navAluno.blade.php'); ?>
 
-        <div class="tab-content">
+        <div class="tab-content col-md-10">
           <div id="cadAluno" class="container tab-pane active"><br>
             <div class="card border-light">
               <h4 class="card-header">NOVO CADASTRO - Aluno

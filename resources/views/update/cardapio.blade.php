@@ -73,7 +73,7 @@
 
         <?php include_once('../navCardapio.blade.php'); ?>
 
-        <div class="tab-content">
+        <div class="tab-content col-md-10">
 
 
         
