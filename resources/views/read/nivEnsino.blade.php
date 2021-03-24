@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Aqui, aline</title>
+    <title>Merenda prefeitura</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -35,11 +35,11 @@
 
         <?php
           $condition	=	'';
-          if(isset($_REQUEST['nomeNivelEnsino']) and $_REQUEST['nomeNivelEnsino']!=""){
-            $condition	.=	' AND nomeNivelEnsino LIKE "%'.$_REQUEST['nomeNivelEnsino'].'%" ';
+          if(isset($_REQUEST['NomeNivelEnsino']) and $_REQUEST['NomeNivelEnsino']!=""){
+            $condition	.=	' AND NomeNivelEnsino LIKE "%'.$_REQUEST['NomeNivelEnsino'].'%" ';
           }
           $condition	.=	' AND Status = 1 ';
-          $userData	=	$db->getAllRecords('NivelEnsino','*',$condition,'ORDER BY idNivelEnsino DESC');
+          $userData	=	$db->getAllRecords('nivelensino','*',$condition,'ORDER BY idNivelEnsino DESC');
         ?>
 
 
@@ -60,7 +60,7 @@
                         <div class="col-sm-3">
                           <div class="form-group">
                             <label>Nível de Ensino</label>
-                            <input type="text" name="nomeNivelEnsino" id="nomeNivelEnsino" class="form-control" value="<?php echo isset($_REQUEST['nomeNivelEnsino'])?$_REQUEST['nomeNivelEnsino']:''?>" placeholder="Entra Nível de Ensino">
+                            <input type="text" name="NomeNivelEnsino" id="NomeNivelEnsino" class="form-control" value="<?php echo isset($_REQUEST['NomeNivelEnsino'])?$_REQUEST['NomeNivelEnsino']:''?>" placeholder="Entra Nível de Ensino">
                           </div>
                         </div>
                       </div>

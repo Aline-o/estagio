@@ -1,3 +1,7 @@
+<?php
+    header('Location: ../resources/views/read/aluno.blade.php');
+    exit;
+?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -64,6 +68,7 @@
         </style>
     </head>
     <body>
+        
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">

@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Aqui, aline</title>
+    <title>Merenda prefeitura</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -57,7 +57,7 @@
           if(isset($_REQUEST['NomeNivelEnsino']) and $_REQUEST['NomeNivelEnsino']!=""){
             $condition5='';
             $condition5	.=	' AND NomeNivelEnsino LIKE "%'.$_REQUEST['NomeNivelEnsino'].'%" ';
-            $userData5	=	$db->getAllRecords('NivelEnsino','*',$condition5,'ORDER BY idNivelEnsino DESC');
+            $userData5	=	$db->getAllRecords('nivelensino','*',$condition5,'ORDER BY idNivelEnsino DESC');
             
             if(count($userData5)>0){ //se retornar algum valor do select...
               $contador=0;
@@ -77,7 +77,7 @@
           if(isset($_REQUEST['NomeTurno']) and $_REQUEST['NomeTurno']!=""){
             $condition5='';
             $condition5	.=	' AND NomeTurno LIKE "%'.$_REQUEST['NomeTurno'].'%" ';
-            $userData5	=	$db->getAllRecords('Turno','*',$condition5,'ORDER BY idTurno DESC');
+            $userData5	=	$db->getAllRecords('turno','*',$condition5,'ORDER BY idTurno DESC');
             
             if(count($userData5)>0){ //se retornar algum valor do select...
               $contador=0;
@@ -143,7 +143,7 @@
           <div id="home" class="container tab-pane active"><br>
             <div class="card border-light">
               <h4 class="card-header">Lista de Turmas
-                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/Turma.blade.php" role="button">Novo cadastro</a>
+                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/turma.blade.php" role="button">Novo cadastro</a>
               </h4>
               <div class="card-body">
 
@@ -215,13 +215,13 @@
                         foreach($userData as $val){
                           $s++;
 
-                          $convNivEns	=	$db->getAllRecords2('NivelEnsino',' idNivelEnsino, NomeNivelEnsino ','idNivelEnsino ='.$val['NivelEnsino_idNivelEnsino'].' ');
+                          $convNivEns	=	$db->getAllRecords2('nivelensino',' idNivelEnsino, NomeNivelEnsino ','idNivelEnsino ='.$val['NivelEnsino_idNivelEnsino'].' ');
                           foreach($convNivEns as $val2){}
-                          $convTurno	=	$db->getAllRecords2('Turno',' idTurno, NomeTurno ','idTurno ='.$val['Turno_idTurno'].' ');
+                          $convTurno	=	$db->getAllRecords2('turno',' idTurno, NomeTurno ','idTurno ='.$val['Turno_idTurno'].' ');
                           foreach($convTurno as $val3){}
-                          $convSerie	=	$db->getAllRecords2('Serie',' idSerie, NomeSerie ','idSerie ='.$val['Serie_idSerie'].' ');
+                          $convSerie	=	$db->getAllRecords2('serie',' idSerie, NomeSerie ','idSerie ='.$val['Serie_idSerie'].' ');
                           foreach($convSerie as $val4){}
-                          $convEscola	=	$db->getAllRecords2('Escola',' idEscola, NomeEscola ','idEscola ='.$val['Escola_idEscola'].' ');
+                          $convEscola	=	$db->getAllRecords2('escola',' idEscola, NomeEscola ','idEscola ='.$val['Escola_idEscola'].' ');
                           foreach($convEscola as $val5){}
                           /*
                           NomeNivelEnsino / NivelEnsino_idNivelEnsino
@@ -239,8 +239,8 @@
                       <td><?php echo $val4['NomeSerie'];?></td>
                       <td><?php echo $val5['NomeEscola'];?></td>
                       <td align="center">
-                        <a href="../update/Turma.blade.php?editId=<?php echo $val['idTurma'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
-                        <a href="../delete/Turma.php?delId=<?php echo $val['idTurma'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
+                        <a href="../update/turma.blade.php?editId=<?php echo $val['idTurma'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
+                        <a href="../delete/turma.php?delId=<?php echo $val['idTurma'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                       </td>
                     </tr>
                     <?php 

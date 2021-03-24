@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Aqui, aline</title>
+    <title>Merenda prefeitura</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -35,14 +35,14 @@
 
         <?php
           $condition	=	'';
-          if(isset($_REQUEST['nomeModalidadeEnsino']) and $_REQUEST['nomeModalidadeEnsino']!=""){
-            $condition	.=	' AND nomeModalidadeEnsino LIKE "%'.$_REQUEST['nomeModalidadeEnsino'].'%" ';
+          if(isset($_REQUEST['NomeModalidadeEnsino']) and $_REQUEST['NomeModalidadeEnsino']!=""){
+            $condition	.=	' AND NomeModalidadeEnsino LIKE "%'.$_REQUEST['NomeModalidadeEnsino'].'%" ';
           }
           if(isset($_REQUEST['Sigla']) and $_REQUEST['Sigla']!=""){
             $condition	.=	' AND Sigla LIKE "%'.$_REQUEST['Sigla'].'%" ';
           }
           $condition	.=	' AND Status = 1 ';
-          $userData	=	$db->getAllRecords('ModalidadeEnsino','*',$condition,'ORDER BY idModalidadeEnsino DESC');
+          $userData	=	$db->getAllRecords('modalidadeensino','*',$condition,'ORDER BY idModalidadeEnsino DESC');
         ?>
 
 
@@ -63,7 +63,7 @@
                         <div class="col-sm-4">
                           <div class="form-group">
                             <label>Modalidade de Ensino</label>
-                            <input type="text" name="nomeModalidadeEnsino" id="nomeModalidadeEnsino" class="form-control" value="<?php echo isset($_REQUEST['nomeModalidadeEnsino'])?$_REQUEST['nomeModalidadeEnsino']:''?>" placeholder="Entra Modalidade de Ensino">
+                            <input type="text" name="NomeModalidadeEnsino" id="NomeModalidadeEnsino" class="form-control" value="<?php echo isset($_REQUEST['NomeModalidadeEnsino'])?$_REQUEST['NomeModalidadeEnsino']:''?>" placeholder="Entra Modalidade de Ensino">
                           </div>
                         </div>
                         <div class="col-sm-2">

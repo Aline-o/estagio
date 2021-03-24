@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Aqui, aline</title>
+    <title>Merenda prefeitura</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -35,8 +35,8 @@
 
         <?php
           $condition	=	'';
-          if(isset($_REQUEST['nomeserie']) and $_REQUEST['nomeserie']!=""){
-            $condition	.=	' AND nomeserie LIKE "%'.$_REQUEST['nomeserie'].'%" ';
+          if(isset($_REQUEST['NomeSerie']) and $_REQUEST['NomeSerie']!=""){
+            $condition	.=	' AND NomeSerie LIKE "%'.$_REQUEST['NomeSerie'].'%" ';
           }
           $condition	.=	' AND Status = 1 ';
           $userData	=	$db->getAllRecords('serie','*',$condition,'ORDER BY idSerie DESC');
@@ -60,7 +60,7 @@
                         <div class="col-sm-2">
                           <div class="form-group">
                             <label>Série</label>
-                            <input type="text" name="nomeserie" id="nomeserie" class="form-control" value="<?php echo isset($_REQUEST['nomeserie'])?$_REQUEST['nomeserie']:''?>" placeholder="Entra série">
+                            <input type="text" name="NomeSerie" id="NomeSerie" class="form-control" value="<?php echo isset($_REQUEST['NomeSerie'])?$_REQUEST['NomeSerie']:''?>" placeholder="Entra série">
                           </div>
                         </div>
                       </div>

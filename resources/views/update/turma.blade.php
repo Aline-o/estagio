@@ -1,10 +1,10 @@
 <!--falta chaves estrangeiras-->
 <?php include_once('../../../public/config.php');
   if(isset($_REQUEST['editId']) and $_REQUEST['editId']!=""){
-    $row	=	$db->getAllRecords(' turma, NivelEnsino, Turno, Serie, Escola ',' turma.*,
-    NivelEnsino.idNivelEnsino, NivelEnsino.NomeNivelEnsino, 
-    Turno.idTurno, Turno.NomeTurno,
-    Serie.idSerie, Serie.NomeSerie,
+    $row	=	$db->getAllRecords(' turma, nivelensino, turno, serie, escola ',' turma.*,
+    nivelensino.idNivelEnsino, nivelensino.NomeNivelEnsino, 
+    turno.idTurno, turno.NomeTurno,
+    serie.idSerie, serie.NomeSerie,
     escola.idEscola, escola.NomeEscola ',
     ' AND idTurma="'.$_REQUEST['editId'].'" 
     AND idNivelEnsino=NivelEnsino_idNivelEnsino 
@@ -30,12 +30,12 @@
         'Serie_idSerie'=>$Serie_idSerie,
         'Escola_idEscola'=>$Escola_idEscola,
       );
-      $update	=	$db->update('Turma',$data,array('idTurma'=>$editId));
+      $update	=	$db->update('turma',$data,array('idTurma'=>$editId));
       if($update){
-        header('location: ../read/Turma.blade.php?msg=ratt'); //add com sucesso
+        header('location: ../read/turma.blade.php?msg=ratt'); //add com sucesso
         exit;
       }else{
-        header('location: ../read/Turma.blade.php?msg=rnna'); // nao adicionado
+        header('location: ../read/turma.blade.php?msg=rnna'); // nao adicionado
         exit;
       }
     }
@@ -51,7 +51,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Aqui, aline</title>
+    <title>Merenda prefeitura</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -85,7 +85,7 @@
           <div id="cadTurma" class="tab-pane active"><br>
             <div class="card border-light">
               <h4 class="card-header">NOVO CADASTRO - Turma
-                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/Turma.blade.php" role="button">Buscar</a>
+                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/turma.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">
                 <?php include_once('../../../public/alertMsg.php');?>
@@ -126,7 +126,7 @@
                       $condition	.=	' AND idSerie LIKE "%'.$_REQUEST['idSerie'].'%" ';
                     }
                     $condition	.=	' AND Status = 1 ';
-                    $userData	=	$db->getAllRecords('Serie','*', $condition,'ORDER BY idSerie DESC');
+                    $userData	=	$db->getAllRecords('serie','*', $condition,'ORDER BY idSerie DESC');
                   
                   ?>
                   <div class="row">
@@ -159,7 +159,7 @@
                         $condition	.=	' AND idTurno LIKE "%'.$_REQUEST['idTurno'].'%" ';
                       }
                       $condition	.=	' AND Status = 1 ';
-                      $userData	=	$db->getAllRecords('Turno','*', $condition,'ORDER BY idTurno DESC');
+                      $userData	=	$db->getAllRecords('turno','*', $condition,'ORDER BY idTurno DESC');
                       
                     ?>
 
@@ -202,7 +202,7 @@
                     $condition	.=	' AND idNivelEnsino LIKE "%'.$_REQUEST['idNivelEnsino'].'%" ';
                   }
                   $condition	.=	' AND Status = 1 ';
-                  $userData	=	$db->getAllRecords('NivelEnsino','*', $condition,'ORDER BY idNivelEnsino DESC');
+                  $userData	=	$db->getAllRecords('nivelensino','*', $condition,'ORDER BY idNivelEnsino DESC');
                 
                   ?>
 
@@ -236,7 +236,7 @@
                       $condition	.=	' AND idEscola LIKE "%'.$_REQUEST['idEscola'].'%" ';
                     }
                     $condition	.=	' AND Status = 1 ';
-                    $userData	=	$db->getAllRecords('Escola','*', $condition,'ORDER BY idEscola DESC');
+                    $userData	=	$db->getAllRecords('escola','*', $condition,'ORDER BY idEscola DESC');
                       
                     ?>
 

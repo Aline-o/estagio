@@ -1,6 +1,6 @@
 <?php include_once('../../../public/config.php');
   if(isset($_REQUEST['editId']) and $_REQUEST['editId']!=""){
-    $row	=	$db->getAllRecords('ModalidadeEnsino','*',' AND idModalidadeEnsino="'.$_REQUEST['editId'].'"');
+    $row	=	$db->getAllRecords('modalidadeensino','*',' AND idModalidadeEnsino="'.$_REQUEST['editId'].'"');
   }
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
@@ -15,7 +15,7 @@
       'NomeModalidadeEnsino'=> $NomeModalidadeEnsino, //colunas 
       'Sigla'=>$Sigla,
     );
-    $update	=	$db->update('ModalidadeEnsino',$data,array('idModalidadeEnsino'=>$editId));
+    $update	=	$db->update('modalidadeensino',$data,array('idModalidadeEnsino'=>$editId));
     if($update){
       header('location: ../read/modEnsino.blade.php?msg=ratt'); #<!-- success -->
       exit;
@@ -35,7 +35,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Aqui, aline</title>
+    <title>Merenda prefeitura</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
