@@ -152,47 +152,36 @@
                 <div class="card-title">
                     <form method="get">
                       <div class="row">
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label>Turma</label>
-                            <input type="text" name="NomeTurma" id="NomeTurma" class="form-control" value="<?php echo isset($_REQUEST['NomeTurma'])?$_REQUEST['NomeTurma']:''?>" placeholder="Entra Turma">
-                          </div>
+                        <div class="form-group col-sm-2">
+                          <label for="NomeTurma">Turma</label>
+                          <input type="text" name="NomeTurma" id="NomeTurma" class="form-control" value="<?php echo isset($_REQUEST['NomeTurma'])?$_REQUEST['NomeTurma']:''?>" placeholder="Entra Turma">
                         </div>
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label>Ano</label>
-                            <input type="text" name="Ano" id="Ano" class="form-control" value="<?php echo isset($_REQUEST['Ano'])?$_REQUEST['Ano']:''?>" placeholder="Entra Ano">
-                          </div>
+                        <div class="form-group col-sm-1">
+                          <label for="Ano">Ano</label>
+                          <input type="text" name="Ano" id="Ano" class="form-control" value="<?php echo isset($_REQUEST['Ano'])?$_REQUEST['Ano']:''?>" placeholder="Entra Ano">
                         </div>
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label>Nível de ensino</label>
-                            <input type="text" name="NomeNivelEnsino" id="NomeNivelEnsino" class="form-control" value="<?php echo isset($_REQUEST['NomeNivelEnsino'])?$_REQUEST['NomeNivelEnsino']:''?>" placeholder="Entra Niv. de ensino">
-                          </div>
+                        <div class="form-group col-sm-2">
+                          <label for="NomeNivelEnsino">Nível de ensino</label>
+                          <input type="text" name="NomeNivelEnsino" id="NomeNivelEnsino" class="form-control" value="<?php echo isset($_REQUEST['NomeNivelEnsino'])?$_REQUEST['NomeNivelEnsino']:''?>" placeholder="Entra Niv. de ensino">
                         </div>
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label>Turno</label>
-                            <input type="text" name="NomeTurno" id="NomeTurno" class="form-control" value="<?php echo isset($_REQUEST['NomeTurno'])?$_REQUEST['NomeTurno']:''?>" placeholder="Entra Turno">
-                          </div>
+                        <div class="form-group col-sm-2">
+                          <label for="NomeTurno">Turno</label>
+                          <input type="text" name="NomeTurno" id="NomeTurno" class="form-control" value="<?php echo isset($_REQUEST['NomeTurno'])?$_REQUEST['NomeTurno']:''?>" placeholder="Entra Turno">
                         </div>
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label>Serie</label>
-                            <input type="text" name="NomeSerie" id="NomeSerie" class="form-control" value="<?php echo isset($_REQUEST['NomeSerie'])?$_REQUEST['NomeSerie']:''?>" placeholder="Entra Serie">
-                          </div>
+                        <div class="form-group col-sm-2">
+                          <label for="NomeSerie">Série</label>
+                          <input type="text" name="NomeSerie" id="NomeSerie" class="form-control" value="<?php echo isset($_REQUEST['NomeSerie'])?$_REQUEST['NomeSerie']:''?>" placeholder="Entra Serie">
                         </div>
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label>Escola</label>
-                            <input type="text" name="NomeEscola" id="NomeEscola" class="form-control" value="<?php echo isset($_REQUEST['NomeEscola'])?$_REQUEST['NomeEscola']:''?>" placeholder="Entra Turma">
-                          </div>
+                        <div class="form-group col-sm-3">
+                          <label for="NomeEscola">Escola</label>
+                          <input type="text" name="NomeEscola" id="NomeEscola" class="form-control" value="<?php echo isset($_REQUEST['NomeEscola'])?$_REQUEST['NomeEscola']:''?>" placeholder="Entra Escola">
                         </div>
                       </div>
+
                       <div class="row">
-                        <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Search</button>
-                        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger"><i class="fa fa-times"></i> Clear</a>
-                      </div>    
+                        <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Pesquisar</button>
+                        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger offset-md-1"><i class="fa fa-times"></i> Limpar</a>
+                      </div>  
                     </form>
                 </div>
                 <table class="table table-striped">

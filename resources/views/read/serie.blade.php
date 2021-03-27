@@ -57,17 +57,15 @@
                 <div class="card-title">
                     <form method="get">
                       <div class="row">
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label>Série</label>
-                            <input type="text" name="NomeSerie" id="NomeSerie" class="form-control" value="<?php echo isset($_REQUEST['NomeSerie'])?$_REQUEST['NomeSerie']:''?>" placeholder="Entra série">
-                          </div>
+                        <div class="form-group col-sm-12">
+                          <label for="NomeSerie">Série</label>
+                          <input type="text" name="NomeSerie" id="NomeSerie" class="form-control" value="<?php echo isset($_REQUEST['NomeSerie'])?$_REQUEST['NomeSerie']:''?>" placeholder="Entra Série">
                         </div>
                       </div>
                       <div class="row">
-                        <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Search</button>
-                        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger"><i class="fa fa-times"></i> Clear</a>
-                      </div>    
+                        <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Pesquisar</button>
+                        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger offset-md-1"><i class="fa fa-times"></i> Limpar</a>
+                      </div>   
                     </form>
                 </div>
                 <table class="table table-striped">

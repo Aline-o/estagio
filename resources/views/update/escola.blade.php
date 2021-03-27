@@ -81,14 +81,6 @@
                 <?php include_once('../../../public/alertMsg.php');?>
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <label>Nome da escola</label>
-                    </div>
-                    <div class="col-sm-4">
-                      <label>Modalidade de ensino</label>
-                    </div>
-                  </div>
 
                   <?php 
                     $condition	=	'';
@@ -103,10 +95,12 @@
                   ?>  
 
                   <div class="row">
-                    <div class="col-sm-6">
+                    <div class="form-group col-sm-6">
+                      <label for="NomeEscola">Nome da escola</label>
                       <input type="text" class="form-control" name="NomeEscola" value="<?php echo $row[0]['NomeEscola']; ?>" placeholder="<?php echo $row[0]['NomeEscola']; ?>"required autofocus>
                     </div>                    
                     <div class="form-group col-sm-4">
+                      <label for="ModalidaEnsino_idModalidadeEnsino">Modalidade de ensino</label>
                       <select class="form-control" name="ModalidaEnsino_idModalidadeEnsino" id="ModalidaEnsino_idModalidadeEnsino" required>
                         <option selected value="<?php echo $row[0]['idModalidadeEnsino']; ?>"><?php echo $row[0]['NomeModalidadeEnsino']; ?></option>
                         

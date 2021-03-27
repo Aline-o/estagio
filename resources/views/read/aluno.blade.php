@@ -94,51 +94,28 @@
                 <div class="card-title">
                     <form method="get">
                       <div class="row">
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label>Aluno</label>
-                            <input type="text" name="Nome" id="Nome" class="form-control" value="<?php echo isset($_REQUEST['Nome'])?$_REQUEST['Nome']:''?>" placeholder="Entra nome Aluno">
-                          </div>
+                        <div class="form-group col-sm-4">
+                          <label for="Nome">Aluno</label>
+                          <input type="text" name="Nome" id="Nome" class="form-control" value="<?php echo isset($_REQUEST['Nome'])?$_REQUEST['Nome']:''?>" placeholder="Entra Nome do Aluno">
                         </div>
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label>Data nascimento</label>
-                            <input type="date" name="DataNascimento" id="DataNascimento" class="form-control" value="<?php echo isset($_REQUEST['DataNascimento'])?$_REQUEST['DataNascimento']:''?>" placeholder="Entra DataNascimento">
-                          </div>
+                        <div class="form-group col-sm-3">
+                          <label for="DataNascimento">Data nascimento</label>
+                          <input type="date" name="DataNascimento" id="DataNascimento" class="form-control" value="<?php echo isset($_REQUEST['DataNascimento'])?$_REQUEST['DataNascimento']:''?>" placeholder="Entra Data Nascimento">
                         </div>
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label>Patologia</label>
-                            <input type="text" name="Patologia" id="Patologia" class="form-control" value="<?php echo isset($_REQUEST['Patologia'])?$_REQUEST['Patologia']:''?>" placeholder="Entra Patologia">
-                          </div>
+                        <div class="form-group col-sm-2">
+                          <label for="Patologia">Patologia</label>
+                          <input type="text" name="Patologia" id="Patologia" class="form-control" value="<?php echo isset($_REQUEST['Patologia'])?$_REQUEST['Patologia']:''?>" placeholder="Entra Patologia">
                         </div>
-
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label>Turma</label>
-                            <input type="text" name="NomeTurma" id="NomeTurma" class="form-control" value="<?php echo isset($_REQUEST['NomeTurma'])?$_REQUEST['NomeTurma']:''?>" placeholder="Entra Turma">
-                          </div>
-                        </div>  
-
-                      <!--
-                        <div class="col-sm-4"> 
-                          <div class="form-group">
-                            <label>Date</label>
-                            <div class="input-group">
-                              <input type="text" class="fromDate form-control hasDatepicker" name="df" id="df" value="" placeholder="Enter from date">
-                              <div class="input-group-prepend"><span class="input-group-text">-</span></div>
-                              <input type="text" class="toDate form-control hasDatepicker" name="dt" id="dt" value="" placeholder="Enter to date">
-                              <div class="input-group-append"><span class="input-group-text"><a href="javascript:;" onclick="$('#df,#dt').val('');"><i class="fa fa-fw fa-sync"></i></a></span></div>
-                            </div>
-                          </div>
-                        </div> 
-                      -->
-          
+                        <div class="form-group col-sm-3">
+                          <label for="NomeTurma">Turma</label>
+                          <input type="text" name="NomeTurma" id="NomeTurma" class="form-control" value="<?php echo isset($_REQUEST['NomeTurma'])?$_REQUEST['NomeTurma']:''?>" placeholder="Entra Turma">
+                        </div>
                       </div>
+
                       <div class="row">
-                        <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Search</button>
-                        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger"><i class="fa fa-times"></i> Clear</a>
-                      </div>    
+                        <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Pesquisar</button>
+                        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger offset-md-1"><i class="fa fa-times"></i> Limpar</a>
+                      </div> 
                     </form>
                 </div>
                 <table class="table table-striped">
@@ -182,8 +159,6 @@
                         $descricao = $row2[0]['Descricao'];
 
                         $printPatologia='<a href="#" onclick="return false;" data-toggle="popover" title="Patologia" data-trigger="focus" data-html="true" data-content="Grupo: '.$grupo.' <br>Descrição: '.$descricao.'"> S </a>';
-
-                        //echo '<a href="#" data-toggle="popover" title="popover head" data-trigger="focus" data-content="body tlgd"> popover exemplo </a>';
                       }else{
                         $printPatologia='N';
                       }

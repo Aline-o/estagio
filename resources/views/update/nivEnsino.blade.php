@@ -63,8 +63,6 @@
         <?php include_once('../navNivEnsino.blade.php'); ?>
 
         <div class="tab-content col-md-10">
-
-
           <div id="cadNivelEnsino" class="tab-pane active"><br>
             <div class="card border-light">
               <h4 class="card-header">EDITAR CADASTRO - Nível de ensino 
@@ -73,15 +71,10 @@
               <div class="card-body">
                 <?php include_once('../../../public/alertMsg.php');?>
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
-                <form method="POST">
+                <form method="POST">                      
                   <div class="row">
-                    <div class="col-sm-12">
-                      <label>Nome do nível de ensino</label>
-                    </div>
-                  </div>
-                      
-                  <div class="row">
-                    <div class="col-sm-12">
+                    <div class="form-group col-sm-12">
+                      <label for="NomeNivelEnsino">Nome do nível de ensino</label>
                       <input type="text" class="form-control" name="NomeNivelEnsino" value="<?php echo $row[0]['NomeNivelEnsino']; ?>" placeholder="<?php echo $row[0]['NomeNivelEnsino']; ?>"required autofocus>
                     </div>
                   </div>

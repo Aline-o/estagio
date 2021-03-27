@@ -83,25 +83,16 @@
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
                   <div class="row">
-                    <div class="col-sm-4">
-                      <label>Nome do Turno</label>
-                    </div>
-                    <div class="col-sm-4">
-                      <label>Hora de início</label>
-                    </div>
-                    <div class="col-sm-4">
-                      <label>Hora fim</label>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-4">
+                    <div class="form-group col-sm-4">
+                      <label for="NomeTurno">Nome do Turno</label>
                       <input type="text" class="form-control" name="NomeTurno" value="<?php echo $row[0]['NomeTurno']; ?>" placeholder="<?php echo $row[0]['NomeTurno']; ?>"required autofocus>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="form-group col-sm-4">
+                      <label for="HoraInicio">Hora de início</label>
                       <input type="time" class="form-control" name="HoraInicio" value="<?php echo $row[0]['HoraInicio']; ?>" placeholder="<?php echo $row[0]['HoraInicio']; ?>"required>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="form-group col-sm-4">
+                      <label for="HoraFim">Hora fim</label>
                       <input type="time" class="form-control" name="HoraFim" value="<?php echo $row[0]['HoraFim']; ?>" placeholder="<?php echo $row[0]['HoraFim']; ?>"required>
                     </div>
                   </div>

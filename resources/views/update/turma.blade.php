@@ -84,7 +84,7 @@
 
           <div id="cadTurma" class="tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">NOVO CADASTRO - Turma
+              <h4 class="card-header">EDITAR CADASTRO - Turma
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/turma.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">
@@ -92,30 +92,16 @@
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
                   <div class="row">
-                    <div class="col-sm-6">
-                      <label>Nome da turma</label>
-                    </div>
-                    <div class="col-sm-6">
-                      <label>Ano da turma</label>
-                    </div>
-                  </div>
-                  <div class="row">
                     <div class="form-group col-sm-6">
+                      <label for="NomeTurma">Nome da turma</label>
                       <input type="text" class="form-control" name="NomeTurma" value="<?php echo $row[0]['NomeTurma']; ?>" placeholder="<?php echo $row[0]['NomeTurma']; ?>"required autofocus>
                     </div>
                     <div class="form-group col-sm-6">
+                      <label for="Ano">Ano da turma</label>
                       <input type="text" class="form-control" name="Ano" value="<?php echo $row[0]['Ano']; ?>" placeholder="<?php echo $row[0]['Ano']; ?>"required autofocus>
                     </div>
                   </div>
 
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <label>Série</label>
-                    </div>
-                    <div class="col-sm-6">
-                      <label>Turno</label>
-                    </div>
-                  </div>
                    <?php 
 
                     $condition	=	'';
@@ -131,6 +117,7 @@
                   ?>
                   <div class="row">
                     <div class="form-group col-sm-6">
+                      <label for="Serie_idSerie">Série</label>
                       <select class="form-control" id="Serie_idSerie" name="Serie_idSerie" required>
                         <option selected value="<?php echo $row[0]['idSerie']; ?>"><?php echo $row[0]['NomeSerie']; ?></option>
                         <?php 
@@ -164,6 +151,7 @@
                     ?>
 
                     <div class="form-group col-sm-6">
+                      <label for="Turno_idTurno">Turno</label>
                       <select class="form-control" id="Turno_idTurno" name="Turno_idTurno" required>
                         <option selected value="<?php echo $row[0]['idTurno']; ?>"><?php echo $row[0]['NomeTurno']; ?></option>
 
@@ -183,15 +171,6 @@
                       </select>
                     </div>
                   </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <label>Nível Ensino</label>
-                    </div>
-                    <div class="col-sm-6">
-                      <label>Escola</label>
-                    </div>
-                  </div>
                   
                   <?php 
                   $condition	=	'';
@@ -208,6 +187,7 @@
 
                   <div class="row">
                     <div class="form-group col-sm-6">
+                      <label for="NivelEnsino_idNivelEnsino">Nível Ensino</label>
                       <select class="form-control" id="NivelEnsino_idNivelEnsino" name="NivelEnsino_idNivelEnsino" required>
                         <option selected value="<?php echo $row[0]['idNivelEnsino']; ?>"><?php echo $row[0]['NomeNivelEnsino']; ?></option>
 
@@ -241,6 +221,7 @@
                     ?>
 
                     <div class="form-group col-sm-6">
+                      <label for="Escola_idEscola">Escola</label>
                       <select class="form-control" id="Escola_idEscola" name="Escola_idEscola" required>
                         <option selected value="<?php echo $row[0]['idEscola']; ?>"><?php echo $row[0]['NomeEscola']; ?></option>
 

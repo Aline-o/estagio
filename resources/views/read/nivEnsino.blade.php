@@ -57,17 +57,16 @@
                 <div class="card-title">
                     <form method="get">
                       <div class="row">
-                        <div class="col-sm-3">
-                          <div class="form-group">
-                            <label>Nível de Ensino</label>
-                            <input type="text" name="NomeNivelEnsino" id="NomeNivelEnsino" class="form-control" value="<?php echo isset($_REQUEST['NomeNivelEnsino'])?$_REQUEST['NomeNivelEnsino']:''?>" placeholder="Entra Nível de Ensino">
-                          </div>
+                        <div class="form-group col-sm-12">
+                          <label for="NomeNivelEnsino">Nível de Ensino</label>
+                          <input type="text" name="NomeNivelEnsino" id="NomeNivelEnsino" class="form-control" value="<?php echo isset($_REQUEST['NomeNivelEnsino'])?$_REQUEST['NomeNivelEnsino']:''?>" placeholder="Entra Nível de Ensino">
                         </div>
                       </div>
+
                       <div class="row">
-                        <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Search</button>
-                        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger"><i class="fa fa-times"></i> Clear</a>
-                      </div>    
+                        <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Pesquisar</button>
+                        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger offset-md-1"><i class="fa fa-times"></i> Limpar</a>
+                      </div>
                     </form>
                 </div>
                 <table class="table table-striped">

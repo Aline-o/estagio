@@ -86,38 +86,25 @@
                 <?php include_once('../../../public/alertMsg.php');?>
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <label>Nome do Cardápio</label>
-                    </div>
-                    <div class="col-sm-4">
-                      <label>Sigla do Cardápio</label>
-                    </div>
-                  </div>
 
                   <div class="row">
-                    <div class="col-sm-8">
+                    <div class="form-group col-sm-8">
+                      <label for="Nome">Nome do Cardápio</label>
                       <input type="text" class="form-control" name="Nome" value="<?php echo $row[0]['Nome']; ?>" placeholder="<?php echo $row[0]['Nome']; ?>" required>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="form-group col-sm-4">
+                      <label for="Sigla">Sigla do Cardápio</label>
                       <input type="text" class="form-control" name="Sigla" value="<?php echo $row[0]['Sigla']; ?>" placeholder="<?php echo $row[0]['Sigla']; ?>" required>
                     </div>
                   </div>
 
                   <div class="row">
-                    <div class="col-sm-4">
-                      <label>Valor do Cardápio</label>
-                    </div>
-                    <div class="col-sm-8">
-                      <label>Descrição do Cardápio</label>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-4">
+                    <div class="form-group col-sm-4">
+                      <label for="Valor">Valor do Cardápio</label>
                       <input type="text" class="form-control" name="Valor" value="<?php echo $row[0]['Valor']; ?>" placeholder="<?php echo $row[0]['Valor']; ?>" required>
                     </div>
-                    <div class="col-sm-8">
+                    <div class="form-group col-sm-8">
+                      <label for="Descricao">Descrição do Cardápio</label>
                       <input type="text" class="form-control" name="Descricao" value="<?php echo $row[0]['Descricao']; ?>" placeholder="<?php echo $row[0]['Descricao']; ?>" required>
                     </div>
                   </div>

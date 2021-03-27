@@ -2,7 +2,6 @@
   if(isset($_REQUEST['editId']) and $_REQUEST['editId']!=""){
     $row	=	$db->getAllRecords('aluno, turma','aluno.Matricula,aluno.Turma_idTurma ,
      aluno.Nome, aluno.DataNascimento, aluno.Patologia, turma.idTurma, turma.NomeTurma',
-    //'aluno.Nome, aluno.Matricula, aluno.DataNascimento, aluno.Patologia, alunoespecial.*, patologia.idPatologia, patologia.Grupo, patologia.Descricao',
     ' AND Matricula="'.$_REQUEST['editId'].'" AND turma.idTurma = aluno.Turma_idTurma');
     
     $rowAluEspec	=	$db->getAllRecords('alunoespecial',' alunoespecial.Aluno_Matricula, alunoespecial.Patologia_idPatologia ',
@@ -114,40 +113,7 @@
           'Grupo'=> $Grupo,
         );
         $update2	=	$db->update('patologia',$data2,array('idPatologia'=>$patol)); //patologia
-
-
-        /*aluno especial
-        //para aluno especial, teremos que alterar Aluno_Matricula. n da
-        //a linha abaixo não é o que vai usar nesse codigo.
-        //UPDATE `alunoespecial` SET `Aluno_Matricula` = 'e' WHERE `alunoespecial`.`Aluno_Matricula` = 'a' AND `alunoespecial`.`Patologia_idPatologia` = 1;
-
-//UPDATE `aluno, alunoespecial` SET `Matricula`='testesocorro', `Aluno_Matricula` = 'testesocorro' WHERE `alunoespecial`.`Aluno_Matricula` = 'a' AND `aluno`.`Matricula`='a' AND `aluno`.`Turma_idTurma` = 24 AND `alunoespecial`.`Patologia_idPatologia` = 1;
-//UPDATE `aluno`, `alunoespecial` SET `Matricula`='testesocorro', `Aluno_Matricula` = 'testesocorro' WHERE `alunoespecial`.`Aluno_Matricula` = 'a' AND `aluno`.`Matricula`='a' AND `aluno`.`Turma_idTurma` = 24 AND `alunoespecial`.`Patologia_idPatologia` = 1;
-        $userData3 = $db->getAllRecords('patologia', 'idPatologia'); //altera?
-        
-        $s	=	'';
-        foreach($userData3 as $val){
-          $s++;
-        }
-
-        $Patologia_idPatologia = (int)$val['idPatologia'];
-        $Aluno_Matricula = $Matricula;
-        //$Aluno_Matricula = "bb"; //teste
-        $DataPatologia = date('Y-m-d');
-        
-        //echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> //Aluno tipo: '.gettype($Aluno_Matricula).' valor: '.$Aluno_Matricula.' //Patologia tipo: '.gettype($Patologia_idPatologia) .' valor: '.(int)$Patologia_idPatologia.' //Daaata tipo: '.gettype($DataPatologia).' valor: '.$DataPatologia.' <strong>Vambora!</strong></div>';
-
-        $userCount3	=	$db->getQueryCount('alunoespecial','Aluno_Matricula'); //users eh a tabela
-        $data3	=	array(
-          'Aluno_Matricula'=>$Aluno_Matricula,
-          'Patologia_idPatologia'=>$Patologia_idPatologia, //colunas         
-          'DataPatologia'=>$DataPatologia,
-        );
-        $insert3	=	$db->insert('alunoespecial',$data3);
-        */
-
-
-        
+ 
           if($update && $update2 ){ // 
             header('location: ../read/aluno.blade.php?msg=ratt'); // att com sucesso
             exit;
@@ -207,7 +173,6 @@
 
         $Patologia_idPatologia = (int)$val['idPatologia'];
         $Aluno_Matricula = $_REQUEST['editId'];
-        //$Aluno_Matricula = "bb"; //teste
         $DataPatologia = date('Y-m-d');
         
         //echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> //Aluno tipo: '.gettype($Aluno_Matricula).' valor: '.$Aluno_Matricula.' //Patologia tipo: '.gettype($Patologia_idPatologia) .' valor: '.(int)$Patologia_idPatologia.' //Daaata tipo: '.gettype($DataPatologia).' valor: '.$DataPatologia.' <strong>Vambora!</strong></div>';

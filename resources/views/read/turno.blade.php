@@ -35,8 +35,8 @@
         
         <?php
           $condition	=	'';
-          if(isset($_REQUEST['nomeTurno']) and $_REQUEST['nomeTurno']!=""){
-            $condition	.=	' AND nomeTurno LIKE "%'.$_REQUEST['nomeTurno'].'%" ';
+          if(isset($_REQUEST['NomeTurno']) and $_REQUEST['NomeTurno']!=""){
+            $condition	.=	' AND NomeTurno LIKE "%'.$_REQUEST['NomeTurno'].'%" ';
           }
           if(isset($_REQUEST['HoraInicio']) and $_REQUEST['HoraInicio']!=""){
             $condition	.=	' AND HoraInicio LIKE "%'.$_REQUEST['HoraInicio'].'%" ';
@@ -65,27 +65,28 @@
                       <div class="row">
                         <div class="col-sm-2">
                           <div class="form-group">
-                            <label>Turno</label>
-                            <input type="text" name="nomeTurno" id="nomeTurno" class="form-control" value="<?php echo isset($_REQUEST['nomeTurno'])?$_REQUEST['nomeTurno']:''?>" placeholder="Entra Turno">
+                            <label for="NomeTurno">Turno</label>
+                            <input type="text" name="NomeTurno" id="NomeTurno" class="form-control" value="<?php echo isset($_REQUEST['NomeTurno'])?$_REQUEST['NomeTurno']:''?>" placeholder="Entra Turno">
                           </div>
                         </div>
                         <div class="col-sm-2">
                           <div class="form-group">
-                            <label>Hora início</label>
+                            <label for="HoraInicio">Hora início</label>
                             <input type="time" name="HoraInicio" id="HoraInicio" class="form-control" value="<?php echo isset($_REQUEST['HoraInicio'])?$_REQUEST['HoraInicio']:''?>" placeholder="Entra Turno">
                           </div>
                         </div>
                         <div class="col-sm-2">
                           <div class="form-group">
-                            <label>Hora fim</label>
+                            <label for="HoraFim">Hora fim</label>
                             <input type="time" name="HoraFim" id="HoraFim" class="form-control" value="<?php echo isset($_REQUEST['HoraFim'])?$_REQUEST['HoraFim']:''?>" placeholder="Entra Turno">
                           </div>
                         </div>
                       </div>
+
                       <div class="row">
-                        <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Search</button>
-                        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger"><i class="fa fa-times"></i> Clear</a>
-                      </div>    
+                        <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Pesquisar</button>
+                        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger offset-md-1"><i class="fa fa-times"></i> Limpar</a>
+                      </div>   
                     </form>
                 </div>
                 <table class="table table-striped">

@@ -66,35 +66,28 @@
                 <div class="card-title">
                     <form method="get">
                       <div class="row">
-                        <div class="col-sm-3">
-                          <div class="form-group">
-                            <label>Cardápio</label>
-                            <input type="text" name="Nome" id="Nome" class="form-control" value="<?php echo isset($_REQUEST['Nome'])?$_REQUEST['Nome']:''?>" placeholder="Entra cardápio">
-                          </div>
+                        <div class="form-group col-sm-3">
+                          <label for="Nome">Cardápio</label>
+                          <input type="text" name="Nome" id="Nome" class="form-control" value="<?php echo isset($_REQUEST['Nome'])?$_REQUEST['Nome']:''?>" placeholder="Entra Cardápio">
                         </div>
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label>Sigla</label>
-                            <input type="text" name="Sigla" id="Sigla" class="form-control" value="<?php echo isset($_REQUEST['Sigla'])?$_REQUEST['Sigla']:''?>" placeholder="Entra sigla">
-                          </div>
+                        <div class="form-group col-sm-2">
+                          <label for="Sigla">Sigla</label>
+                          <input type="text" name="Sigla" id="Sigla" class="form-control" value="<?php echo isset($_REQUEST['Sigla'])?$_REQUEST['Sigla']:''?>" placeholder="Entra Sigla">
                         </div>
-                        <div class="col-sm-4">
-                          <div class="form-group">
-                            <label>Descrição</label>
-                            <input type="text" name="Descricao" id="Descricao" class="form-control" value="<?php echo isset($_REQUEST['Descricao'])?$_REQUEST['Descricao']:''?>" placeholder="Entra descrição">
-                          </div>
+                        <div class="form-group col-sm-4">
+                          <label for="Descricao">Descrição</label>
+                          <input type="text" name="Descricao" id="Descricao" class="form-control" value="<?php echo isset($_REQUEST['Descricao'])?$_REQUEST['Descricao']:''?>" placeholder="Entra Descrição">
                         </div>
-                        <div class="col-sm-2">
-                          <div class="form-group">
-                            <label>Valor</label>
-                            <input type="text" name="Valor" id="Valor" class="form-control" value="<?php echo isset($_REQUEST['Valor'])?$_REQUEST['Valor']:''?>" placeholder="Entra valor">
-                          </div>
+                        <div class="form-group col-sm-2">
+                          <label for="Valor">Valor</label>
+                          <input type="text" name="Valor" id="Valor" class="form-control" value="<?php echo isset($_REQUEST['Valor'])?$_REQUEST['Valor']:''?>" placeholder="Entra Valor">
                         </div>
                       </div>
+
                       <div class="row">
-                        <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Search</button>
-                        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger"><i class="fa fa-times"></i> Clear</a>
-                      </div>    
+                        <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Pesquisar</button>
+                        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger offset-md-1"><i class="fa fa-times"></i> Limpar</a>
+                      </div>
                     </form>
                 </div>
                 <table class="table table-striped">
