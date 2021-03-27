@@ -80,32 +80,19 @@
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
                   <div class="row">
-                    <div class="col-sm-6">
-                      <label>Nome da turma</label>
-                    </div>
-                    <div class="col-sm-6">
-                      <label>Ano da turma</label>
-                    </div>
-                  </div>
-                  <div class="row">
                     <div class="form-group col-sm-6">
+                      <label for="NomeTurma">Nome da turma</label>
                       <input type="text" class="form-control" name="NomeTurma" placeholder="Insira o nome da turma" required autofocus>
                     </div>
                     <div class="form-group col-sm-6">
+                      <label for="Ano">Ano da turma</label>
                       <input type="text" class="form-control" name="Ano" placeholder="Insira o ano da turma" required>
                     </div>
                   </div>
 
                   <div class="row">
-                    <div class="col-sm-6">
-                      <label>Série</label>
-                    </div>
-                    <div class="col-sm-6">
-                      <label>Turno</label>
-                    </div>
-                  </div>
-                  <div class="row">
                     <div class="form-group col-sm-6">
+                      <label for="Serie_idSerie">Série</label>
                       <select class="form-control" id="Serie_idSerie" name="Serie_idSerie" required>
                         <option selected disabled value="">Escolha uma opção...</option>
                         <?php 
@@ -135,6 +122,7 @@
                       </select>
                     </div>
                     <div class="form-group col-sm-6">
+                      <label for="Turno_idTurno">Turno</label>
                       <select class="form-control" id="Turno_idTurno" name="Turno_idTurno" required>
                         <option selected disabled value="">Escolha uma opção...</option>
                         <?php 
@@ -166,15 +154,8 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-sm-6">
-                      <label>Nível Ensino</label>
-                    </div>
-                    <div class="col-sm-6">
-                      <label>Escola</label>
-                    </div>
-                  </div>
-                  <div class="row">
                     <div class="form-group col-sm-6">
+                      <label for="NivelEnsino_idNivelEnsino">Nível Ensino</label>
                       <select class="form-control" id="NivelEnsino_idNivelEnsino" name="NivelEnsino_idNivelEnsino" required>
                         <option selected disabled value="">Escolha uma opção...</option>
                         <?php 
@@ -204,6 +185,7 @@
                       </select>
                     </div>
                     <div class="form-group col-sm-6">
+                      <label for="Escola_idEscola">Escola</label>
                       <select class="form-control" id="Escola_idEscola" name="Escola_idEscola" required>
                         <option selected disabled value="">Escolha uma opção...</option>
                         <?php 

@@ -73,12 +73,8 @@
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
                   <div class="row">
-                    <div class="col-sm-12">
-                      <label>Nome da Série</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12">
+                    <div class="form-group col-sm-12">
+                      <label for="NomeSerie">Nome da Série</label>
                       <input type="text" class="form-control" name="NomeSerie" placeholder="Insira o nome da Série"required autofocus>
                     </div>
                   </div>

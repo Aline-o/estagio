@@ -78,20 +78,12 @@
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
                   <div class="row">
-                    <div class="col-sm-6">
-                      <label>Nome da escola</label>
-                    </div>
-                    <div class="col-sm-4">
-                      <label>Modalidade de ensino</label>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
+                    <div class="form-group col-sm-6">
+                      <label for="NomeEscola">Nome da escola</label>
                       <input type="text" class="form-control" name="NomeEscola" placeholder="Insira o nome da escola" required autofocus>
                     </div>                    
                     <div class="form-group col-sm-4">
-
+                      <label for="ModalidaEnsino_idModalidadeEnsino">Modalidade de ensino</label>
                       <select class="form-control" name="ModalidaEnsino_idModalidadeEnsino" id="ModalidaEnsino_idModalidadeEnsino" required>
                         <option selected disabled value="">Escolha uma opção...</option>
                         <?php 
@@ -110,7 +102,6 @@
                           $s	=	'';
                           foreach($userData as $val){
                             $s++;
-                            //$Mod_idModalidadeEnsino.= (int)$val['idModalidadeEnsino'];
                         ?>
                         
                         <option value="<?php echo (int)$val['idModalidadeEnsino'];?>"> <?php echo $val['NomeModalidadeEnsino'];?> </option>

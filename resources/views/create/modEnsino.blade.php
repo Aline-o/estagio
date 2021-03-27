@@ -78,18 +78,12 @@
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
                   <div class="row">
-                    <div class="col-sm-6">
-                      <label>Nome da Modalidade de ensino</label>
-                    </div>
-                    <div class="col-sm-6">
-                      <label>Sigla da Modalidade de ensino</label>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6">
+                    <div class="form-group col-sm-6">
+                      <label for="NomeModalidadeEnsino">Nome da Modalidade de ensino</label>
                       <input type="text" class="form-control" name="NomeModalidadeEnsino" placeholder="Insira o nome da Modalidade"required autofocus>
-                    </div><div class="col-sm-6">
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <label for="Sigla">Sigla da Modalidade de ensino</label>
                       <input type="text" class="form-control" name="Sigla" placeholder="Insira a Sigla"required>
                     </div>
                   </div>

@@ -71,15 +71,10 @@
               <div class="card-body">
                 <?php include_once('../../../public/alertMsg.php');?>
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
-                <form method="POST">
+                <form method="POST">                      
                   <div class="row">
-                    <div class="col-sm-12">
-                      <label>Nome do nível de ensino</label>
-                    </div>
-                  </div>
-                      
-                  <div class="row">
-                    <div class="col-sm-12">
+                    <div class="form-group col-sm-12">
+                      <label for="NomeNivelEnsino">Nome do nível de ensino</label>
                       <input type="text" class="form-control" name="NomeNivelEnsino" placeholder="Insira o nome do nível de ensino"required autofocus>
                     </div>
                   </div>
