@@ -84,77 +84,12 @@
                       <label for="NomeTurma">Nome da turma</label>
                       <input type="text" class="form-control" name="NomeTurma" placeholder="Insira o nome da turma" required autofocus>
                     </div>
-                    <div class="form-group col-sm-6">
-                      <label for="Ano">Ano da turma</label>
+                    <div class="form-group col-sm-2">
+                      <label for="Ano">Ano</label>
                       <input type="text" class="form-control" name="Ano" placeholder="Insira o ano da turma" required>
                     </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="form-group col-sm-6">
-                      <label for="Serie_idSerie">Série</label>
-                      <select class="form-control" id="Serie_idSerie" name="Serie_idSerie" required>
-                        <option selected disabled value="">Escolha uma opção...</option>
-                        <?php 
-
-                        $condition	=	'';
-                        if(isset($_REQUEST['NomeSerie']) and $_REQUEST['NomeSerie']!=""){
-                          $condition	.=	' AND NomeSerie LIKE "%'.$_REQUEST['NomeSerie'].'%" ';
-                        }
-                        if(isset($_REQUEST['idSerie']) and $_REQUEST['idSerie']!=""){
-                          $condition	.=	' AND idSerie LIKE "%'.$_REQUEST['idSerie'].'%" ';
-                        }
-                        $condition	.=	' AND Status = 1 ';
-                        $userData	=	$db->getAllRecords('serie','*', $condition,'ORDER BY idSerie DESC');
-                      
-                        if(count($userData)>0){
-                          $s	=	'';
-                          foreach($userData as $val){
-                            $s++;
-                        ?>
-                        
-                        <option value="<?php echo (int)$val['idSerie'];?>"> <?php echo $val['NomeSerie'];?> </option>
-                        
-                        <?php 
-                          }
-                        }
-                        ?>
-                      </select>
-                    </div>
-                    <div class="form-group col-sm-6">
-                      <label for="Turno_idTurno">Turno</label>
-                      <select class="form-control" id="Turno_idTurno" name="Turno_idTurno" required>
-                        <option selected disabled value="">Escolha uma opção...</option>
-                        <?php 
-
-                        $condition	=	'';
-                        if(isset($_REQUEST['NomeTurno']) and $_REQUEST['NomeTurno']!=""){
-                          $condition	.=	' AND NomeTurno LIKE "%'.$_REQUEST['NomeTurno'].'%" ';
-                        }
-                        if(isset($_REQUEST['idTurno']) and $_REQUEST['idTurno']!=""){
-                          $condition	.=	' AND idTurno LIKE "%'.$_REQUEST['idTurno'].'%" ';
-                        }
-                        $condition	.=	' AND Status = 1 ';
-                        $userData	=	$db->getAllRecords('turno','*', $condition,'ORDER BY idTurno DESC');
-                      
-                        if(count($userData)>0){
-                          $s	=	'';
-                          foreach($userData as $val){
-                            $s++;
-                        ?>
-                        
-                        <option value="<?php echo (int)$val['idTurno'];?>"> <?php echo $val['NomeTurno'];?> </option>
-                        
-                        <?php 
-                          }
-                        }
-                        ?>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="form-group col-sm-6">
+                    
+                    <div class="form-group col-sm-4">
                       <label for="NivelEnsino_idNivelEnsino">Nível Ensino</label>
                       <select class="form-control" id="NivelEnsino_idNivelEnsino" name="NivelEnsino_idNivelEnsino" required>
                         <option selected disabled value="">Escolha uma opção...</option>
@@ -184,6 +119,71 @@
                         ?>
                       </select>
                     </div>
+                    
+                  </div>
+
+                  <div class="row">
+                    <div class="form-group col-sm-3">
+                      <label for="Turno_idTurno">Turno</label>
+                      <select class="form-control" id="Turno_idTurno" name="Turno_idTurno" required>
+                        <option selected disabled value="">Escolha uma opção...</option>
+                        <?php 
+
+                        $condition	=	'';
+                        if(isset($_REQUEST['NomeTurno']) and $_REQUEST['NomeTurno']!=""){
+                          $condition	.=	' AND NomeTurno LIKE "%'.$_REQUEST['NomeTurno'].'%" ';
+                        }
+                        if(isset($_REQUEST['idTurno']) and $_REQUEST['idTurno']!=""){
+                          $condition	.=	' AND idTurno LIKE "%'.$_REQUEST['idTurno'].'%" ';
+                        }
+                        $condition	.=	' AND Status = 1 ';
+                        $userData	=	$db->getAllRecords('turno','*', $condition,'ORDER BY idTurno DESC');
+                      
+                        if(count($userData)>0){
+                          $s	=	'';
+                          foreach($userData as $val){
+                            $s++;
+                        ?>
+                        
+                        <option value="<?php echo (int)$val['idTurno'];?>"> <?php echo $val['NomeTurno'];?> </option>
+                        
+                        <?php 
+                          }
+                        }
+                        ?>
+                      </select>
+                    </div>
+                    <div class="form-group col-sm-3">
+                      <label for="Serie_idSerie">Série</label>
+                      <select class="form-control" id="Serie_idSerie" name="Serie_idSerie" required>
+                        <option selected disabled value="">Escolha uma opção...</option>
+                        <?php 
+
+                        $condition	=	'';
+                        if(isset($_REQUEST['NomeSerie']) and $_REQUEST['NomeSerie']!=""){
+                          $condition	.=	' AND NomeSerie LIKE "%'.$_REQUEST['NomeSerie'].'%" ';
+                        }
+                        if(isset($_REQUEST['idSerie']) and $_REQUEST['idSerie']!=""){
+                          $condition	.=	' AND idSerie LIKE "%'.$_REQUEST['idSerie'].'%" ';
+                        }
+                        $condition	.=	' AND Status = 1 ';
+                        $userData	=	$db->getAllRecords('serie','*', $condition,'ORDER BY idSerie DESC');
+                      
+                        if(count($userData)>0){
+                          $s	=	'';
+                          foreach($userData as $val){
+                            $s++;
+                        ?>
+                        
+                        <option value="<?php echo (int)$val['idSerie'];?>"> <?php echo $val['NomeSerie'];?> </option>
+                        
+                        <?php 
+                          }
+                        }
+                        ?>
+                      </select>
+                    </div>
+
                     <div class="form-group col-sm-6">
                       <label for="Escola_idEscola">Escola</label>
                       <select class="form-control" id="Escola_idEscola" name="Escola_idEscola" required>
