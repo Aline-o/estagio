@@ -6,16 +6,16 @@
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
     if($Nome==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //msg campo obrigatorio
       exit;
     }elseif($Sigla==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //msg campo obrigatorio
       exit;
     }elseif($Descricao==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //msg campo obrigatorio
       exit;
     }elseif($Valor==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //msg campo obrigatorio
       exit;
     }
     $data	=	array(

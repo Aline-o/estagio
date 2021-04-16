@@ -1,5 +1,5 @@
-<!--estudar melhor pesquisa de data-->
-<?php include_once('../../../public/config.php');?>
+<?php 
+include_once('../../../public/config.php');?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -23,6 +23,18 @@
       </head>
 
   <body>
+    <!--header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+      <a class="navbar-brand mr-0 mr-md-2">Merendinha </a>
+      <div class="navbar-nav-scroll">
+        <ul class="navbar-nav bd-navbar-nav flex-row">
+          <li class="nav-item">
+            <a class="nav-link"> Sair </a>
+          </li>
+        </ul>
+      </div>
+    </header-->
+
+
     <nav class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap p-0">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Merenda</a>
       <ul class="navbar-nav px-3">

@@ -1,5 +1,5 @@
-<!--falta chaves estrangeiras-->
-<?php include_once('../../../public/config.php');
+<?php 
+include_once('../../../public/config.php');
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
     if($NomeTurma==""){

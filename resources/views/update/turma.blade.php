@@ -16,10 +16,10 @@
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
     if($NomeTurma==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //msg campo obrigatorio
       exit;
     }elseif($Ano==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //msg campo obrigatorio
       exit;
     }else{
       $data	=	array(

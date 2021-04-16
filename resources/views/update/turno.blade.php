@@ -6,13 +6,13 @@
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
     if($NomeTurno==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //msg campo obrigatorio
       exit;
     }elseif($HoraInicio==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //msg campo obrigatorio
       exit;
     }elseif($HoraFim==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
+      header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //msg campo obrigatorio
       exit;
     }
 

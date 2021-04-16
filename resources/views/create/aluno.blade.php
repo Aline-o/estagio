@@ -1,4 +1,5 @@
-<?php include_once('../../../public/config.php'); 
+<?php 
+include_once('../../../public/config.php'); 
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
     
@@ -15,7 +16,7 @@
         idPatologia, Descricao, Grupo
 
     */
-    if($Patologia==""){ //sem patologia
+    if(!isset($Patologia) || $Patologia==""){ //sem patologia
       $Patologia=0;
       if($Matricula==""){
         header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio

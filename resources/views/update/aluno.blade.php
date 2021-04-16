@@ -32,16 +32,16 @@
 
     */
 
-    if($Patologia==""){ //sem patologia...
+    if(!isset($Patologia) || $Patologia==""){ //sem patologia
       $Patologia=0;
       if($Nome==""){
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
+        header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //campo obrigatorio
         exit;
       }elseif($DataNascimento==""){
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
+        header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //campo obrigatorio
         exit;
       }elseif($Turma_idTurma==""){
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
+        header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //campo obrigatorio
         exit;
       }else{
 
@@ -64,19 +64,19 @@
     }else{ //com patologia...
       if(isset($valAE['Patologia_idPatologia'])){
         if($Nome==""){
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
+          header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //campo obrigatorio
           exit;
         }elseif($DataNascimento==""){
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
+          header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //campo obrigatorio
           exit;
         }elseif($Turma_idTurma==""){
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
+          header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //campo obrigatorio
           exit;
         }elseif($Descricao==""){ //patologia
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); 
+          header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  
           exit;
         }elseif($Grupo==""){ //patologia
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr');
+          header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr'); 
           exit;
         }else{
           //$userCount	=	$db->getQueryCount('aluno','Matricula'); //aluno
@@ -131,19 +131,19 @@
 
       }else{
         if($Nome==""){
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
+          header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //campo obrigatorio
           exit;
         }elseif($DataNascimento==""){
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
+          header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //campo obrigatorio
           exit;
         }elseif($Turma_idTurma==""){
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=un15'); //campo obrigatorio
+          header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //campo obrigatorio
           exit;
         }elseif($Descricao==""){ //patologia
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); 
+          header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  
           exit;
         }elseif($Grupo==""){ //patologia
-          header('location:'.$_SERVER['PHP_SELF'].'?msg=robr');
+          header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr'); 
           exit;
         }else{
           //$userCount	=	$db->getQueryCount('aluno','Matricula'); //aluno
