@@ -10,7 +10,7 @@ include_once('../../../public/config.php');
       header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //msg campo obrigatorio
       exit;
     }else{
-      $userCount	=	$db->getQueryCount('modalidadeEnsino','idModalidadeEnsino'); //users eh a tabela
+      $userCount	=	$db->getQueryCount('modalidadeensino','idModalidadeEnsino'); //users eh a tabela
       $data	=	array(
         'NomeModalidadeEnsino'=> $NomeModalidadeEnsino, //colunas 
         'Sigla'=>$Sigla,

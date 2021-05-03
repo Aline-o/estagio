@@ -10,152 +10,91 @@ include_once('../../../public/config.php');?>
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
     <title>Merenda prefeitura</title>
-  
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/cerulean/bootstrap.min.css" integrity="sha384-b+jboW/YIpW2ZZYyYdXczKK6igHlnkPNfN9kYAbqYV7rNQ9PKTXlS2D6j1QZIATW" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link href="../scss/style.scss" rel="stylesheet"> <!--estilização personalizada-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  </head>
+    
+        <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/cerulean/bootstrap.min.css" integrity="sha384-b+jboW/YIpW2ZZYyYdXczKK6igHlnkPNfN9kYAbqYV7rNQ9PKTXlS2D6j1QZIATW" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link href="../scss/style.scss" rel="stylesheet"> <!--estilização personalizada-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+      </head>
 
   <body>
-    <header class="navbar navbar-expand navbar-dark bg-primary flex-column flex-md-row bd-navbar">
+    <!--header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
       <a class="navbar-brand mr-0 mr-md-2">Merendinha </a>
-      <div class="navbar-nav-scroll align-items-end">
-        <ul class="navbar-nav bd-navbar-nav flex-row ">
+      <div class="navbar-nav-scroll">
+        <ul class="navbar-nav bd-navbar-nav flex-row">
           <li class="nav-item">
-            <a class="nav-link" href="#"> Sair </a>
+            <a class="nav-link"> Sair </a>
           </li>
         </ul>
       </div>
-    </header>
+    </header-->
 
 
+    <nav class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Merenda</a>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Sign out</a>
+        </li>
+      </ul>
+    </nav>
 
-
-
-
-
-
-    
     <div class="container-fluid">
-    <div>
-      <button class="btn btn-link bd-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse" data-target="#bd-docs-nav5" aria-expanded="true" aria-label="Toggle docs navigation">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false" role="img">
-          <title>Menu</title>
-          <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path>
-        </svg>
-      </button>
-    </div>
-      
-      
+      <div class="row">
+        <?php include_once('../navAluno.blade.php'); ?>
 
-
-      <div class="row flex-xl-nowrap">
-        <nav class="col-12 col-xs-12 col-md-3 col-xl-2 d-md-block sidebar collapse show" id="bd-docs-nav5" style> <!--aqui que coloca o toggler-->
-        <div class="sidebar-sticky">
-          <ul class="nav flex-column nav nav-pills" role="tablist" >
-            <li class="nav-item">
-              <a class="nav-link"  href="../MANUTENCAO.BLADE.PHP"><i class="fa fa-home"></i>
-                &nbsp;Início</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#demo"><i  class="fa fa-book"></i>
-                &nbsp;Cadastro <i class="fa fa-caret-down"></i></a>   <!--  -->
-            </li>
-    
-            <div class="collapse.show"  id="demo"> <!--onClick="window.location.reload();"-->
-              <li class="nav-item">
-                <a class="nav-link active" role="button" href="../read/aluno.blade.php">&nbsp; Aluno</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/cardapio.blade.php">&nbsp; Cardápio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/escola.blade.php">&nbsp; Escola</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/modEnsino.blade.php">&nbsp; Modalidade de ensino</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/nivEnsino.blade.php">&nbsp; Nível de ensino</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/serie.blade.php">&nbsp; Série</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/turma.blade.php">&nbsp; Turma</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/turno.blade.php">&nbsp; Turno</a>
-              </li>
-            </div>
-            <li class="nav-item">
-              <a class="nav-link" href="../MANUTENCAO.BLADE.PHP"><i class="fa fa-user"></i>
-                &nbsp;Registro por presença</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../MANUTENCAO.BLADE.PHP"><i class="fa fa-folder"></i>
-                &nbsp;Registro via arquivo</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../MANUTENCAO.BLADE.PHP"><i class="fa fa-file-text"></i>
-                &nbsp;Relatório</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-
-        <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-5 bd-content" role="main">
-          <?php
-            $condition	=	'';
-            if(isset($_REQUEST['Nome']) and $_REQUEST['Nome']!=""){
-              $condition	.=	' AND Nome LIKE "%'.$_REQUEST['Nome'].'%" ';
+        <?php
+          $condition	=	'';
+          if(isset($_REQUEST['Nome']) and $_REQUEST['Nome']!=""){
+            $condition	.=	' AND Nome LIKE "%'.$_REQUEST['Nome'].'%" ';
+          }
+          if(isset($_REQUEST['DataNascimento']) and $_REQUEST['DataNascimento']!=""){
+            $condition	.=	' AND DataNascimento LIKE "%'.$_REQUEST['DataNascimento'].'%" ';
+          }
+          if(isset($_REQUEST['Patologia']) and $_REQUEST['Patologia']!=""){
+            if(!strcasecmp($_REQUEST['Patologia'],"s") || !strcasecmp($_REQUEST['Patologia'],"sim") || !strcasecmp($_REQUEST['Patologia'],"y")){ //If this function returns 0, the two strings are equal.
+              $pat=1;
+            }elseif(strcasecmp($_REQUEST['Patologia'],"n")==0 || strcasecmp($_REQUEST['Patologia'],"nao")==0 || strcasecmp($_REQUEST['Patologia'],"não")==0){
+              $pat=0;
+            }else{
+              $pat=$_REQUEST['Patologia'];
             }
-            if(isset($_REQUEST['DataNascimento']) and $_REQUEST['DataNascimento']!=""){
-              $condition	.=	' AND DataNascimento LIKE "%'.$_REQUEST['DataNascimento'].'%" ';
-            }
-            if(isset($_REQUEST['Patologia']) and $_REQUEST['Patologia']!=""){
-              if(!strcasecmp($_REQUEST['Patologia'],"s") || !strcasecmp($_REQUEST['Patologia'],"sim") || !strcasecmp($_REQUEST['Patologia'],"y")){ //If this function returns 0, the two strings are equal.
-                $pat=1;
-              }elseif(strcasecmp($_REQUEST['Patologia'],"n")==0 || strcasecmp($_REQUEST['Patologia'],"nao")==0 || strcasecmp($_REQUEST['Patologia'],"não")==0){
-                $pat=0;
-              }else{
-                $pat=$_REQUEST['Patologia'];
-              }
-              $condition	.=	' AND Patologia LIKE "%'.$pat.'%" ';
-            }
+            $condition	.=	' AND Patologia LIKE "%'.$pat.'%" ';
+          }
 
-            if(isset($_REQUEST['NomeTurma']) and $_REQUEST['NomeTurma']!=""){
-              $condition5='';
-              $condition5	.=	' AND NomeTurma LIKE "%'.$_REQUEST['NomeTurma'].'%" ';
-              $userData5	=	$db->getAllRecords('turma','*',$condition5,'ORDER BY idTurma DESC');
-              
-              if(count($userData5)>0){ //se retornar algum valor do select...
-                $contador=0;
-                foreach($userData5 as $valTur){ //para cada valor encontrado...
+          if(isset($_REQUEST['NomeTurma']) and $_REQUEST['NomeTurma']!=""){
+            $condition5='';
+            $condition5	.=	' AND NomeTurma LIKE "%'.$_REQUEST['NomeTurma'].'%" ';
+            $userData5	=	$db->getAllRecords('turma','*',$condition5,'ORDER BY idTurma DESC');
+            
+            if(count($userData5)>0){ //se retornar algum valor do select...
+              $contador=0;
+              foreach($userData5 as $valTur){ //para cada valor encontrado...
 
-                  if($contador == 0) //primeira vez, primeiro resultado da pesquisa
-                  {
-                    $condition	.=	' AND Turma_idTurma LIKE '.$valTur['idTurma'].' ';
-                    $contador++;
-                  }else{
-                    $condition	.=	' OR Turma_idTurma LIKE '.$valTur['idTurma'].' ';
-                  }
-                  //echo "<span>  ".$valMod['idModalidadeEnsino']." \br </span>";
-
+                if($contador == 0) //primeira vez, primeiro resultado da pesquisa
+                {
+                  $condition	.=	' AND Turma_idTurma LIKE '.$valTur['idTurma'].' ';
+                  $contador++;
+                }else{
+                  $condition	.=	' OR Turma_idTurma LIKE '.$valTur['idTurma'].' ';
                 }
+                //echo "<span>  ".$valMod['idModalidadeEnsino']." \br </span>";
+
               }
             }
-            $condition	.=	' AND Status = 1 ';
-            $userData	=	$db->getAllRecords('aluno','*',$condition,'ORDER BY Matricula DESC');
-          ?>
+          }
+          $condition	.=	' AND Status = 1 ';
+          $userData	=	$db->getAllRecords('aluno','*',$condition,'ORDER BY Matricula DESC');
+        ?>
 
+
+        <div class="tab-content col-md-10">
+          <div id="home" class="container tab-pane active"><br>
             <div class="card border-light">
               <h4 class="card-header">Lista de Alunos
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/aluno.blade.php" role="button">Novo cadastro</a>
@@ -257,7 +196,9 @@ include_once('../../../public/config.php');?>
                 </table>
               </div>
             </div>            
-        </main>
+          </div>
+
+        </div>
       </div>
     </div>
 
