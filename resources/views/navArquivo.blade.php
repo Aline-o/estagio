@@ -31,7 +31,7 @@
             <a class="nav-link" role="button" href="../read/patologia.blade.php">&nbsp; Restrição alimentar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" role="button" href="../read/serie.blade.php">&nbsp; Série</a>
+            <a class="nav-link" role="button" href="../read/serie.blade.php">&nbsp; Série</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" role="button" href="../read/turno.blade.php">&nbsp; Turno</a>
@@ -53,7 +53,7 @@
           &nbsp;Registro por presença</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../arquivo.blade.php"><i class="fa fa-folder"></i>
+        <a class="nav-link active" href="../arquivo.blade.php"><i class="fa fa-folder"></i>
           &nbsp;Registro via arquivo</a>
       </li>
       <li class="nav-item">
