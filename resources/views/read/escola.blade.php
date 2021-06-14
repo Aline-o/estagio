@@ -1,37 +1,4 @@
 <?php include_once('../../../public/config.php');?>
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
-
-    <title>Merenda prefeitura</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/cerulean/bootstrap.min.css" integrity="sha384-b+jboW/YIpW2ZZYyYdXczKK6igHlnkPNfN9kYAbqYV7rNQ9PKTXlS2D6j1QZIATW" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link href="../scss/style.scss" rel="stylesheet"> <!--estilização personalizada-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  </head>
-
-  <body>
-    <nav class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Merenda</a>
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
-        </li>
-      </ul>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <?php include_once('../navEscola.blade.php'); ?>
 
         <?php
           $condition	=	'';
@@ -48,9 +15,9 @@
           teria que pesquisar o id da modalidade, mas isso não e viável, portanto, há um primeiro
           select para achar o nome da modEnsino na tabela, e depois é buscado na escola com o id correspondente
           */
-          if(isset($_REQUEST['NomeModalidadeEnsino']) and $_REQUEST['NomeModalidadeEnsino']!=""){
+          if(isset($_REQUEST['Sigla']) and $_REQUEST['Sigla']!=""){
             $condition5='';
-            $condition5	.=	' AND NomeModalidadeEnsino LIKE "%'.$_REQUEST['NomeModalidadeEnsino'].'%" ';
+            $condition5	.=	' AND Sigla LIKE "%'.$_REQUEST['Sigla'].'%" ';
             $userData5	=	$db->getAllRecords('modalidadeensino','*',$condition5,'ORDER BY idModalidadeEnsino DESC');
             
             if(count($userData5)>0){ //se retornar algum valor do select...
@@ -74,13 +41,34 @@
           $userData	=	$db->getAllRecords('escola','*',$condition,'ORDER BY idEscola DESC');
           
         ?>
+<!doctype html>
+<html lang="pt-br">
+  <?php include_once('../header.blade.php'); ?>
 
 
-        <div class="tab-content col-md-10">
-          
-          <div id="home" class="container tab-pane active"><br>
+  <body>
+    <header class="navbar navbar-expand navbar-dark bg-primary flex-column flex-md-row bd-navbar justify-content-between">
+      <a class="navbar-brand mr-0 mr-md-2">Merendinha </a>
+      <div class="navbar-nav-scroll align-items-end">
+        <ul class="navbar-nav bd-navbar-nav flex-row ">
+          <li class="nav-item">
+            <a class="nav-link" href="#"> Sair </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        
+        <?php include_once('../navAluno.blade.php'); ?>
+
+        <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-1 bd-content" role="main">
+        
             <div class="card border-light">
-              <h4 class="card-header">Lista de Escolas
+              <h4 class="card-header">
+                <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom" title="Pré-cadastros necessários" data-trigger="focus" data-html="true" data-content="Cadastros que devem ser feitos antes deste:  <br>Modalidade de Ensino."><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+                Lista de Escolas
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/escola.blade.php" role="button">Novo cadastro</a>
               </h4>
               <div class="card-body">
@@ -95,8 +83,8 @@
                           <input type="text" name="NomeEscola" id="NomeEscola" class="form-control" value="<?php echo isset($_REQUEST['NomeEscola'])?$_REQUEST['NomeEscola']:''?>" placeholder="Entra Escola">
                         </div>
                         <div class="form-group col-sm-7">
-                          <label for="NomeModalidadeEnsino">Modalidade de ensino</label>
-                          <input type="text" name="NomeModalidadeEnsino" id="NomeModalidadeEnsino" class="form-control" value="<?php echo isset($_REQUEST['NomeModalidadeEnsino'])?$_REQUEST['NomeModalidadeEnsino']:''?>" placeholder="Entra Modalidade de ensino">
+                          <label for="Sigla">Modalidade de ensino</label>
+                          <input type="text" name="Sigla" id="Sigla" class="form-control" value="<?php echo isset($_REQUEST['Sigla'])?$_REQUEST['Sigla']:''?>" placeholder="Entra Modalidade de ensino">
                         </div>
                       </div>
 
@@ -127,7 +115,7 @@
                           //"SELECT $fields FROM $tableName WHERE 1 ".$cond." ".$orderBy." ".$limit
 
 
-                          $convModEns	=	$db->getAllRecords2('modalidadeensino',' idModalidadeEnsino, NomeModalidadeEnsino ','idModalidadeEnsino ='.$val['ModalidaEnsino_idModalidadeEnsino'].' ');
+                          $convModEns	=	$db->getAllRecords2('modalidadeensino',' idModalidadeEnsino, Sigla ','idModalidadeEnsino ='.$val['ModalidaEnsino_idModalidadeEnsino'].' ');
                         foreach($convModEns as $val2){}
 
 
@@ -135,7 +123,7 @@
                     <tr>
                       <td><?php echo $s;?></td>
                       <td><?php echo $val['NomeEscola'];?></td> <!-- Precisa ser exatamente como esta no banco -->
-                      <td><?php echo $val2['NomeModalidadeEnsino'];?></td>
+                      <td><?php echo $val2['Sigla'];?></td>
                       <td align="center">
                         <a href="../update/escola.blade.php?editId=<?php echo $val['idEscola'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
                         <a href="../delete/escola.php?delId=<?php echo $val['idEscola'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
@@ -152,19 +140,22 @@
                   </tbody>
                 </table>
               </div>
-            </div>            
-          </div>
-
+            </div>  
+          </main>          
         </div>
       </div>
-    </div>
 
   <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="../../assets/js/vendor/popper.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function()
+      {
+        $('[data-toggle="popover"]').popover();      
+      });
+    </script>
   </body>
 </html>

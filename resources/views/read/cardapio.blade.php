@@ -1,39 +1,5 @@
 <?php include_once('../../../public/config.php');?>
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
-
-    <title>Merenda prefeitura</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/cerulean/bootstrap.min.css" integrity="sha384-b+jboW/YIpW2ZZYyYdXczKK6igHlnkPNfN9kYAbqYV7rNQ9PKTXlS2D6j1QZIATW" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link href="../scss/style.scss" rel="stylesheet"> <!--estilização personalizada-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  </head>
-
-  <body>
-    <nav class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Merenda</a>
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
-        </li>
-      </ul>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <?php include_once('../navCardapio.blade.php'); ?>
-
-        <?php
+<?php
           $condition	=	'';
           if(isset($_REQUEST['Nome']) and $_REQUEST['Nome']!=""){
             $condition	.=	' AND Nome LIKE "%'.$_REQUEST['Nome'].'%" ';
@@ -50,99 +16,121 @@
           $condition	.=	' AND Status = 1 ';
           $userData	=	$db->getAllRecords('cardapio','*',$condition,'ORDER BY idCardapio DESC');
         ?>
+<!doctype html>
+<html lang="pt-br">
+  <?php include_once('../header.blade.php'); ?>
 
 
-        <div class="tab-content col-md-10">
-          
-          <div id="home" class="container tab-pane active"><br>
-            <div class="card border-light">
-              <h4 class="card-header">Lista de Cardápios
-                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/cardapio.blade.php" role="button">Novo cadastro</a>
-              </h4>
-              <div class="card-body">
+  <body>
+    <header class="navbar navbar-expand navbar-dark bg-primary flex-column flex-md-row bd-navbar justify-content-between">
+      <a class="navbar-brand mr-0 mr-md-2">Merendinha </a>
+      <div class="navbar-nav-scroll align-items-end">
+        <ul class="navbar-nav bd-navbar-nav flex-row ">
+          <li class="nav-item">
+            <a class="nav-link" href="#"> Sair </a>
+          </li>
+        </ul>
+      </div>
+    </header>
 
-                <?php include_once('../../../public/alertMsg.php');?>
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        
+        <?php include_once('../navAluno.blade.php'); ?>
 
-                <div class="card-title">
-                    <form method="get">
-                      <div class="row">
-                        <div class="form-group col-sm-3">
-                          <label for="Nome">Cardápio</label>
-                          <input type="text" name="Nome" id="Nome" class="form-control" value="<?php echo isset($_REQUEST['Nome'])?$_REQUEST['Nome']:''?>" placeholder="Entra Cardápio">
-                        </div>
-                        <div class="form-group col-sm-2">
-                          <label for="Sigla">Sigla</label>
-                          <input type="text" name="Sigla" id="Sigla" class="form-control" value="<?php echo isset($_REQUEST['Sigla'])?$_REQUEST['Sigla']:''?>" placeholder="Entra Sigla">
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <label for="Descricao">Descrição</label>
-                          <input type="text" name="Descricao" id="Descricao" class="form-control" value="<?php echo isset($_REQUEST['Descricao'])?$_REQUEST['Descricao']:''?>" placeholder="Entra Descrição">
-                        </div>
-                        <div class="form-group col-sm-2">
-                          <label for="Valor">Valor</label>
-                          <input type="text" name="Valor" id="Valor" class="form-control" value="<?php echo isset($_REQUEST['Valor'])?$_REQUEST['Valor']:''?>" placeholder="Entra Valor">
-                        </div>
+        <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-1 bd-content" role="main">
+        
+          <div class="card border-light">
+            <h4 class="card-header">Lista de Cardápios
+              <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/cardapio.blade.php" role="button">Novo cadastro</a>
+            </h4>
+            <div class="card-body">
+
+              <?php include_once('../../../public/alertMsg.php');?>
+
+              <div class="card-title">
+                  <form method="get">
+                    <div class="row">
+                      <div class="form-group col-sm-3">
+                        <label for="Nome">Cardápio</label>
+                        <input type="text" name="Nome" id="Nome" class="form-control" value="<?php echo isset($_REQUEST['Nome'])?$_REQUEST['Nome']:''?>" placeholder="Entra Cardápio">
                       </div>
-
-                      <div class="row">
-                        <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Pesquisar</button>
-                        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger offset-md-1"><i class="fa fa-times"></i> Limpar</a>
+                      <div class="form-group col-sm-2">
+                        <label for="Sigla">Sigla</label>
+                        <input type="text" name="Sigla" id="Sigla" class="form-control" value="<?php echo isset($_REQUEST['Sigla'])?$_REQUEST['Sigla']:''?>" placeholder="Entra Sigla">
                       </div>
-                    </form>
-                </div>
-                <table class="table table-striped">
-                  <thead>
-                    <tr class="bg-primary text-white">
-                      <th scope="col">Sr#</th>
-                      <th scope="col">Nome do Cardápio</th>
-                      <th scope="col">Sigla</th>
-                      <th scope="col">Descrição</th>
-                      <th scope="col">Valor</th>
-                      <th scope="col" class="text-center">Ação</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php 
-                      if(count($userData)>0){
-                        $s	=	'';
-                        foreach($userData as $val){
-                          $s++;
-                    ?>
-                    <tr>
-                      <td><?php echo $s;?></td>
-                      <td><?php echo $val['Nome'];?></td> <!-- Precisa ser exatamente como esta no banco -->
-                      <td><?php echo $val['Sigla'];?></td>
-                      <td><?php echo $val['Descricao'];?></td>
-                      <td><?php echo $val['Valor'];?></td>
-                      <td align="center">
-                        <a href="../update/cardapio.blade.php?editId=<?php echo $val['idCardapio'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
-                        <a href="../delete/cardapio.php?delId=<?php echo $val['idCardapio'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
-                      </td>
-                    </tr>
-                    <?php 
-                        }
-                      }else{
-                    ?>
-                    <tr><td colspan="6" align="center">No Record(s) Found!</td></tr>
-                    <?php 
-                      }
-                    ?>
-                  </tbody>
-                </table>
+                      <div class="form-group col-sm-4">
+                        <label for="Descricao">Descrição</label>
+                        <input type="text" name="Descricao" id="Descricao" class="form-control" value="<?php echo isset($_REQUEST['Descricao'])?$_REQUEST['Descricao']:''?>" placeholder="Entra Descrição">
+                      </div>
+                      <div class="form-group col-sm-2">
+                        <label for="Valor">Valor</label>
+                        <input type="text" name="Valor" id="Valor" class="form-control" value="<?php echo isset($_REQUEST['Valor'])?$_REQUEST['Valor']:''?>" placeholder="Entra Valor">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <button type="submit" name="submit" value="search" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-search"></i> Pesquisar</button>
+                      <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="btn btn-danger offset-md-1"><i class="fa fa-times"></i> Limpar</a>
+                    </div>
+                  </form>
               </div>
-            </div>            
-          </div>
-
-        </div>
+              <table class="table table-striped">
+                <thead>
+                  <tr class="bg-primary text-white">
+                    <th scope="col">Sr#</th>
+                    <th scope="col">Nome do Cardápio</th>
+                    <th scope="col">Sigla</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Valor (R$)</th>
+                    <th scope="col" class="text-center">Ação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php 
+                    if(count($userData)>0){
+                      $s	=	'';
+                      foreach($userData as $val){
+                        $s++;
+                  ?>
+                  <tr>
+                    <td><?php echo $s;?></td>
+                    <td><?php echo $val['Nome'];?></td> <!-- Precisa ser exatamente como esta no banco -->
+                    <td><?php echo $val['Sigla'];?></td>
+                    <td><?php echo $val['Descricao'];?></td>
+                    <td><?php echo $val['Valor'];?></td>
+                    <td align="center">
+                      <a href="../update/cardapio.blade.php?editId=<?php echo $val['idCardapio'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
+                      <a href="../delete/cardapio.php?delId=<?php echo $val['idCardapio'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
+                    </td>
+                  </tr>
+                  <?php 
+                      }
+                    }else{
+                  ?>
+                  <tr><td colspan="6" align="center">No Record(s) Found!</td></tr>
+                  <?php 
+                    }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>            
+        </main>
       </div>
     </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="../../assets/js/vendor/popper.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function()
+      {
+        $('[data-toggle="popover"]').popover();      
+      });
+    </script>
   </body>
 </html>

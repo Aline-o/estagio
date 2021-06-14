@@ -2,7 +2,7 @@
 include_once('../../../public/config.php'); 
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
-    
+    $Descricao="N/a";
     /*
         Aluno: 
         Matricula(CP), DataNascimento, Nome, Patologia (0 ou 1), Turma_idTurma
@@ -18,6 +18,7 @@ include_once('../../../public/config.php');
     */
     if(!isset($Patologia) || $Patologia==""){ //sem patologia
       $Patologia=0;
+      //$Descricao="";
       if($Matricula==""){
         header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
         exit;
@@ -61,12 +62,6 @@ include_once('../../../public/config.php');
       }elseif($Turma_idTurma==""){
         header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
         exit;
-      }elseif($Descricao==""){ //patologia
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); 
-        exit;
-      }elseif($Grupo==""){ //patologia
-        header('location:'.$_SERVER['PHP_SELF'].'?msg=robr');
-        exit;
       }else{
         $userCount	=	$db->getQueryCount('aluno','Matricula'); //aluno
         $data	=	array(
@@ -77,48 +72,32 @@ include_once('../../../public/config.php');
           'Turma_idTurma'=>$Turma_idTurma,
         );
         $insert	=	$db->insert('aluno',$data); //aluno
-
+/*
         $userCount2	=	$db->getQueryCount('patologia','idPatologia'); //patologia
         $data2	=	array(
           'Descricao'=> $Descricao, //colunas         
           'Grupo'=> $Grupo,
         );
         $insert2	=	$db->insert('patologia',$data2); //patologia
-
+*/
 
         //aluno especial
-        $userData3 = $db->getAllRecords('patologia', 'idPatologia');
-        
-        foreach($userData3 as $val){
-        }
-
-        $Patologia_idPatologia = (int)$val['idPatologia'];
+        //echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> //Aluno tipo: '.gettype($Aluno_Matricula).' valor: '.$Aluno_Matricula.' //Patologia tipo: '.gettype($Patologia_idPatologia) .' valor: '.(int)$Patologia_idPatologia.' //Daaata tipo: '.gettype($DataPatologia).' valor: '.$DataPatologia.' <strong>Vambora!</strong></div>';
+        $userCount2	=	$db->getQueryCount('alunoespecial','Aluno_Matricula'); //users eh a tabela
         $Aluno_Matricula = $Matricula;
         $DataPatologia = date('Y-m-d');
-        
-        //echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> //Aluno tipo: '.gettype($Aluno_Matricula).' valor: '.$Aluno_Matricula.' //Patologia tipo: '.gettype($Patologia_idPatologia) .' valor: '.(int)$Patologia_idPatologia.' //Daaata tipo: '.gettype($DataPatologia).' valor: '.$DataPatologia.' <strong>Vambora!</strong></div>';
-
-        $userCount3	=	$db->getQueryCount('alunoespecial','Aluno_Matricula'); //users eh a tabela
-        $data3	=	array(
+        $data2	=	array(
           'Aluno_Matricula'=>$Aluno_Matricula,
           'Patologia_idPatologia'=>$Patologia_idPatologia, //colunas         
           'DataPatologia'=>$DataPatologia,
         );
-        $insert3	=	$db->insert('alunoespecial',$data3);
+        $insert2	=	$db->insert('alunoespecial',$data2);
 
-
-        
-        if($insert && $insert2 && $insert3 ){ // 
+        if($insert){ // 
           header('location: ../read/aluno.blade.php?msg=radd'); // add com sucesso
           exit;
         }elseif($insert && $insert2){
-          header('location: ../read/aluno.blade.php?msg=rerr'); // nao adicionado
-          exit;
-        }elseif($insert && $insert3){
-          header('location: ../read/aluno.blade.php?msg=rerr'); // nao adicionado
-          exit;
-        }elseif($insert2 && $insert3){
-          header('location: ../read/aluno.blade.php?msg=rerr'); // nao adicionado
+          header('location: ../read/aluno.blade.php?msg=radd'); // add com sucesso
           exit;
         }else{
           header('location: ../read/aluno.blade.php?msg=rerr'); // nenhum adicionado
@@ -130,45 +109,29 @@ include_once('../../../public/config.php');
 ?>
 
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
-
-    <title>Merenda prefeitura</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/cerulean/bootstrap.min.css" integrity="sha384-b+jboW/YIpW2ZZYyYdXczKK6igHlnkPNfN9kYAbqYV7rNQ9PKTXlS2D6j1QZIATW" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link href="../scss/style.scss" rel="stylesheet"> <!--estilização personalizada-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script>
-    </script>
-  </head>
+<html lang="pt-br">
+  <?php include_once('../header.blade.php'); ?>
 
 
   <body>
-    <nav class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Merenda</a>
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
-        </li>
-      </ul>
-    </nav>
+    <header class="navbar navbar-expand navbar-dark bg-primary flex-column flex-md-row bd-navbar justify-content-between">
+      <a class="navbar-brand mr-0 mr-md-2">Merendinha </a>
+      <div class="navbar-nav-scroll align-items-end">
+        <ul class="navbar-nav bd-navbar-nav flex-row ">
+          <li class="nav-item">
+            <a class="nav-link" href="#"> Sair </a>
+          </li>
+        </ul>
+      </div>
+    </header>
 
     <div class="container-fluid">
-      <div class="row">
-
+      <div class="row flex-xl-nowrap">
+        
         <?php include_once('../navAluno.blade.php'); ?>
 
-        <div class="tab-content col-md-10">
-          <div id="cadAluno" class="container tab-pane active"><br>
+        <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-1 bd-content" role="main">
+        
             <div class="card border-light">
               <h4 class="card-header">NOVO CADASTRO - Aluno
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/aluno.blade.php" role="button">Buscar</a>
@@ -185,8 +148,8 @@ include_once('../../../public/config.php');
                 <form method="POST">
                   <div class="row">
                     <div class="form-group col-sm-8">
-                      <label for="Nome">Nome do Aluno</label>
-                      <input type="text" class="form-control" name="Nome" placeholder="Insira o nome do Aluno" required autofocus>
+                      <label for="Nome">Nome Completo</label>
+                      <input type="text" class="form-control" name="Nome" placeholder="Insira o Nome Completo do Aluno" required autofocus>
                     </div>
                     <div class="form-group col-sm-4">
                       <label for="Matricula">Matrícula</label>
@@ -231,7 +194,7 @@ include_once('../../../public/config.php');
                     </div>
                     
                     <div class="form-group col-sm-3">
-                      <label for="Patologia">Patologia? </label>
+                      <label for="Patologia">Restrição Alimentar? </label>
                       <div class="form-check" data-toggle="collapse" data-target="#patologiaTable">
                         <input class="form-check-input" type="checkbox" value=1 name="Patologia" id="Patologia">
                         <label class="form-check-label" for="Patologia">
@@ -243,12 +206,34 @@ include_once('../../../public/config.php');
 
                   <div class="row collapse" id="patologiaTable">
                     <div class="form-group col-sm-4">
-                      <label for="Grupo">Grupo</label>
-                      <input type="text" class="form-control" name="Grupo" placeholder="Insira o grupo da patologia" autofocus>
-                    </div>
-                    <div class="form-group col-sm-8">
-                      <label for="Descricao">Descrição</label>
-                      <input type="text" class="form-control" name="Descricao" placeholder="Insira a descrição da patologia" autofocus>
+                      <label for="Patologia_idPatologia">Restrição Alimentar</label>
+                      <select class="form-control" name="Patologia_idPatologia" id="Patologia_idPatologia" required>
+                        <option selected disabled value="">Escolha uma opção...</option>
+                        <?php 
+
+                        $condition	=	'';
+                        if(isset($_REQUEST['Grupo']) and $_REQUEST['Grupo']!=""){
+                          $condition	.=	' AND Grupo LIKE "%'.$_REQUEST['Grupo'].'%" ';
+                        }
+                        if(isset($_REQUEST['idPatologia']) and $_REQUEST['idPatologia']!=""){
+                          $condition	.=	' AND idPatologia LIKE "%'.$_REQUEST['idPatologia'].'%" ';
+                        }
+                        $condition	.=	' AND Status = 1 ';
+                        $userData	=	$db->getAllRecords('patologia','*', $condition,'ORDER BY idPatologia DESC');
+                      
+                        if(count($userData)>0){
+                          $s	=	'';
+                          foreach($userData as $val){
+                            $s++;
+                        ?>
+                        
+                        <option value="<?php echo (int)$val['idPatologia'];?>"> <?php echo $val['Grupo'];?> </option>
+                        
+                        <?php 
+                          }
+                        }
+                        ?>
+                      </select>
                     </div>
                   </div>
 
@@ -258,9 +243,8 @@ include_once('../../../public/config.php');
                 </form>
               </div>
             </div>            
-          </div>
-
-        </div>
+         
+        </main>
       </div>
     </div>
 

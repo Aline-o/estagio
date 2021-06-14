@@ -1,30 +1,26 @@
 <?php include_once('../../../public/config.php');
   if(isset($_REQUEST['editId']) and $_REQUEST['editId']!=""){
-    $row	=	$db->getAllRecords('escola, modalidadeensino','escola.NomeEscola, escola.idEscola, 
-    modalidadeensino.Sigla, modalidadeensino.idModalidadeEnsino',
-    ' AND idEscola="'.$_REQUEST['editId'].'" AND idModalidadeEnsino=ModalidaEnsino_idModalidadeEnsino');
+    $row	=	$db->getAllRecords('patologia','*',' AND idPatologia="'.$_REQUEST['editId'].'"');
   }
-
   if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
     extract($_REQUEST);
-    if($NomeEscola==""){
+    if($Descricao==""){
       header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //msg campo obrigatorio
       exit;
-    }elseif($ModalidaEnsino_idModalidadeEnsino==""){
+    }elseif($Grupo==""){
       header('location:'.$_SERVER['PHP_SELF'].'?editId='.$_REQUEST['editId'].'&msg=robr');  //msg campo obrigatorio
       exit;
     }
-
     $data	=	array(
-        'NomeEscola'=> $NomeEscola, //colunas    
-        'ModalidaEnsino_idModalidadeEnsino'=>$ModalidaEnsino_idModalidadeEnsino
-      );
-    $update	=	$db->update('escola',$data,array('idEscola'=>$editId));
+      'Descricao'=> $Descricao, //colunas 
+      'Grupo'=>$Grupo,
+    );
+    $update	=	$db->update('Patologia',$data,array('idPatologia'=>$editId));
     if($update){
-      header('location: ../read/escola.blade.php?msg=ratt'); #<!-- success -->
+      header('location: ../read/patologia.blade.php?msg=ratt'); #<!-- success -->
       exit;
     }else{
-      header('location: ../read/escola.blade.php?msg=rnna'); #<!-- nao teve alteracao -->
+      header('location: ../read/patologia.blade.php?msg=rnna'); #<!-- nao teve alteracao -->
       exit;
     }
   }
@@ -66,59 +62,29 @@
     <div class="container-fluid">
       <div class="row">
 
-        <?php include_once('../navEscola.blade.php'); ?>
+        <?php include_once('../navPatologia.blade.php'); ?>
 
         <div class="tab-content col-md-10">
 
 
-
-          <div id="cadEscola" class="tab-pane active"><br>
+          <div id="cadPatologia" class="tab-pane active"><br>
             <div class="card border-light">
-              <h4 class="card-header">EDITAR CADASTRO - Escola
-                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/escola.blade.php" role="button">Buscar</a>
+              <h4 class="card-header">EDITAR CADASTRO - Restrição Alimentar
+                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/patologia.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">
                 <?php include_once('../../../public/alertMsg.php');?>
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
-
-                  <?php 
-                    $condition	=	'';
-                    if(isset($_REQUEST['Sigla']) and $_REQUEST['Sigla']!=""){
-                      $condition	.=	' AND Sigla LIKE "%'.$_REQUEST['Sigla'].'%" ';
-                    }
-                    if(isset($_REQUEST['idModalidadeEnsino']) and $_REQUEST['idModalidadeEnsino']!=""){
-                      $condition	.=	' AND idModalidadeEnsino LIKE "%'.$_REQUEST['idModalidadeEnsino'].'%" ';
-                    }
-                    $condition	.=	' AND Status = 1 ';
-                    $userData	=	$db->getAllRecords('modalidadeensino','*', $condition,'ORDER BY idModalidadeEnsino DESC');
-                  ?>  
-
+                  
                   <div class="row">
                     <div class="form-group col-sm-6">
-                      <label for="NomeEscola">Nome da escola</label>
-                      <input type="text" class="form-control" name="NomeEscola" value="<?php echo $row[0]['NomeEscola']; ?>" placeholder="<?php echo $row[0]['NomeEscola']; ?>"required autofocus>
-                    </div>                    
-                    <div class="form-group col-sm-4">
-                      <label for="ModalidaEnsino_idModalidadeEnsino">Modalidade de ensino</label>
-                      <select class="form-control" name="ModalidaEnsino_idModalidadeEnsino" id="ModalidaEnsino_idModalidadeEnsino" required>
-                        <option selected value="<?php echo $row[0]['idModalidadeEnsino']; ?>"><?php echo $row[0]['Sigla']; ?></option>
-                        
-                        <?php                         
-                        if(count($userData)>0){
-                          $s	=	'';
-                          foreach($userData as $val){
-                            $s++;
-                            //$Mod_idModalidadeEnsino.= (int)$val['idModalidadeEnsino'];
-                        ?>
-                        
-                        <option value="<?php echo (int)$val['idModalidadeEnsino'];?>"> <?php echo $val['Sigla'];?> </option>
-                        
-                        <?php 
-                          }
-                        }
-                        ?>
-                      </select>
+                      <label for="Descricao">Nome da Restrição Alimentar</label>
+                      <input type="text" class="form-control" name="Descricao" value="<?php echo $row[0]['Descricao']; ?>" placeholder="<?php echo $row[0]['Descricao']; ?>"required autofocus>
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <label for="Grupo">Grupo da Restrição Alimentar</label>
+                      <input type="text" class="form-control" name="Grupo" id="Grupo" value="<?php echo $row[0]['Grupo']; ?>" placeholder="<?php echo $row[0]['Grupo']; ?>"required>
                     </div>
                   </div>
 

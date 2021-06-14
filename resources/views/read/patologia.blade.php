@@ -1,13 +1,15 @@
 <?php include_once('../../../public/config.php');?>
 <?php
-          $condition	=	'';
-          if(isset($_REQUEST['NomeNivelEnsino']) and $_REQUEST['NomeNivelEnsino']!=""){
-            $condition	.=	' AND NomeNivelEnsino LIKE "%'.$_REQUEST['NomeNivelEnsino'].'%" ';
-          }
-          $condition	.=	' AND Status = 1 ';
-          $userData	=	$db->getAllRecords('nivelensino','*',$condition,'ORDER BY idNivelEnsino DESC');
-        ?>
-
+  $condition	=	'';
+  if(isset($_REQUEST['Descricao']) and $_REQUEST['Descricao']!=""){
+    $condition	.=	' AND Descricao LIKE "%'.$_REQUEST['Descricao'].'%" ';
+  }
+  if(isset($_REQUEST['Grupo']) and $_REQUEST['Grupo']!=""){
+    $condition	.=	' AND Grupo LIKE "%'.$_REQUEST['Grupo'].'%" ';
+  }
+  $condition	.=	' AND Status = 1 ';
+  $userData	=	$db->getAllRecords('patologia','*',$condition,'ORDER BY idPatologia DESC');
+?>
 <!doctype html>
 <html lang="pt-br">
   <?php include_once('../header.blade.php'); ?>
@@ -33,8 +35,8 @@
         <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-1 bd-content" role="main">
         
             <div class="card border-light">
-              <h4 class="card-header">Lista de Níveis de ensino
-                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/nivEnsino.blade.php" role="button">Novo cadastro</a>
+              <h4 class="card-header">Lista de Restrição Alimentar
+                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/patologia.blade.php" role="button">Novo cadastro</a>
               </h4>
               <div class="card-body">
 
@@ -43,9 +45,13 @@
                 <div class="card-title">
                     <form method="get">
                       <div class="row">
-                        <div class="form-group col-sm-12">
-                          <label for="NomeNivelEnsino">Nível de Ensino</label>
-                          <input type="text" name="NomeNivelEnsino" id="NomeNivelEnsino" class="form-control" value="<?php echo isset($_REQUEST['NomeNivelEnsino'])?$_REQUEST['NomeNivelEnsino']:''?>" placeholder="Entra Nível de Ensino">
+                        <div class="form-group col-sm-8">
+                          <label for="Descricao">Restrição Alimentar</label>
+                          <input type="text" name="Descricao" id="Descricao" class="form-control" value="<?php echo isset($_REQUEST['Descricao'])?$_REQUEST['Descricao']:''?>" placeholder="Entra Restrição Alimentar">
+                        </div>
+                        <div class="form-group col-sm-4">
+                          <label for="Grupo">Grupo</label>
+                          <input type="text" name="Grupo" id="Grupo" class="form-control" value="<?php echo isset($_REQUEST['Grupo'])?$_REQUEST['Grupo']:''?>" placeholder="Entra Grupo">
                         </div>
                       </div>
 
@@ -59,7 +65,8 @@
                   <thead>
                     <tr class="bg-primary text-white">
                       <th scope="col">Sr#</th>
-                      <th scope="col">Nome do Nível de Ensino</th>
+                      <th scope="col">Nome da Restrição Alimentar</th>
+                      <th scope="col">Grupo</th>
                       <th scope="col" class="text-center">Ação</th>
                     </tr>
                   </thead>
@@ -72,17 +79,18 @@
                     ?>
                     <tr>
                       <td><?php echo $s;?></td>
-                      <td><?php echo $val['NomeNivelEnsino'];?></td> <!-- Precisa ser exatamente como esta no banco -->
+                      <td><?php echo $val['Descricao'];?></td> <!-- Precisa ser exatamente como esta no banco -->
+                      <td><?php echo $val['Grupo'];?></td> <!-- Precisa ser exatamente como esta no banco -->
                       <td align="center">
-                        <a href="../update/nivEnsino.blade.php?editId=<?php echo $val['idNivelEnsino'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
-                        <a href="../delete/nivEnsino.php?delId=<?php echo $val['idNivelEnsino'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
+                        <a href="../update/patologia.blade.php?editId=<?php echo $val['idPatologia'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
+                        <a href="../delete/patologia.php?delId=<?php echo $val['idPatologia'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                       </td>
                     </tr>
                     <?php 
                         }
                       }else{
                     ?>
-                    <tr><td colspan="3" align="center">No Record(s) Found!</td></tr>
+                    <tr><td colspan="4" align="center">No Record(s) Found!</td></tr>
                     <?php 
                       }
                     ?>

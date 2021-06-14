@@ -1,29 +1,11 @@
 <?php 
 include_once('../../../public/config.php');?>
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
-
-    <title>Merenda prefeitura</title>
-  
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/cerulean/bootstrap.min.css" integrity="sha384-b+jboW/YIpW2ZZYyYdXczKK6igHlnkPNfN9kYAbqYV7rNQ9PKTXlS2D6j1QZIATW" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link href="../scss/style.scss" rel="stylesheet"> <!--estilização personalizada-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  </head>
+<html lang="pt-br">
+  <?php include_once('../header.blade.php'); ?>
 
   <body>
-    <header class="navbar navbar-expand navbar-dark bg-primary flex-column flex-md-row bd-navbar">
+    <header class="navbar navbar-expand navbar-dark bg-primary flex-column flex-md-row bd-navbar justify-content-between">
       <a class="navbar-brand mr-0 mr-md-2">Merendinha </a>
       <div class="navbar-nav-scroll align-items-end">
         <ul class="navbar-nav bd-navbar-nav flex-row ">
@@ -34,84 +16,12 @@ include_once('../../../public/config.php');?>
       </div>
     </header>
 
-
-
-
-
-
-
-
-    
     <div class="container-fluid">
-    <div>
-      <button class="btn btn-link bd-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse" data-target="#bd-docs-nav5" aria-expanded="true" aria-label="Toggle docs navigation">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false" role="img">
-          <title>Menu</title>
-          <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path>
-        </svg>
-      </button>
-    </div>
-      
-      
-
-
       <div class="row flex-xl-nowrap">
-        <nav class="col-12 col-xs-12 col-md-3 col-xl-2 d-md-block sidebar collapse show" id="bd-docs-nav5" style> <!--aqui que coloca o toggler-->
-        <div class="sidebar-sticky">
-          <ul class="nav flex-column nav nav-pills" role="tablist" >
-            <li class="nav-item">
-              <a class="nav-link"  href="../MANUTENCAO.BLADE.PHP"><i class="fa fa-home"></i>
-                &nbsp;Início</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#demo"><i  class="fa fa-book"></i>
-                &nbsp;Cadastro <i class="fa fa-caret-down"></i></a>   <!--  -->
-            </li>
-    
-            <div class="collapse.show"  id="demo"> <!--onClick="window.location.reload();"-->
-              <li class="nav-item">
-                <a class="nav-link active" role="button" href="../read/aluno.blade.php">&nbsp; Aluno</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/cardapio.blade.php">&nbsp; Cardápio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/escola.blade.php">&nbsp; Escola</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/modEnsino.blade.php">&nbsp; Modalidade de ensino</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/nivEnsino.blade.php">&nbsp; Nível de ensino</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/serie.blade.php">&nbsp; Série</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/turma.blade.php">&nbsp; Turma</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" role="button" href="../read/turno.blade.php">&nbsp; Turno</a>
-              </li>
-            </div>
-            <li class="nav-item">
-              <a class="nav-link" href="../MANUTENCAO.BLADE.PHP"><i class="fa fa-user"></i>
-                &nbsp;Registro por presença</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../MANUTENCAO.BLADE.PHP"><i class="fa fa-folder"></i>
-                &nbsp;Registro via arquivo</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../MANUTENCAO.BLADE.PHP"><i class="fa fa-file-text"></i>
-                &nbsp;Relatório</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+        
+        <?php include_once('../navAluno.blade.php'); ?>
 
-
-        <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-5 bd-content" role="main">
+        <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-1 bd-content" role="main">
           <?php
             $condition	=	'';
             if(isset($_REQUEST['Nome']) and $_REQUEST['Nome']!=""){
@@ -157,7 +67,9 @@ include_once('../../../public/config.php');?>
           ?>
 
             <div class="card border-light">
-              <h4 class="card-header">Lista de Alunos
+              <h4 class="card-header">
+                <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom" title="Pré-cadastros necessários" data-trigger="focus" data-html="true" data-content="Cadastros que devem ser feitos antes deste:  <br>Restrição Alimentar, Turma."><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+                Lista de Alunos
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/aluno.blade.php" role="button">Novo cadastro</a>
               </h4>
               <div class="card-body">
@@ -176,8 +88,8 @@ include_once('../../../public/config.php');?>
                           <input type="date" name="DataNascimento" id="DataNascimento" class="form-control" value="<?php echo isset($_REQUEST['DataNascimento'])?$_REQUEST['DataNascimento']:''?>" placeholder="Entra Data Nascimento">
                         </div>
                         <div class="form-group col-sm-2">
-                          <label for="Patologia">Patologia</label>
-                          <input type="text" name="Patologia" id="Patologia" class="form-control" value="<?php echo isset($_REQUEST['Patologia'])?$_REQUEST['Patologia']:''?>" placeholder="Entra Patologia">
+                          <label for="Patologia">Restr. Alimentar</label>
+                          <input type="text" name="Patologia" id="Patologia" class="form-control" value="<?php echo isset($_REQUEST['Patologia'])?$_REQUEST['Patologia']:''?>" placeholder="S/N">
                         </div>
                         <div class="form-group col-sm-3">
                           <label for="NomeTurma">Turma</label>
@@ -195,9 +107,9 @@ include_once('../../../public/config.php');?>
                   <thead>
                     <tr class="bg-primary text-white">
                       <th scope="col">Sr#</th>
-                      <th scope="col">Nome do Aluno</th>
+                      <th scope="col">Nome Completo</th>
                       <th scope="col">Data Nascimento</th>
-                      <th scope="col">Patologia</th>
+                      <th scope="col">Restr. Alimentar</th>
                       <th scope="col">Turma</th>
                       <th scope="col" class="text-center">Ação</th>
                     </tr>
@@ -231,7 +143,7 @@ include_once('../../../public/config.php');?>
                         $grupo = $row2[0]['Grupo'];
                         $descricao = $row2[0]['Descricao'];
 
-                        $printPatologia='<a href="#" onclick="return false;" data-toggle="popover" title="Patologia" data-trigger="focus" data-html="true" data-content="Grupo: '.$grupo.' <br>Descrição: '.$descricao.'"> S </a>';
+                        $printPatologia='<a href="#" onclick="return false;" data-toggle="popover" title="Restrição Alimentar" data-trigger="focus" data-html="true" data-content="Grupo: '.$grupo.' <br>Descrição: '.$descricao.'"> S </a>';
                       }else{
                         $printPatologia='N';
                       }
