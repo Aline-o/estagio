@@ -209,45 +209,18 @@
 ?>
 
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
-
-    <title>Merenda prefeitura</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/cerulean/bootstrap.min.css" integrity="sha384-b+jboW/YIpW2ZZYyYdXczKK6igHlnkPNfN9kYAbqYV7rNQ9PKTXlS2D6j1QZIATW" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link href="../scss/style.scss" rel="stylesheet"> <!--estilização personalizada-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script>
-    </script>
-  </head>
-
+<html lang="pt-br">
+  <?php include_once('../head.blade.php'); ?>
 
   <body>
-    <nav class="navbar navbar-dark sticky-top bg-primary flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Merenda</a>
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
-        </li>
-      </ul>
-    </nav>
+    <?php include_once('../header.blade.php'); ?>
 
     <div class="container-fluid">
-      <div class="row">
+      <div class="row flex-xl-nowrap">
+        
+        <?php include_once('../sidebar/navAluno.blade.php'); ?>
 
-        <?php include_once('../navAluno.blade.php'); ?>
-
-        <div class="tab-content col-md-10">
-          <div id="cadAluno" class="container tab-pane active"><br>
+        <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-1 bd-content" role="main">
             <div class="card border-light">
               <h4 class="card-header">EDITAR CADASTRO - Aluno
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/aluno.blade.php" role="button">Buscar</a>
@@ -345,10 +318,8 @@
                   </div>
                 </form>
               </div>
-            </div>            
-          </div>
-
-        </div>
+            </div>
+        </main>
       </div>
     </div>
 

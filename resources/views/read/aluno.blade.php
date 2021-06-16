@@ -1,5 +1,6 @@
 <?php 
 include_once('../../../public/config.php');?>
+
 <!doctype html>
 <html lang="pt-br">
   <?php include_once('../head.blade.php'); ?>

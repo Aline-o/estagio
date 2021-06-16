@@ -7,6 +7,7 @@
           $condition	.=	' AND Status = 1 ';
           $userData	=	$db->getAllRecords('serie','*',$condition,'ORDER BY idSerie DESC');
         ?>
+        
 <!doctype html>
 <html lang="pt-br">
   <?php include_once('../head.blade.php'); ?>

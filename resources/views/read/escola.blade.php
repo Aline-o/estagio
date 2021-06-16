@@ -41,7 +41,8 @@
           $userData	=	$db->getAllRecords('escola','*',$condition,'ORDER BY idEscola DESC');
           
         ?>
-<!doctype html>
+
+        <!doctype html>
 <html lang="pt-br">
   <?php include_once('../head.blade.php'); ?>
 

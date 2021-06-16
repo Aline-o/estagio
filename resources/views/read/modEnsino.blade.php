@@ -10,6 +10,7 @@
   $condition	.=	' AND Status = 1 ';
   $userData	=	$db->getAllRecords('modalidadeensino','*',$condition,'ORDER BY idModalidadeEnsino DESC');
 ?>
+
 <!doctype html>
 <html lang="pt-br">
   <?php include_once('../head.blade.php'); ?>

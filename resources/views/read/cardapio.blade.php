@@ -16,6 +16,7 @@
           $condition	.=	' AND Status = 1 ';
           $userData	=	$db->getAllRecords('cardapio','*',$condition,'ORDER BY idCardapio DESC');
         ?>
+
 <!doctype html>
 <html lang="pt-br">
   <?php include_once('../head.blade.php'); ?>
