@@ -70,8 +70,13 @@ include_once('../../../public/config.php');?>
                   <div class="row">
                     <div class="form-group col-sm-4">
                       <label for="Valor">Valor do Cardápio</label>
-                      <input type="text" class="form-control" name="Valor" placeholder="Insira o valor do Cardápio" required>
-                    </div>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">$</div>
+                        </div>
+                        <input type="number" step="0.001" data-inputmask="'alias': 'currency'" min="0" class="form-control currency" name="Valor" placeholder="Insira o valor do Cardápio" required>
+                      </div>
+                  </div>
                     <div class="form-group col-sm-8">
                       <label for="Descricao">Descrição do Cardápio</label>
                       <input type="text" class="form-control" name="Descricao" placeholder="Insira a descrição do Cardápio" required>
@@ -92,6 +97,7 @@ include_once('../../../public/config.php');?>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="../../assets/js/vendor/popper.min.js"></script>

@@ -11,7 +11,11 @@
             $condition	.=	' AND Descricao LIKE "%'.$_REQUEST['Descricao'].'%" ';
           }
           if(isset($_REQUEST['Valor']) and $_REQUEST['Valor']!=""){
-            $condition	.=	' AND Valor LIKE "%'.$_REQUEST['Valor'].'%" ';
+            
+            $valor_inicial = $_REQUEST['Valor'];
+            $valor_final = str_replace(",",".", $valor_inicial);
+            
+            $condition	.=	' AND Valor LIKE "%'.$valor_final.'%" ';
           }
           $condition	.=	' AND Status = 1 ';
           $userData	=	$db->getAllRecords('cardapio','*',$condition,'ORDER BY idCardapio DESC');
@@ -84,13 +88,16 @@
                       $s	=	'';
                       foreach($userData as $val){
                         $s++;
+
+                        $valor_inicial = $val['Valor'];
+                        $valor_replace = str_replace(".",",", $valor_inicial);
                   ?>
                   <tr>
                     <td><?php echo $s;?></td>
                     <td><?php echo $val['Nome'];?></td> <!-- Precisa ser exatamente como esta no banco -->
                     <td><?php echo $val['Sigla'];?></td>
                     <td><?php echo $val['Descricao'];?></td>
-                    <td><?php echo $val['Valor'];?></td>
+                    <td><?php echo $valor_replace;?></td>
                     <td align="center">
                       <a href="../update/cardapio.blade.php?editId=<?php echo $val['idCardapio'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
                       <a href="../delete/cardapio.php?delId=<?php echo $val['idCardapio'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>

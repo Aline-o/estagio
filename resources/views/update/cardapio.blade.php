@@ -73,7 +73,12 @@
                   <div class="row">
                     <div class="form-group col-sm-4">
                       <label for="Valor">Valor do Cardápio</label>
-                      <input type="text" class="form-control" name="Valor" value="<?php echo $row[0]['Valor']; ?>" placeholder="<?php echo $row[0]['Valor']; ?>" required>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">$</div>
+                        </div>
+                        <input type="number" step="0.001" data-inputmask="'alias': 'currency'" min="0" class="form-control currency" name="Valor" value="<?php echo $row[0]['Valor']; ?>" placeholder="<?php echo $row[0]['Valor']; ?>" required>
+                      </div>
                     </div>
                     <div class="form-group col-sm-8">
                       <label for="Descricao">Descrição do Cardápio</label>
