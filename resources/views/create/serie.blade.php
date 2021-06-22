@@ -1,33 +1,41 @@
 <?php 
+// CONEXÃO COM O BANCO
 include_once('../../../public/config.php');
-  if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
-    extract($_REQUEST);
-    if($NomeSerie==""){
-      header('location:'.$_SERVER['PHP_SELF'].'?msg=robr'); //campo obrigatorio
+
+if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
+  extract($_REQUEST);
+  if($NomeSerie==""){
+    // mensagem de campo obrigatorio
+    header('location:'.$_SERVER['PHP_SELF'].'?msg=robr');
+    exit;
+  }else{
+    // se pá pode apagar, não testei sem
+    $userCount	=	$db->getQueryCount('serie','idSerie');
+    // colunas da tabela
+    $data	=	array(
+      'NomeSerie'=> $NomeSerie, //colunas                        
+    );
+    $insert	=	$db->insert('serie',$data);
+    if($insert){
+      // mensagem add com sucesso
+      header('location: ../read/serie.blade.php?msg=radd');
       exit;
     }else{
-      $userCount	=	$db->getQueryCount('serie','idSerie'); //users eh a tabela
-      $data	=	array(
-        'NomeSerie'=> $NomeSerie, //colunas                        
-      );
-      $insert	=	$db->insert('serie',$data);
-      if($insert){
-        header('location: ../read/serie.blade.php?msg=radd'); //add com sucesso
-        exit;
-      }else{
-        header('location: ../read/serie.blade.php?msg=rerr'); // nao adicionado
-        exit;
-      }
+      // mensagem erro
+      header('location: ../read/serie.blade.php?msg=rerr');
+      exit;
     }
   }
+}
 ?>
-<?php 
-include_once('../../../public/config.php');?>
+
 <!doctype html>
 <html lang="pt-br">
+  
   <?php include_once('../head.blade.php'); ?>
 
   <body>
+  
     <?php include_once('../header.blade.php'); ?>
 
     <div class="container-fluid">
@@ -36,29 +44,30 @@ include_once('../../../public/config.php');?>
         <?php include_once('../sidebar/navSerie.blade.php'); ?>
 
         <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-1 bd-content" role="main">
-            <div class="card border-light">
-              <h4 class="card-header">NOVO CADASTRO - Série 
-                <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/serie.blade.php" role="button">Buscar</a>
-              </h4>
-              <div class="card-body">
+          <div class="card border-light">
+            <h4 class="card-header">NOVO CADASTRO - Série 
+              <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/serie.blade.php" role="button">Buscar</a>
+            </h4>
+            <div class="card-body">
 
-                <?php include_once('../../../public/alertMsg.php');?>
-                
-                <div class="card-title">Preencha corretamente o formulário abaixo:</div>
-                <form method="POST">
-                  <div class="row">
-                    <div class="form-group col-sm-12">
-                      <label for="NomeSerie">Nome da Série</label>
-                      <input type="text" class="form-control" name="NomeSerie" placeholder="Insira o nome da Série"required autofocus>
-                    </div>
+              <!-- mensagens de alerta, ex: adicionado com sucesso, deletado com sucesso, etc -->
+              <?php include_once('../../../public/alertMsg.php');?>
+              
+              <div class="card-title">Preencha corretamente o formulário abaixo:</div>
+              <form method="POST">
+                <div class="row">
+                  <div class="form-group col-sm-12">
+                    <label for="NomeSerie">Nome da Série</label>
+                    <input type="text" class="form-control" name="NomeSerie" placeholder="Insira o nome da Série"required autofocus>
                   </div>
+                </div>
 
-                  <div class="row">
-                    <button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Enviar</button>
-                  </div>
-                </form>
-              </div>
+                <div class="row">
+                  <button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Enviar</button>
+                </div>
+              </form>
             </div>
+          </div>
         </main>
       </div>
     </div>
