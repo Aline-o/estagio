@@ -1,32 +1,35 @@
-<?php include_once('../../../public/config.php');?>
-<?php
-          $condition	=	'';
-          if(isset($_REQUEST['Nome']) and $_REQUEST['Nome']!=""){
-            $condition	.=	' AND Nome LIKE "%'.$_REQUEST['Nome'].'%" ';
-          }
-          if(isset($_REQUEST['Sigla']) and $_REQUEST['Sigla']!=""){
-            $condition	.=	' AND Sigla LIKE "%'.$_REQUEST['Sigla'].'%" ';
-          }
-          if(isset($_REQUEST['Descricao']) and $_REQUEST['Descricao']!=""){
-            $condition	.=	' AND Descricao LIKE "%'.$_REQUEST['Descricao'].'%" ';
-          }
-          if(isset($_REQUEST['Valor']) and $_REQUEST['Valor']!=""){
-            
-            $valor_inicial = $_REQUEST['Valor'];
-            $valor_final = str_replace(",",".", $valor_inicial);
-            
-            $condition	.=	' AND Valor LIKE "%'.$valor_final.'%" ';
-          }
-          $condition	.=	' AND Status = 1 ';
-          $userData	=	$db->getAllRecords('cardapio','*',$condition,'ORDER BY idCardapio DESC');
-        ?>
+<?php 
+// CONEXÃO COM O BANCO
+include_once('../../../public/config.php');
+
+$condition	=	'';
+if(isset($_REQUEST['Nome']) and $_REQUEST['Nome']!=""){
+  $condition	.=	' AND Nome LIKE "%'.$_REQUEST['Nome'].'%" ';
+}
+if(isset($_REQUEST['Sigla']) and $_REQUEST['Sigla']!=""){
+  $condition	.=	' AND Sigla LIKE "%'.$_REQUEST['Sigla'].'%" ';
+}
+if(isset($_REQUEST['Descricao']) and $_REQUEST['Descricao']!=""){
+  $condition	.=	' AND Descricao LIKE "%'.$_REQUEST['Descricao'].'%" ';
+}
+if(isset($_REQUEST['Valor']) and $_REQUEST['Valor']!=""){
+  
+  $valor_inicial = $_REQUEST['Valor'];
+  $valor_final = str_replace(",",".", $valor_inicial);
+  
+  $condition	.=	' AND Valor LIKE "%'.$valor_final.'%" ';
+}
+$condition	.=	' AND Status = 1 ';
+$userData	=	$db->getAllRecords('cardapio','*',$condition,'ORDER BY idCardapio DESC');
+?>
 
 <!doctype html>
 <html lang="pt-br">
+  
   <?php include_once('../head.blade.php'); ?>
 
-
   <body>
+  
     <?php include_once('../header.blade.php'); ?>
 
     <div class="container-fluid">
@@ -35,7 +38,6 @@
         <?php include_once('../sidebar/navCardapio.blade.php'); ?>
 
         <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-1 bd-content" role="main">
-        
           <div class="card border-light">
             <h4 class="card-header">Lista de Cardápios
               <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../create/cardapio.blade.php" role="button">Novo cadastro</a>
@@ -45,7 +47,8 @@
               <?php include_once('../../../public/alertMsg.php');?>
 
               <div class="card-title">
-                  <form method="get">
+                <!-------- Barra de pesquisa -------->
+                <form method="get">
                     <div class="row">
                       <div class="form-group col-sm-3">
                         <label for="Nome">Cardápio</label>
@@ -71,6 +74,8 @@
                     </div>
                   </form>
               </div>
+
+              <!-------- Tabela -------->
               <table class="table table-striped">
                 <thead>
                   <tr class="bg-primary text-white">
@@ -83,18 +88,20 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php 
-                    if(count($userData)>0){
-                      $s	=	'';
-                      foreach($userData as $val){
-                        $s++;
 
-                        $valor_inicial = $val['Valor'];
-                        $valor_replace = str_replace(".",",", $valor_inicial);
+                  <?php 
+                  if(count($userData)>0){
+                    $s	=	'';
+                    foreach($userData as $val){
+                      $s++;
+
+                      $valor_inicial = $val['Valor'];
+                      $valor_replace = str_replace(".",",", $valor_inicial);
                   ?>
+
                   <tr>
                     <td><?php echo $s;?></td>
-                    <td><?php echo $val['Nome'];?></td> <!-- Precisa ser exatamente como esta no banco -->
+                    <td><?php echo $val['Nome'];?></td>
                     <td><?php echo $val['Sigla'];?></td>
                     <td><?php echo $val['Descricao'];?></td>
                     <td><?php echo $valor_replace;?></td>
@@ -103,14 +110,18 @@
                       <a href="../delete/cardapio.php?delId=<?php echo $val['idCardapio'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                     </td>
                   </tr>
-                  <?php 
-                      }
-                    }else{
-                  ?>
-                  <tr><td colspan="6" align="center">No Record(s) Found!</td></tr>
+
                   <?php 
                     }
+                  }else{
                   ?>
+                  
+                  <tr><td colspan="6" align="center">No Record(s) Found!</td></tr>
+                  
+                  <?php 
+                  }
+                  ?>
+                
                 </tbody>
               </table>
             </div>
