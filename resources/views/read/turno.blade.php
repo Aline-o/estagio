@@ -92,9 +92,28 @@ $userData	=	$db->getAllRecords('turno','*',$condition,'ORDER BY idTurno DESC');
           
                   <tr>
                     <td><?php echo $s;?></td>
-                    <td><?php echo $val['NomeTurno'];?></td> <!-- Precisa ser exatamente como esta no banco -->
-                    <td><?php echo $val['HoraInicio'];?></td>
-                    <td><?php echo $val['HoraFim'];?></td>
+                    <td><?php echo $val['NomeTurno'];?></td>
+                    <td><?php 
+                      /* Nota: as variáveis de hora, pela configuração do banco, armazenam os segundos também.
+                      Para escolha manual, é somente horas e minutos, portanto, a visualização foi alterada 
+                      para ficar de acordo com a visualização do usuário.
+                      */
+                      $varHoraInicio = $val['HoraInicio'];
+                      //explode — Split a string by a string. Divide uma string através de um caractere de referência.                      
+                      $explHoraInicio = explode(":", $varHoraInicio); 
+                      //formato desejado para exibição. Ex  "19:00"
+                      $varHoraInicio = $explHoraInicio[0].":".$explHoraInicio[1];
+                      echo $varHoraInicio;
+                      ?></td>
+
+                    <td><?php 
+                      //mesmo esquema
+                      $varHoraFim = $val['HoraFim'];
+                      $explHoraFim = explode(":", $varHoraFim); 
+                      $varHoraFim = $explHoraFim[0].":".$explHoraFim[1];
+                      echo $varHoraFim;
+                      ?></td>
+
                     <td align="center">
                       <a href="../update/turno.blade.php?editId=<?php echo $val['idTurno'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
                       <a href="../delete/turno.php?delId=<?php echo $val['idTurno'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>

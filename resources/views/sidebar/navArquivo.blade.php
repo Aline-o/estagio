@@ -49,7 +49,7 @@
         </div>
 
       <li class="nav-item">
-        <a class="nav-link" href="MANUTENCAO.BLADE.PHP"><i class="fa fa-user"></i>
+        <a class="nav-link" href="presenca-turma.blade.php"><i class="fa fa-user"></i>
           &nbsp;Registro por presença</a>
       </li>
       <li class="nav-item">

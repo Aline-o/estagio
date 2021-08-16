@@ -1,8 +1,15 @@
 <?php 
+  /*
+  pesquisa de escola está bugado.
+  quando pesquisa mais de um termo, não vem o resultado certo.
+  erro provavelmente está em Turma também.
+  */
+
 // CONEXÃO COM O BANCO
 include_once('../../../public/config.php');
 
   $condition	=	'';
+  $SiglaCont= -1; //neutro
   if(isset($_REQUEST['NomeEscola']) and $_REQUEST['NomeEscola']!=""){
     $condition	.=	' AND NomeEscola LIKE "%'.$_REQUEST['NomeEscola'].'%" ';
   }
@@ -30,11 +37,15 @@ include_once('../../../public/config.php');
         if($contador == 0) 
         {
           $condition	.=	' AND ModalidaEnsino_idModalidadeEnsino LIKE '.$valMod['idModalidadeEnsino'].' ';
+          $condition	.=	' AND Status = 1 ';
           $contador++;
         }else{
           $condition	.=	' OR ModalidaEnsino_idModalidadeEnsino LIKE '.$valMod['idModalidadeEnsino'].' ';
+          $SiglaCont=1; //tem pelo menos 1 resultado confirmado.
         }
       }
+    }else{
+      $SiglaCont=0; //veio nada
     }
   }
 
@@ -101,30 +112,48 @@ include_once('../../../public/config.php');
                 <tbody>
 
                   <?php 
-                  if(count($userData)>0){
-                    $s	=	'';
-                    foreach($userData as $val){
-                      $s++;
-
-                      $convModEns	=	$db->getAllRecords2('modalidadeensino',' idModalidadeEnsino, Sigla ','idModalidadeEnsino ='.$val['ModalidaEnsino_idModalidadeEnsino'].' ');
-                    foreach($convModEns as $val2){}
+                  /*
+                  if se existir valor sigla 
+                  if se não existir valor nome
+                  
+                  
+                  */
+                  if(count($userData)>0){ // se existe pesquisa nome
+                    $s	=	'';           
+                     foreach($userData as $val){
+                    }        
+                    $userDataModEns	=	$db->getAllRecords2('modalidadeensino',' idModalidadeEnsino, Sigla ','idModalidadeEnsino ='.$val['ModalidaEnsino_idModalidadeEnsino'].' ');
+                    
+                    
+                    if(count($userDataModEns)>0){// se existe sigla
+                      foreach($userDataModEns as $val2){
+                        $s++;
                   ?>
-
-                  <tr>
+<tr>
                     <td><?php echo $s;?></td>
-                    <td><?php echo $val['NomeEscola'];?></td> <!-- Precisa ser exatamente como esta no banco -->
+                    <td><?php echo $val['NomeEscola'];?></td>
                     <td><?php echo $val2['Sigla'];?></td>
                     <td align="center">
                       <a href="../update/escola.blade.php?editId=<?php echo $val['idEscola'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
                       <a href="../delete/escola.php?delId=<?php echo $val['idEscola'];?>" class="text-danger" onClick="return confirm('Tem certeza que deseja excluir?');"><i class="fa fa-fw fa-trash"></i> Deletar</a>
                     </td>
-                  </tr>
+                  </tr>  
+
+                  <?php 
+                        
+                      }
+                    }
+                      
+                    
+                  ?>
+
+                                  
                   
                   <?php 
-                    }
                   }else{
                   ?>
-                  
+
+                  <tr><td colspan="4" align="center">teste No Record(s) Found!</td></tr>
                   <tr><td colspan="4" align="center">No Record(s) Found!</td></tr>
                   
                   <?php 

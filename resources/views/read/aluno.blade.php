@@ -50,7 +50,7 @@ if(isset($_REQUEST['NomeTurma']) and $_REQUEST['NomeTurma']!=""){
   }
 }
 $condition	.=	' AND Status = 1 ';
-$userData	=	$db->getAllRecords('aluno','*',$condition,'ORDER BY Matricula DESC');
+$userData	=	$db->getAllRecords('aluno','*',$condition,'ORDER BY Nome');
 ?>
 
 <!doctype html>
