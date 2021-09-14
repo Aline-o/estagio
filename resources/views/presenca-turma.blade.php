@@ -32,6 +32,8 @@ $userData	=	$db->getAllRecords('turma','*',$condition,'ORDER BY idTurma DESC');
         <?php include_once('sidebar/navPresenca.blade.php'); ?>
 
         <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-1 bd-content" role="main">
+          
+          <?php include_once('../../public/alertMsg.php');?>
         
             <div class="card border-light">
               <h4 class="card-header text-center">Registro por Presença</h4>

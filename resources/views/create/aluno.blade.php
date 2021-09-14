@@ -1,6 +1,8 @@
 <?php 
 // CONEXÃO COM O BANCO
 include_once('../../../public/config.php'); 
+//fuso-horario. Caso esteja no periodo noturno, pode dar diferenca de 1 dia em alunoespecial
+date_default_timezone_set("America/Sao_Paulo"); 
 
 /*
 Aluno: 
