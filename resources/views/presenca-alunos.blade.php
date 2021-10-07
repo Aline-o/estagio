@@ -16,7 +16,7 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
       //$selected puxa o valor do checkbox, vulgo matricula do aluno
       $Aluno_Matricula = $selected;
       //cardapio predefinido, nao eh variavel
-      $Cardapio_idCardapio = 28;
+      $Cardapio_idCardapio = 19;
 
       $condition	=	'';
       $condition	.=	' AND idCardapio LIKE "%'.$Cardapio_idCardapio.'%" ';
