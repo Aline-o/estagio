@@ -57,7 +57,7 @@
           &nbsp;Registro via arquivo</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../MANUTENCAO.BLADE.PHP"><i class="fa fa-file-text"></i>
+        <a class="nav-link" href="../relatorio.blade.php"><i class="fa fa-file-text"></i>
           &nbsp;Relatório</a>
       </li>
     </ul>

@@ -112,24 +112,15 @@ include_once('../../../public/config.php');
                 <tbody>
 
                   <?php 
-                  /*
-                  if se existir valor sigla 
-                  if se não existir valor nome
-                  
-                  
-                  */
-                  if(count($userData)>0){ // se existe pesquisa nome
-                    $s	=	'';           
-                     foreach($userData as $val){
-                    }        
+                  if(count($userData)>0){
+                    $s	=	'';
+                    foreach($userData as $val){
                     $userDataModEns	=	$db->getAllRecords2('modalidadeensino',' idModalidadeEnsino, Sigla ','idModalidadeEnsino ='.$val['ModalidaEnsino_idModalidadeEnsino'].' ');
-                    
-                    
-                    if(count($userDataModEns)>0){// se existe sigla
-                      foreach($userDataModEns as $val2){
-                        $s++;
+                    foreach($userDataModEns as $val2){}
+                      $s++;
                   ?>
-<tr>
+
+                  <tr>
                     <td><?php echo $s;?></td>
                     <td><?php echo $val['NomeEscola'];?></td>
                     <td><?php echo $val2['Sigla'];?></td>
@@ -142,8 +133,6 @@ include_once('../../../public/config.php');
                   <?php 
                         
                       }
-                    }
-                      
                     
                   ?>
 
