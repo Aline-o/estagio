@@ -10,9 +10,9 @@ include_once('../../public/config.php');
     header('Content-Disposition: attachment; filename="demo.csv"');
     echo "\xEF\xBB\xBF"; // UTF-8 BOM
     
-    // do not cache the file
-    header('Pragma: no-cache');
-    header('Expires: 0');
+    // do not cache the file. Não funcion no site do 000host la
+    // header('Pragma: no-cache');
+    // header('Expires: 0');
     
     // create a file pointer connected to the output stream
     $file = fopen('php://output', 'w');

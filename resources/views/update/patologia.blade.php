@@ -15,7 +15,7 @@
       'Descricao'=> $Descricao, //colunas 
       'Grupo'=>$Grupo,
     );
-    $update	=	$db->update('Patologia',$data,array('idPatologia'=>$editId));
+    $update	=	$db->update('patologia',$data,array('idPatologia'=>$editId));
     if($update){
       header('location: ../read/patologia.blade.php?msg=ratt'); #<!-- success -->
       exit;
