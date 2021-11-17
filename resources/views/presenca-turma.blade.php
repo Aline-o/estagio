@@ -43,6 +43,8 @@ $userData	=	$db->getAllRecords('turma','*',$condition,'ORDER BY idTurma DESC');
                   <div class="col-sm-4 text-justify">
                   
                     <!-------- Tabela -------->
+                    <a href="presenca-turma-especial.blade.php"> Turma Especial </a> </br>
+
                     <?php 
                     if(count($userData)>0){
                       $s	=	'';
