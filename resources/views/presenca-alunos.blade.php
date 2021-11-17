@@ -5,7 +5,7 @@ include_once('../../public/config.php');
 date_default_timezone_set("America/Sao_Paulo"); 
 
 if(isset($_REQUEST['chosenId']) and $_REQUEST['chosenId']!=""){
-  $userData	=	$db->getAllRecords('aluno','*',' AND Status = 1 AND Turma_idTurma="'.$_REQUEST['chosenId'].'"', 'ORDER BY Nome');
+  $userData	=	$db->getAllRecords('aluno','*',' AND Status = 1 AND Patologia= 0 AND Turma_idTurma="'.$_REQUEST['chosenId'].'"', 'ORDER BY Nome');
 } 
 
 if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
