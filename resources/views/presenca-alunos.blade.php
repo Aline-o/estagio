@@ -16,7 +16,7 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
       //$selected puxa o valor do checkbox, vulgo matricula do aluno
       $Aluno_Matricula = $selected;
       //cardapio predefinido, nao eh variavel
-      $Cardapio_idCardapio = 19;
+      //$Cardapio_idCardapio = 19;
 
       $condition	=	'';
       $condition	.=	' AND idCardapio LIKE "%'.$Cardapio_idCardapio.'%" ';
@@ -152,10 +152,49 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
               <h4 class="card-header text-center">Registro por Presença</h4>
               <div class="card-body text-justify">      
                 <form method="POST">          
-                  <div class="card-title"> <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkAll" checked>
-                    <label class="form-check-label" for="checkAll"> Selecionar tudo</label>
-                  </div> </div>
+                  <div class="card-title"> 
+
+                    <div class="row">
+                      <div class="form-group col-sm-3">
+                        <label for="Cardapio_idCardapio">Cardápio</label>
+                        <select class="form-control" name="Cardapio_idCardapio" id="Cardapio_idCardapio" required>
+                          <option selected disabled value="">Escolha uma opção...</option>
+    
+                          <?php 
+                          $condition	=	'';
+                          if(isset($_REQUEST['Sigla']) and $_REQUEST['Sigla']!=""){
+                            $condition	.=	' AND Sigla LIKE "%'.$_REQUEST['Sigla'].'%" ';
+                          }
+                          if(isset($_REQUEST['idCardapio']) and $_REQUEST['idCardapio']!=""){
+                            $condition	.=	' AND idCardapio LIKE "%'.$_REQUEST['idCardapio'].'%" ';
+                          }
+                          // Status 1 para valores não "deletados" pelo usuario
+                          $condition	.=	' AND Status = 1 ';
+                          $userDataC	=	$db->getAllRecords('cardapio','*', $condition,'ORDER BY idCardapio DESC');
+                        
+                          if(count($userDataC)>0){
+                            $s	=	'';
+                            foreach($userDataC as $valC){
+                              $s++;
+                          ?>
+                          
+                          <option value="<?php echo (int)$valC['idCardapio'];?>"> <?php echo $valC['Sigla'];?> </option>
+                          
+                          <?php 
+                            }
+                          }
+                          ?>
+    
+                        </select>
+                      </div>
+                    </div>
+
+
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="checkAll" checked>
+                      <label class="form-check-label" for="checkAll"> Selecionar tudo</label>
+                    </div> 
+                  </div>
                   <div class="col-sm-12">
                     
 
