@@ -68,14 +68,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
     //readfile($arquivo);
 
-/*
-$spreadsheet = new Spreadsheet();
-$sheet = $spreadsheet->getActiveSheet();
-$sheet->setCellValue('A1', 'Hello World !');
-
-$writer = new Xlsx($spreadsheet);
-$writer->save('hello world.xlsx');
-*/
 
 
 //Including PHPExcel library and creation of its object
@@ -103,28 +95,144 @@ $sheet ->getCell('A1')->setValue('Prefeitura de Jacareí');
 $sheet ->getCell('A2')->setValue('Secretaria de Educação');
 $sheet ->getCell('A3')->setValue('CONTROLE MENSAL DE CONSUMO DE MERENDA - CRECHES E MATERNAL');
 $sheet ->getCell('A4')->setValue('PARCIAL/INTEGRAL (ALUNOS PRESENTES)');
-$sheet ->getCell('A4')->setValue('Escola:');
-$sheet ->getCell('A4')->setValue('Mês:');
-$sheet ->getCell('A4')->setValue('**Marcação por presença**');
+$sheet ->getCell('A5')->setValue('Escola:');
+$sheet ->getCell('A6')->setValue('Mês:');
+$sheet ->getCell('A7')->setValue('**Marcação por presença**');
+
+$sheet ->getCell('A8')->setValue('Dia');
+$sheet ->getCell('B8')->setValue('C1 (BI - 4 a 5 meses)');
+$sheet ->getCell('C8')->setValue('c2 (BI - 6 a 12 meses)');
+$sheet ->getCell('D8')->setValue('c3 (BI/BII/BIII e Mat. Integral - 1 a 4 anos)');
+$sheet ->getCell('E8')->setValue('c4 (maternal parcial)');
+$sheet ->getCell('E9')->setValue('manhã');
+$sheet ->getCell('F9')->setValue('tarde');
+$sheet ->getCell('G8')->setValue('c5 (lanche complementar)');
+
 // Making headers text bold and larger
-$sheet->getStyle('A1:A4')->getFont()->setBold(true)->setSize(14);
+$sheet->getStyle('A1:A7')->getFont()->setBold(true)->setSize(20);
 // Insert product data
 
-$sheet->mergeCells("A1:C1");
-$sheet->mergeCells("A2:C2");
-$sheet->mergeCells("A3:C3");
-$sheet->mergeCells("A4:C4");
-$sheet->getStyle('A:B')->getAlignment()->setHorizontal('center');
+$sheet->mergeCells("A1:G1");
+$sheet->mergeCells("A2:G2");
+$sheet->mergeCells("A3:G3");
+$sheet->mergeCells("A4:G4");
+$sheet->mergeCells("A5:G5");
+$sheet->mergeCells("A6:G6");
+$sheet->mergeCells("A7:G7");
+$sheet->mergeCells("E8:F8");
+$sheet->getStyle('A:G')->getAlignment()->setHorizontal('center');
 
 // Autosize the columns
 $sheet->getColumnDimension('A')->setAutoSize(false);
 $sheet->getColumnDimension('B')->setAutoSize(false);
 $sheet->getColumnDimension('C')->setAutoSize(false);
+$sheet->getColumnDimension('D')->setAutoSize(false);
+$sheet->getColumnDimension('E')->setAutoSize(false);
+$sheet->getColumnDimension('F')->setAutoSize(false);
+$sheet->getColumnDimension('G')->setAutoSize(false);
 
 //testar depois, mudar acima pra falso
-$value =  $sheet->getCell('A3')->getValue();
+$value =  $sheet->getCell('A8')->getValue();
 $width = mb_strwidth ($value); //Return the width of the string
-$sheet->getColumnDimension('A')->setWidth($width);
+$sheet->getColumnDimension('A')->setWidth($width+1);
+
+$value =  $sheet->getCell('B8')->getValue();
+$width = mb_strwidth ($value); //Return the width of the string
+$sheet->getColumnDimension('B')->setWidth($width);
+
+$value =  $sheet->getCell('C8')->getValue();
+$width = mb_strwidth ($value); //Return the width of the string
+$sheet->getColumnDimension('C')->setWidth($width);
+
+$value =  $sheet->getCell('D8')->getValue();
+$width = mb_strwidth ($value); //Return the width of the string
+$sheet->getColumnDimension('D')->setWidth($width-5);
+
+$value =  $sheet->getCell('E8')->getValue();
+$width = mb_strwidth ($value); //Return the width of the string
+$sheet->getColumnDimension('E')->setWidth($width/2);
+$sheet->getColumnDimension('F')->setWidth($width/2);
+
+$value =  $sheet->getCell('G8')->getValue();
+$width = mb_strwidth ($value); //Return the width of the string
+$sheet->getColumnDimension('G')->setWidth($width);
+
+/*
+AA - Alpha component [0..255] of the color
+RR - Red component [0..255] of the color
+GG - Green component [0..255] of the color
+BB - Blue component [0..255] of the color
+
+100% - FF
+95% - F2
+90% - E6
+85% - D9
+80% - CC
+75% - BF
+70% - B3
+65% - A6
+60% - 99
+55% - 8C
+50% - 80
+45% - 73
+40% - 66
+35% - 59
+30% - 4D
+25% - 40
+20% - 33
+15% - 26
+10% - 1A
+5% - 0D
+0% - 00
+
+EXEMPLOS:
+BLACK = 'FF000000'
+BLUE = 'FF0000FF'
+RED = 'FFFF0000'
+
+*/
+$sheet->getStyle('A8:G8')
+    ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+$sheet->getStyle('A8:G8')
+    ->getFill()->getStartColor()->setARGB('ffbdbdbd');
+$sheet->getStyle('A9:G9')
+    ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+$sheet->getStyle('A9:G9')
+    ->getFill()->getStartColor()->setARGB('ffbdbdbd');
+
+    $styleArray = [
+      'font' => [
+          'bold' => true,
+      ],
+      'alignment' => [
+          'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+      ],
+      'borders' => [
+          'top' => [
+              'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+          ],
+      ],
+      'fill' => [
+          'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+          'rotation' => 90,
+          'startColor' => [
+              'argb' => 'FFA0A0A0',
+          ],
+          'endColor' => [
+              'argb' => 'FFFFFFFF',
+          ],
+      ],
+  ];
+  $sheet->getStyle('A10:A40')->applyFromArray($styleArray);  
+
+  for($i=1; $i<=31; $i++){   
+    $sheet ->getCell('A'.($i+9))->setValue($i);
+  //$sheet ->getCell('A6')->setValue('Mês:');
+  }
+  $sheet ->getCell('A41')->setValue('Subtotal:');
+  $sheet ->getCell('A42')->setValue('Total:');
+
+
 
 // Save the spreadsheet
 $writer = new Xlsx($phpExcel);

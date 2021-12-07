@@ -176,13 +176,18 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
                       $condition	.=	' AND Status = 1 ';
                       $userData	=	$db->getAllRecords('turma','*', $condition,'ORDER BY idTurma DESC');
                     
+                      
                       if(count($userData)>0){
                         $s	=	'';
                         foreach($userData as $val){
                           $s++;
+                          ////////////////////////////////////////////////////
+                          $convNivEns	=	$db->getAllRecords2('nivelensino',' idNivelEnsino, NomeNivelEnsino ','idNivelEnsino ='.$val['NivelEnsino_idNivelEnsino'].' ');
+                          foreach($convNivEns as $val2){}
+                          ////////////////////////////////////////////////////
                       ?>
                       
-                      <option value="<?php echo (int)$val['idTurma']; ?>"> <?php echo $val['NomeTurma']; ?> </option>
+                      <option value="<?php echo (int)$val['idTurma']; ?>"> <?php echo $val['NomeTurma']; ?> , <?php echo $val2['NomeNivelEnsino'];?> </option>
                       
                       <?php 
                         }
@@ -205,7 +210,7 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
                 <div class="row collapse" id="patologiaTable">
                   <div class="form-group col-sm-4">
                     <label for="Patologia_idPatologia">Restrição Alimentar</label>
-                    <select class="form-control" name="Patologia_idPatologia" id="Patologia_idPatologia" required>
+                    <select class="form-control" name="Patologia_idPatologia" id="Patologia_idPatologia">
                       <option selected disabled value="">Escolha uma opção...</option>
                       
                       <?php 

@@ -25,9 +25,10 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
       $ValorCobrado = $cardapioDados[0]['Valor'];
 
       $DataHora = strftime("%H:%M:%S");
-      //echo $ValorCobrado." #datahora# </br>";
+      //puxar data e hora
 
-      $Periodo = strftime("%H:%M:%S"); //Periodo
+      $Periodo = strftime("%H:%M:%S"); 
+      //puxar só a hora, turno
       $turnoDados	=	$db->getAllRecords('turno','*',' AND Status = 1 ','ORDER BY idTurno DESC');
       /* cardapio nao tem erro pq a busca eh feita com o id, mas o turno pode ocorrer erro se 
       houver algum turno "apagado" para o user, mas com registro no Banco...
@@ -43,7 +44,7 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
           }
         }
       }
-      if($Periodo==$DataHora){//caso nao tenha turnos correspondentes
+      if($Periodo==$DataHora){//não vai funcionar +
         $Periodo = 'Indefinido ('.$DataHora.')';
       }
 
