@@ -1,8 +1,13 @@
 <?php include_once('../../../public/config.php');
   if(isset($_REQUEST['editId']) and $_REQUEST['editId']!=""){
-    $row	=	$db->getAllRecords('aluno, turma','aluno.Matricula,aluno.Turma_idTurma ,
-     aluno.Nome, aluno.DataNascimento, aluno.Patologia, turma.idTurma, turma.NomeTurma',
-    ' AND Matricula="'.$_REQUEST['editId'].'" AND turma.idTurma = aluno.Turma_idTurma');
+    $row	=	$db->getAllRecords('aluno, turma, nivelensino','aluno.Matricula,aluno.Turma_idTurma ,
+     aluno.Nome, aluno.DataNascimento, aluno.Patologia, turma.idTurma, turma.NomeTurma ,
+     turma.NivelEnsino_idNivelEnsino, nivelensino.idNivelEnsino, nivelensino.NomeNivelEnsino',
+    ' AND Matricula="'.$_REQUEST['editId'].
+    '" AND turma.idTurma = aluno.Turma_idTurma AND nivelensino.idNivelEnsino = turma.NivelEnsino_idNivelEnsino');
+
+    //$rowNivEns = $db->getAllRecords2('nivelensino',' idNivelEnsino, NomeNivelEnsino ','idNivelEnsino ='.$val['NivelEnsino_idNivelEnsino'].' ');
+                          
     
     $rowAluEspec	=	$db->getAllRecords('alunoespecial',' alunoespecial.Aluno_Matricula, alunoespecial.Patologia_idPatologia ',
     ' AND Aluno_Matricula="'.$_REQUEST['editId'].'"');//$requestid
@@ -248,6 +253,7 @@
                     if(isset($_REQUEST['idTurma']) and $_REQUEST['idTurma']!=""){
                       $condition	.=	' AND idTurma LIKE "%'.$_REQUEST['idTurma'].'%" ';
                     }
+                    $condition	.=	' AND Status = 1 ';
                     $userData	=	$db->getAllRecords('turma',' * ', $condition,' ORDER BY idTurma DESC');
                   ?>
 
@@ -259,16 +265,21 @@
                     <div class="form-group col-sm-6">
                       <label for="Turma_idTurma">Turma</label>
                       <select class="form-control" id="Turma_idTurma" name="Turma_idTurma" required><!--//php buscando id-->
-                        <option selected value="<?php echo $row[0]['idTurma']; ?>"><?php echo $row[0]['NomeTurma']; ?></option>
+                        <?php ?>
+                        <option selected value="<?php echo $row[0]['idTurma']; ?>"> <?php echo $row[0]['NomeTurma']; ?> , <?php echo $row[0]['NomeNivelEnsino'];?> </option>
                         
                         <?php 
                         if(count($userData)>0){
                           $s	=	'';
                           foreach($userData as $val){
                             $s++;
+                          ////////////////////////////////////////////////////
+                          $convNivEns	=	$db->getAllRecords2('nivelensino',' idNivelEnsino, NomeNivelEnsino ','idNivelEnsino ='.$val['NivelEnsino_idNivelEnsino'].' ');
+                          foreach($convNivEns as $val2){}
+                          ////////////////////////////////////////////////////
                         ?>
                         
-                        <option value="<?php echo (int)$val['idTurma'];?>"> <?php echo $val['NomeTurma'];?> </option>
+                        <option value="<?php echo (int)$val['idTurma'];?>"> <?php echo $val['NomeTurma']; ?> , <?php echo $val2['NomeNivelEnsino'];?> </option>
                         
                         <?php 
                           }
