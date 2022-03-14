@@ -2,6 +2,9 @@
 // CONEXÃO COM O BANCO
 include_once('../../public/config.php');
 
+date_default_timezone_set("America/Sao_Paulo"); 
+// echo date("d/m/y G:i:s") . "<br>";
+
 require '../../vendor/autoload.php';
 //require('../../PHPExcel.php');
 

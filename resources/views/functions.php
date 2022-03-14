@@ -1,6 +1,7 @@
 <?php
 
 /*
+funções para o envio do arquivo de consumo
 
     .==.        .==.
     //`^\\      //^`\\
