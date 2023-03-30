@@ -2,72 +2,249 @@
 // CONEXÃO COM O BANCO
 include_once('../../public/config.php');
 
-  if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
+date_default_timezone_set("America/Sao_Paulo"); 
+// echo date("d/m/y G:i:s") . "<br>";
 
-    // output headers so that the file is downloaded rather than displayed
-    header('Content-Encoding: UTF-8');
-    header('Content-type: text/csv; charset=UTF-8');
-    header('Content-Disposition: attachment; filename="demo.csv"');
-    echo "\xEF\xBB\xBF"; // UTF-8 BOM
+require '../../vendor/autoload.php';
+//require('../../PHPExcel.php');
+
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+  if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
+    //$arquivo = 'mimecont.xlsx';
+
+   // echo 'teste garai';
+
+    // Configurações header para forçar o download 
+    //header('Content-Description: File Transfer');
+   // header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    //header("Content-Disposition: attachment; filename=teste.xlsx");
+    //header("Content-Transfer-Encoding: binary");
+    //header("Expires: 0");
+    //header("Pragma: public");
+    //header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    //header('Content-Length: ' . filesize($arquivo)); //Remove
+    //echo 'teste garai2';
     
-    // do not cache the file. Não funcion no site do 000host la
-    // header('Pragma: no-cache');
-    // header('Expires: 0');
-    
-    // create a file pointer connected to the output stream
-    $file = fopen('php://output', 'w');
-    
-    // send the column headers
-    fputcsv($file, array('Prefeitura de Jacareí'));
-    fputcsv($file, array('Secretaria de Educação'));
-    fputcsv($file, array('Controle mensal de consumo de merenda','Creches e maternal'),';');
-    fputcsv($file, array('Parcial/integral (alunos presentes)'));
-    fputcsv($file, array('Escola:'));
-    fputcsv($file, array('Mês:'));
-    fputcsv($file, array('**Marcação por presença**'));
-    
-    // Sample data. This can be fetched from mysql too
-    $data = array(
-        array(
-            'dia'=>'Dia',
-            'campo1'=> 'C1 (BI - 4 a 5 meses)',
-            'campo2'=> 'c2 (BI - 6 a 12 meses)',
-            'campo3'=> 'c3 (BI/BII/BIII e Mat. Integral - 1 a 4 anos)',
-            'campo4'=> 'c4 (maternal parcial) manhã',
-            'campo5'=> 'c4 (maternal parcial) tarde',
-            'campo6'=> 'c5 (lanche complementar)',
-        ),
-        array(
-            'dia'=>'data 10',
-            'campo1'=> 'data 11',
-            'campo2'=> 'data 12',
-            'campo3'=> 'data 13',
-            'campo4'=> 'data 14',
-            'campo5'=> 'data 15',
-            'campo6'=> 'data 16',
-        ),
-        array(
-            'dia'=>'data 20',
-            'campo1'=> 'data 21',
-            'campo2'=> 'data 22',
-            'campo3'=> 'data 23',
-            'campo4'=> 'data 24',
-            'campo5'=> 'data 25',
-            'campo6'=> 'data 26',
-        )
-      );
-    
-    
-    // output each row of the data
-    foreach ($data as $row)
-    {
-    fputcsv($file, $row, ';');
-    }
-        
-    fclose($file);
-    // nao funciona pq  redireciona a página antes de download. Sleep() não resolve.
-    //header('location:' .$_SERVER['PHP_SELF'].'?msg=ratt'); #<!-- success -->
-    exit();
+    /*$html='';
+    $html.='<table border="1">';
+      $html.='<tr>';
+        $html.='<td colspan="5">planilhaa teste brabo</td>';
+      $html.='</tr>';
+
+      $html.='<tr>';
+        $html.='<td><b>ID</b></td>';
+        $html.='<td><b>Nome</b></td>';
+        $html.='<td><b>E-mail</b></td>';
+        $html.='<td><b>Assunto</b></td>';
+        $html.='<td><b>Data</b></td>';
+      $html.='</tr>';
+      
+      $html.='<tr>';
+        $html.='<td>1</td>';
+        $html.='<td>Aline</td>';
+        $html.='<td>aline@aline.com</td>';
+        $html.='<td>11teste de arquivo</td>';
+        $html.='<td>29/10/2021</td>';
+      $html.='</tr>';
+
+      $html.='<tr>';
+        $html.='<td>2</td>';
+        $html.='<td>Aline2</td>';
+        $html.='<td>aline@aline.com</td>';
+        $html.='<td>22teste de arquivo</td>';
+        $html.='<td>29/10/2021</td>';
+      $html.='</tr>';
+
+      $html.='<tr>';
+        $html.='<td>3</td>';
+        $html.='<td>Aline3</td>';
+        $html.='<td>aline@aline.com</td>';
+        $html.='<td>33teste de arquivo</td>';
+        $html.='<td>29/10/2021</td>';
+      $html.='</tr>';
+
+    $html.='</table>';s
+    */
+
+    //readfile($arquivo);
+
+
+
+//Including PHPExcel library and creation of its object
+//require('PHPExcel.php');
+$phpExcel = new Spreadsheet();
+// Setting font to Arial Black
+$phpExcel->getDefaultStyle()->getFont()->setName('Arial Black');
+// Setting font size to 14
+$phpExcel->getDefaultStyle()->getFont()->setSize(14);
+//Setting description, creator and title
+$phpExcel ->getProperties()->setTitle("Vendor list");
+$phpExcel ->getProperties()->setCreator("Robert");
+$phpExcel ->getProperties()->setDescription("Excel SpreadSheet in PHP");
+// Creating PHPExcel spreadsheet writer object
+// We will create xlsx file (Excel 2007 and above)
+//$writer = PHPExcel_IOFactory::createWriter($phpExcel, "Excel2007");
+
+// When creating the writer object, the first sheet is also created
+// We will get the already created sheet
+$sheet = $phpExcel ->getActiveSheet();
+// Setting title of the sheet
+$sheet->setTitle('My product list');
+// Creating spreadsheet header
+$sheet ->getCell('A1')->setValue('Prefeitura de Jacareí');
+$sheet ->getCell('A2')->setValue('Secretaria de Educação');
+$sheet ->getCell('A3')->setValue('CONTROLE MENSAL DE CONSUMO DE MERENDA - CRECHES E MATERNAL');
+$sheet ->getCell('A4')->setValue('PARCIAL/INTEGRAL (ALUNOS PRESENTES)');
+$sheet ->getCell('A5')->setValue('Escola:');
+$sheet ->getCell('A6')->setValue('Mês:');
+$sheet ->getCell('A7')->setValue('**Marcação por presença**');
+
+$sheet ->getCell('A8')->setValue('Dia');
+$sheet ->getCell('B8')->setValue('C1 (BI - 4 a 5 meses)');
+$sheet ->getCell('C8')->setValue('c2 (BI - 6 a 12 meses)');
+$sheet ->getCell('D8')->setValue('c3 (BI/BII/BIII e Mat. Integral - 1 a 4 anos)');
+$sheet ->getCell('E8')->setValue('c4 (maternal parcial)');
+$sheet ->getCell('E9')->setValue('manhã');
+$sheet ->getCell('F9')->setValue('tarde');
+$sheet ->getCell('G8')->setValue('c5 (lanche complementar)');
+
+// Making headers text bold and larger
+$sheet->getStyle('A1:A7')->getFont()->setBold(true)->setSize(20);
+// Insert product data
+
+$sheet->mergeCells("A1:G1");
+$sheet->mergeCells("A2:G2");
+$sheet->mergeCells("A3:G3");
+$sheet->mergeCells("A4:G4");
+$sheet->mergeCells("A5:G5");
+$sheet->mergeCells("A6:G6");
+$sheet->mergeCells("A7:G7");
+$sheet->mergeCells("E8:F8");
+$sheet->getStyle('A:G')->getAlignment()->setHorizontal('center');
+
+// Autosize the columns
+$sheet->getColumnDimension('A')->setAutoSize(false);
+$sheet->getColumnDimension('B')->setAutoSize(false);
+$sheet->getColumnDimension('C')->setAutoSize(false);
+$sheet->getColumnDimension('D')->setAutoSize(false);
+$sheet->getColumnDimension('E')->setAutoSize(false);
+$sheet->getColumnDimension('F')->setAutoSize(false);
+$sheet->getColumnDimension('G')->setAutoSize(false);
+
+//testar depois, mudar acima pra falso
+$value =  $sheet->getCell('A8')->getValue();
+$width = mb_strwidth ($value); //Return the width of the string
+$sheet->getColumnDimension('A')->setWidth($width+1);
+
+$value =  $sheet->getCell('B8')->getValue();
+$width = mb_strwidth ($value); //Return the width of the string
+$sheet->getColumnDimension('B')->setWidth($width);
+
+$value =  $sheet->getCell('C8')->getValue();
+$width = mb_strwidth ($value); //Return the width of the string
+$sheet->getColumnDimension('C')->setWidth($width);
+
+$value =  $sheet->getCell('D8')->getValue();
+$width = mb_strwidth ($value); //Return the width of the string
+$sheet->getColumnDimension('D')->setWidth($width-5);
+
+$value =  $sheet->getCell('E8')->getValue();
+$width = mb_strwidth ($value); //Return the width of the string
+$sheet->getColumnDimension('E')->setWidth($width/2);
+$sheet->getColumnDimension('F')->setWidth($width/2);
+
+$value =  $sheet->getCell('G8')->getValue();
+$width = mb_strwidth ($value); //Return the width of the string
+$sheet->getColumnDimension('G')->setWidth($width);
+
+/*
+AA - Alpha component [0..255] of the color
+RR - Red component [0..255] of the color
+GG - Green component [0..255] of the color
+BB - Blue component [0..255] of the color
+
+100% - FF
+95% - F2
+90% - E6
+85% - D9
+80% - CC
+75% - BF
+70% - B3
+65% - A6
+60% - 99
+55% - 8C
+50% - 80
+45% - 73
+40% - 66
+35% - 59
+30% - 4D
+25% - 40
+20% - 33
+15% - 26
+10% - 1A
+5% - 0D
+0% - 00
+
+EXEMPLOS:
+BLACK = 'FF000000'
+BLUE = 'FF0000FF'
+RED = 'FFFF0000'
+
+*/
+$sheet->getStyle('A8:G8')
+    ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+$sheet->getStyle('A8:G8')
+    ->getFill()->getStartColor()->setARGB('ffbdbdbd');
+$sheet->getStyle('A9:G9')
+    ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+$sheet->getStyle('A9:G9')
+    ->getFill()->getStartColor()->setARGB('ffbdbdbd');
+
+    $styleArray = [
+      'font' => [
+          'bold' => true,
+      ],
+      'alignment' => [
+          'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+      ],
+      'borders' => [
+          'top' => [
+              'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+          ],
+      ],
+      'fill' => [
+          'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+          'rotation' => 90,
+          'startColor' => [
+              'argb' => 'FFA0A0A0',
+          ],
+          'endColor' => [
+              'argb' => 'FFFFFFFF',
+          ],
+      ],
+  ];
+  $sheet->getStyle('A10:A40')->applyFromArray($styleArray);  
+
+  for($i=1; $i<=31; $i++){   
+    $sheet ->getCell('A'.($i+9))->setValue($i);
+  //$sheet ->getCell('A6')->setValue('Mês:');
+  }
+  $sheet ->getCell('A41')->setValue('Subtotal:');
+  $sheet ->getCell('A42')->setValue('Total:');
+
+
+
+// Save the spreadsheet
+$writer = new Xlsx($phpExcel);
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="testeM.xlsx"');
+        $writer->save('php://output');
+
+//$writer->save('products.xlsx');
+    exit;
 
   }
 

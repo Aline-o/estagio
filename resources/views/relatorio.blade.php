@@ -67,6 +67,33 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
       $html.='</tr>';
 
     $html.='</table>';s
+
+
+
+
+
+
+
+
+$date1="23/06/23 18:30:47";
+$date2="23/03/21 10:30:47"; //mid
+$date3="23/04/25 11:30:47";
+
+
+$idate1=date_create_from_format("d/m/y G:i:s", $date1);
+$idate2=date_create_from_format("d/m/y G:i:s", $date2);
+$idate3=date_create_from_format("d/m/y G:i:s", $date3);
+
+$idate1= date_format($idate1,"y/m/d");
+$idate2= date_format($idate2,"y/m/d");
+$idate3= date_format($idate3,"y/m/d");
+
+
+if ($idate3 >= $idate2 && $idate3 <= $idate1)
+    echo "$idate3 ta no meio de $idate2 e $idate1";
+else
+    echo "$idate3 n esta entre $idate2 e $idate1";
+
     */
 
     //readfile($arquivo);
@@ -82,7 +109,7 @@ $phpExcel->getDefaultStyle()->getFont()->setName('Arial Black');
 $phpExcel->getDefaultStyle()->getFont()->setSize(14);
 //Setting description, creator and title
 $phpExcel ->getProperties()->setTitle("Vendor list");
-$phpExcel ->getProperties()->setCreator("Robert");
+$phpExcel ->getProperties()->setCreator("Aline");
 $phpExcel ->getProperties()->setDescription("Excel SpreadSheet in PHP");
 // Creating PHPExcel spreadsheet writer object
 // We will create xlsx file (Excel 2007 and above)
@@ -92,7 +119,7 @@ $phpExcel ->getProperties()->setDescription("Excel SpreadSheet in PHP");
 // We will get the already created sheet
 $sheet = $phpExcel ->getActiveSheet();
 // Setting title of the sheet
-$sheet->setTitle('My product list');
+$sheet->setTitle('Relatorio prefeitura');
 // Creating spreadsheet header
 $sheet ->getCell('A1')->setValue('Prefeitura de Jacareí');
 $sheet ->getCell('A2')->setValue('Secretaria de Educação');
@@ -271,7 +298,84 @@ header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetm
               <div class="card-body text-justify">      
                 <form method="POST">          
                   <div class="card-title">Teste de download de arquivo csv com dados fictícios.</div>
-                  <div class="col-sm-12">
+
+                  <div class="row">
+                    <div class="form-group col-sm-6">
+                      <label for="Escola_idEscola">Escola</label>
+                      <select class="form-control" id="Escola_idEscola" name="Escola_idEscola" required>
+                        <option selected disabled value="">Escolha uma opção...</option>
+                        
+                        <?php 
+                        $condition	=	'';
+                        if(isset($_REQUEST['NomeEscola']) and $_REQUEST['NomeEscola']!=""){
+                          $condition	.=	' AND NomeEscola LIKE "%'.$_REQUEST['NomeEscola'].'%" ';
+                        }
+                        if(isset($_REQUEST['idEscola']) and $_REQUEST['idEscola']!=""){
+                          $condition	.=	' AND idEscola LIKE "%'.$_REQUEST['idEscola'].'%" ';
+                        }
+                        // Status 1 para valores não "deletados" pelo usuario
+                        $condition	.=	' AND Status = 1 ';
+                        $userData	=	$db->getAllRecords('escola','*', $condition,'ORDER BY idEscola DESC');
+                      
+                        if(count($userData)>0){
+                          $s	=	'';
+                          foreach($userData as $val){
+                            $s++;
+                        ?>
+                        
+                        <option value="<?php echo (int)$val['idEscola'];?>"> <?php echo $val['NomeEscola'];?> </option>
+                        
+                        <?php 
+                          }
+                        }
+                        ?>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label for="datah">Data</label>
+                      <select class="form-control" id="datah" name="datah" required>
+                        <option selected disabled value="">Escolha uma opção...</option>
+                        
+                        <?php 
+
+                        // read na tabela consumo,lista mais recente pro menos, split datahora, remove duplicatas
+                        $condition	=	'';
+                        if(isset($_REQUEST['DataHora']) and $_REQUEST['DataHora']!=""){
+                          $condition	.=	' AND DataHora LIKE "%'.$_REQUEST['DataHora'].'%" ';
+                        }
+                        $condition	.=	' AND Status = 1 ';
+                        $userData	=	$db->getAllRecords('consumo','DataHora, Status',$condition,'ORDER BY DataHora DESC');
+
+                        
+                        if(count($userData)>0){
+                          $s	=	'';
+                          foreach($userData as $val){
+                            $s++;
+
+                            //explode — Split a string by a string. Divide uma string através de um caractere de referência.                      
+                            $exploData = str_split($val['DataHora']); 
+                            //formato desejado para exibição. Ex  "19:00"
+                            $varData = $exploData[0]."/".$exploData[1];
+                        ?>
+                        
+                        <option value=""> <?php 
+                          
+                          echo $exploData[0];
+                          
+                          print_r($exploData);
+                          if (str_contains($val['DataHora'], "/")) {
+                            echo "Check";
+                          }
+                          
+                          ?> </option>
+                        
+                        <?php 
+                          }
+                        }
+                        ?>
+                      </select>
+                    </div>
                     
                     <!-- justify-content-end --->
 

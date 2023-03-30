@@ -24,10 +24,11 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 
       $ValorCobrado = $cardapioDados[0]['Valor'];
 
-      $DataHora = strftime("%H:%M:%S");
+      $DataHora = date("d/m/y G:i:s");
       //puxar data e hora
 
-      $Periodo = strftime("%H:%M:%S"); 
+      $Periodo = strftime("%H:%M:%S"); //Periodo
+      $PeriodoAux = strftime("%H:%M:%S"); //Periodo
       //puxar só a hora, turno
       $turnoDados	=	$db->getAllRecords('turno','*',' AND Status = 1 ','ORDER BY idTurno DESC');
       /* cardapio nao tem erro pq a busca eh feita com o id, mas o turno pode ocorrer erro se 
@@ -38,13 +39,15 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
         $h_Inicio = $val['HoraInicio'];
         $h_Fim = $val['HoraFim'];
         
-        if($Periodo>=$h_Inicio && $Periodo<=$h_Fim){
+        if($Periodo>=$h_Inicio && $Periodo<=$h_Fim){ //se estiver dentro de um turno...
+          //se nometurno for diferente de integral, a variavel recebe nometurno
           if(strcasecmp($val['NomeTurno'],"integral")){ //If this function returns 0, the two strings are equal.
             $Periodo = $val['NomeTurno'];
           }
         }
       }
-      if($Periodo==$DataHora){//não vai funcionar +
+      //caso periodo não tenha se alterado, ou seja..
+      if($Periodo==$PeriodoAux){//caso nao tenha nenhum turno correspondente àquele horário..
         $Periodo = 'Indefinido ('.$DataHora.')';
       }
 
