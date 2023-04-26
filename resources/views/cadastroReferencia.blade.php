@@ -104,7 +104,7 @@
                 <a class="btn btn-primary my-2 my-sm-0 pull-right" href="../read/aluno.blade.php" role="button">Buscar</a>
               </h4>
               <div class="card-body">
-                <?php include_once('../../../public/alertMsg.php');?>
+                <?php include_once('../../public/alertMsg.php');?>
                 <div class="card-title">Preencha corretamente o formulário abaixo:</div>
                 <form method="POST">
                   

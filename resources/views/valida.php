@@ -2,7 +2,8 @@
 session_start();
 include_once('../../public/conexao.php');
 //include_once("conexao.php");
-
+//usuario: admin  /  nutri
+//senha: 123  /  1k
 
 $btnLogin = filter_input(INPUT_POST, 'btnLogin', FILTER_SANITIZE_STRING);
 if($btnLogin){

@@ -162,7 +162,7 @@
 				 	<input type="submit" name="btnLogin" value="Acessar" class="btn login_btn btn btn-primary btn-block btn-lg">
 					 <!--button type="submit" name="btnLogin" class="">Entrar</button-->
 					</div>
-					<!-- class="hint-text"><a href="#">Forgot Password?</a></p-->
+					<class="hint-text"><a href="cadUsuario.blade.php">Cadastrar-me</a></p>
 				</form>
 			</div>
 			<!-- div class="modal-footer">Don't have an account? <a href="#">Create one</a></div -->
