@@ -64,7 +64,7 @@ include_once('../../public/config.php');
             <div class="card border-light center" >
               <h4 class="card-header text-center">SESSÃO</h4>
               <div class="card-body text-center">                
-                <div class="card-title">Ainda estamos trabalhando nesta página!</div>
+                <div class="card-title">Ainda estamos trabalhando nesta página! sessao </div>
                 <div class="col-sm-12">
                   <p>Clique <a href="sessao1.blade.php">aqui</a> para ir na sessao1.</p>
                 </div>

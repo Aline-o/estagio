@@ -1,6 +1,8 @@
 <?php
 
 session_start();
+if( empty($_SESSION['Login']) ){ //caso não esteja logado
+  header("Location: login.blade.php");
 
 ?>
 
@@ -38,21 +40,10 @@ session_start();
     </nav>
 
     <div class="container-fluid">
-     
         <div class="tab-content">
-
           <div id="cadSerie" class="container tab-pane active"><br>
           <div class="mx-auto" style="width: 600px;">
-
             <div class="card border-light center" >
-
-
-              <?php
-              if( empty($_SESSION['Login']) ){ //caso não esteja logado
-              ?>
-                
-              <h4 class="card-header text-center">VC NAO ESTA LOGADO</h4>
-
               <?php
 
               }else{ //caso esteja logado
@@ -64,7 +55,7 @@ session_start();
 
               <?php
                 }else{ //se nao for adm...
-					        header("location: accessdenied.blade.php");
+					        //header("location: accessdenied.blade.php");
 
               ?>
 
@@ -74,15 +65,15 @@ session_start();
                 <?php 
                   
                   $senhaaa = '1k';
-                  $dado['senha'] = password_hash($senhaaa, PASSWORD_DEFAULT);
                   echo '  ';
                   echo $senhaaa ;
                   ?>
-
- e ela criptografada ficou como 
- 
-                <?php
+                  
+                  e ela criptografada ficou como 
+                  
+                  <?php
                   echo '  ';
+                  $dado['senha'] = password_hash($senhaaa, PASSWORD_DEFAULT);
                   echo $dado['senha'];
                   ?>
                 
@@ -96,7 +87,7 @@ session_start();
               
               
               <div class="card-body text-center">                
-                <div class="card-title">Ainda estamos trabalhando nesta página! </div>
+                <div class="card-title">Ainda estamos trabalhando nesta página! sessao1 </div>
                 <div class="col-sm-12">
                   <p>Clique <a href="login.blade.php">aqui</a> para logar.</p>
                 </div>

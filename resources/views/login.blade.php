@@ -127,7 +127,7 @@
 <body>
 <div class="text-center">
 	<!-- Button HTML (to Trigger Modal) -->
-	<a href="#myModal" class="trigger-btn" data-toggle="modal">Clique aqui para fazer Login</a>
+	<a href="#myModal" class="trigger-btn" data-toggle="modal"><br><br>Clique aqui para fazer Login</a>
 </div>
 
 <script>
@@ -140,6 +140,7 @@
 <!-- Modal HTML -->
 <div href="#myModal" id="myModal" class="modal fade" data-backdrop="static">
 	<div class="modal-dialog modal-login">
+		<?php include_once('../../public/alertMsg.php');?>
 		<div class="modal-content">
 			<div class="modal-header">				
 				<h4 class="modal-title">Login</h4>

@@ -4,29 +4,56 @@ include_once('../../public/config.php');
 
 if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
   extract($_REQUEST);
-  /*
-  if($NomeSerie==""){
+  
+  if($CPF==""){
     // mensagem de campo obrigatorio
     header('location:'.$_SERVER['PHP_SELF'].'?msg=robr');
     exit;
+  }elseif($Login==""){
+    header('location:'.$_SERVER['PHP_SELF'].'?msg=robr');
+    exit;
+  }elseif($Senha==""){
+    header('location:'.$_SERVER['PHP_SELF'].'?msg=robr');
+    exit;
+  }elseif($Perfil_idPerfil==""){
+    header('location:'.$_SERVER['PHP_SELF'].'?msg=robr');
+    exit;
+  }elseif($Escola_idEscola==""){
+    header('location:'.$_SERVER['PHP_SELF'].'?msg=robr');
+    exit;
   }else{
-    // se pá pode apagar, não testei sem
-    $userCount	=	$db->getQueryCount('serie','idSerie');
-    // colunas da tabela
-    $data	=	array(
-      'NomeSerie'=> $NomeSerie, //colunas                        
-    );
-    $insert	=	$db->insert('serie',$data);
-    if($insert){
-      // mensagem add com sucesso
-      header('location: read/serie.blade.php?msg=radd');
-      exit;
+    //precisa verificar se a pessoa ta logada como admin antes de permitir cadastrar
+    //verificar se cpf ja existe no banco
+    if($ConfirmaSenha == $Senha){
+      // se pá pode apagar, não testei sem
+      $userCount	=	$db->getQueryCount('usuario','idusuario');
+      // colunas da tabela
+      $data	=	array(
+        'CPF'=> $CPF, //colunas                        
+        'Login'=> $Login, 
+        'Senha'=> password_hash($Senha, PASSWORD_DEFAULT), 
+        'Perfil_idPerfil'=> $Perfil_idPerfil, 
+        'Escola_idEscola'=> $Escola_idEscola, 
+      );
+      $insert	=	$db->insert('usuario',$data);
+      if($insert){
+        // mensagem add com sucesso
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=radd');
+        exit;
+      }else{
+        // mensagem erro
+        header('location:'.$_SERVER['PHP_SELF'].'?msg=rerr');
+        exit;
+      }
+
     }else{
+
+      if($Login)
       // mensagem erro
-      header('location: read/serie.blade.php?msg=rerr');
+      header('location:'.$_SERVER['PHP_SELF'].'?msg=rerr');
       exit;
     }
-  }*/
+  }
 }
 ?>
 
@@ -57,9 +84,9 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
               <form method="POST">
                 <div class="row">
                   <div class="form-group col-sm-12">
-                    <label for="Cpf">Insira seu CPF</label>
+                    <label for="CPF">Insira seu CPF</label>
                     <input type="text" maxlength="11" pattern="[0-9]{11}" placeholder="Somente números" title="Insira somente números (11 dígitos), sem pontos, traços ou espaços."
-                    class="form-control" name="Cpf" required autofocus>
+                    class="form-control" name="CPF" required autofocus>
                   </div>
                 </div>
                 <div class="row">
@@ -79,7 +106,58 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
                     <label class="text-danger" for="ConfirmaSenha">Insira novamente sua senha*</label>
                     <input type="password" minlength="6"maxlength="15" class="form-control" name="ConfirmaSenha" placeholder="Insira sua senha novamente"required autofocus>
                   </div>
-                </div>                  
+                </div>            
+                <div class="row">
+                  <div class="form-group col-sm-12">
+                    <label for="Perfil_idPerfil">Perfil</label>
+                    
+                    <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom" title="Acessos:" data-trigger="focus" data-html="true" data-content="
+                    Administrador - acesso integral ao sistema <br>
+                    Nutricionista - acesso completo à seção nutricional e relatórios <br>
+                    Escola - acesso completo à seção escolar e alunos
+                    "><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+
+                    <select class="form-control" name="Perfil_idPerfil" id="Perfil_idPerfil" required>
+                      <option selected disabled value="">Escolha uma opção...</option>
+                      <option value="1"> Administrador </option>
+                      <option value="2"> Nutricionista </option>
+                      <option value="3"> Escola </option>
+                    </select>
+                  </div>      
+                </div> 
+                <div class="row">
+                  <div class="form-group col-sm-12">
+                    <label for="Escola_idEscola">Escola</label>
+                      <select class="form-control" id="Escola_idEscola" name="Escola_idEscola" required>
+                        <option selected disabled value="">Escolha uma opção...</option>
+                        
+                        <?php 
+                        $condition	=	'';
+                        if(isset($_REQUEST['NomeEscola']) and $_REQUEST['NomeEscola']!=""){
+                          $condition	.=	' AND NomeEscola LIKE "%'.$_REQUEST['NomeEscola'].'%" ';
+                        }
+                        if(isset($_REQUEST['idEscola']) and $_REQUEST['idEscola']!=""){
+                          $condition	.=	' AND idEscola LIKE "%'.$_REQUEST['idEscola'].'%" ';
+                        }
+                        // Status 1 para valores não "deletados" pelo usuario
+                        $condition	.=	' AND Status = 1 ';
+                        $userData	=	$db->getAllRecords('escola','*', $condition,'ORDER BY idEscola DESC');
+                      
+                        if(count($userData)>0){
+                          $s	=	'';
+                          foreach($userData as $val){
+                            $s++;
+                        ?>
+                        
+                        <option value="<?php echo (int)$val['idEscola'];?>"> <?php echo $val['NomeEscola'];?> </option>
+                        
+                        <?php 
+                          }
+                        }
+                        ?>
+                      </select>
+                  </div> 
+                </div> 
 
                 <div class="row">
                   <div class="col-md-4">
@@ -95,17 +173,22 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
       </div>
     </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script>
-      function mostraCampo() {
-        document.getElementById("confirmasenha").setAttribute("class", "row"); 
-      }
-      </script>
-  </body>
-</html>
+      <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <script src="../../assets/js/vendor/popper.min.js"></script>
+        <script src="../../dist/js/bootstrap.min.js"></script>
+        <script>
+          function mostraCampo() {
+            document.getElementById("confirmasenha").setAttribute("class", "row"); 
+          }
+        </script>
+        <script>
+          $(document).ready(function()
+          {
+            $('[data-toggle="popover"]').popover();      
+          });
+        </script>
+      </body>
+    </html>

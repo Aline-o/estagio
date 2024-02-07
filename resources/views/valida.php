@@ -2,8 +2,8 @@
 session_start();
 include_once('../../public/conexao.php');
 //include_once("conexao.php");
-//usuario: admin  /  nutri
-//senha: 123  /  1k
+//usuario: admin  /  nutri / esco
+//senha: 123  /  1k / aaaaaa
 
 $btnLogin = filter_input(INPUT_POST, 'btnLogin', FILTER_SANITIZE_STRING);
 if($btnLogin){
@@ -32,15 +32,15 @@ if($btnLogin){
 				$_SESSION['Perfil_idPerfil'] = $row_usuario['Perfil_idPerfil'];
 				header("Location: sessao1.blade.php"); //login ok
 			}else{
-				$_SESSION['msg'] = "<p style='color:red;'> *LOGIN E SENHA INCORRETO </p>";
-				header("Location: manutencao.blade.php");
+				$_SESSION['msg'] = "<p style='color:red;'> *LOGIN OU SENHA INCORRETO* </p>";
+				header("Location: login.blade.php?msg=rlog");
 			}
 		}
 	}else{
-		$_SESSION['msg'] ="<p style='color:red;'> *LOGIN E SENHA INCORRETO </p>";
-		header("Location: sessao.blade.php");
+		$_SESSION['msg'] ="<p style='color:red;'> Insira os dados </p>";
+		header("Location: login.blade.php?msg=robr");
 	}
 }else{
-	$_SESSION['msg'] = "Cadastre-se"; //antes era pagina não encontrada, agora virou cadastre pq sim, também não entendi
-	header("Location: arquivo.blade.php");
+	$_SESSION['msg'] = " O acesso direto não é permitido ";
+	header("Location: login.blade.php?msg=rerr");
 }
